@@ -1,0 +1,414 @@
+$mainFont: Helvetica, sans-serif;
+$secondFont: Helvetica, sans-serif;
+$white: rgb(255, 255, 255);
+$gray:#616161;
+$grayOpacity:#f8f8f8;
+$blueOpacity: #f2ffff;
+$black: rgb(3, 3, 3);
+$blackOpacity: rgba(3, 3, 3, 0.1);
+$mainColor1: rgb(68, 8, 219);
+$mainColor2: rgb(209, 43, 195);
+
+$mainFontSize: 16px;
+$mainXLFontSize: 18px;
+$secondFontSize: 20px;
+$minWidth: 680px;
+
+    // brakepoints for all types
+    $screen-sm-min: 576px;
+    $screen-md-min: 768px;
+    $screen-lg-min: 992px;
+    $screen-xl-min: 1200px;
+    $screen-xxl-min: 1400px;
+
+    // mixins for all pages
+    @mixin sm {
+        @media (min-width: #{$screen-sm-min}) {
+            @content;
+        }
+    }
+
+    @mixin md {
+        @media (min-width: #{$screen-md-min}) {
+            @content;
+        }
+    }
+    
+    @mixin lg {
+        @media (min-width: #{$screen-lg-min}) {
+            @content;
+        }
+    }
+    
+    @mixin xl {
+        @media (min-width: #{$screen-xl-min}) {
+            @content;
+        }
+    }
+
+    @mixin xxl {
+        @media (min-width: #{$screen-xxl-min}) {
+            @content;
+        }
+    }
+
+    @mixin rwd($screen) {
+        @media (min-width: $screen+'px') {
+            @content;
+        }
+    }
+
+// -----start of CSS-------------------start of CSS------------------------start of CSS-----
+
+
+body, div, p, ul, li, a, h1, h2, h3, h4, h5, img {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+    box-sizing:border-box;
+    justify-content: center;
+    color:$black;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+body{
+    opacity: 1;
+    transition: all .5s;
+    background-color: $white;
+    font-size: $mainFontSize;
+    font-family: $mainFont;
+    
+    @include lg {
+        font-size: $mainXLFontSize;
+    }
+
+}
+
+//contacts on header
+header{
+    display: flex;
+    justify-content:center;
+}
+
+div#header-contacts-wrapper {
+    width: 100%;
+    position: fixed;
+    height: 50px;
+    background-color: $white;
+    z-index: 100;
+
+    div#header-contacts {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        padding: 5px;
+
+        @include sm {
+            padding: 10px;
+        }
+
+        @include lg{
+            max-width: $screen-lg-min;
+            padding: 10px;
+        }
+        @include xl{
+            max-width: 90%;
+        }
+        
+
+        p {
+            display: flex;
+            color:$gray;
+            flex-wrap: nowrap;
+
+            @include sm {
+                flex-wrap: wrap;
+                padding-top: 5px;
+            }
+            
+
+            a{
+                display: flex;
+                margin-right: 20px;
+                color:$black;
+                text-decoration: underline;
+                flex-wrap: nowrap;
+                img {
+                    height: 20px;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
+
+//burger button 
+
+#burger-button {
+    display: inline-block;
+    cursor: pointer;
+    z-index: 101;
+
+    .line1, .line2, .line3 {
+        width: 35px;
+        height: 5px;
+        background-color: lighten($black, 30%);
+        margin: 6px 0;
+        transition: .3s;
+      }
+
+      &.mobile-menu-opened {
+        .line1 {
+            transform: rotate(-45deg) translate(-9px, 6px);
+            background-color: gray;
+            }
+        .line2 {opacity: 0;}
+        .line3 {
+            transform: rotate(45deg) translate(-8px, -8px);
+            background-color: gray;
+            }
+      }
+  }
+
+//nav header
+#header-nav-wrapper {
+    width: 100%;
+    position: fixed;
+    display: flex;
+    margin-top: 50px;
+    height: 40px;
+    border-top: 1px solid lighten($gray, 50%);
+    background-color: $grayOpacity;
+    z-index: 100;
+    @include lg{
+        height: 70px;
+    }
+
+    .header-nav-wrapper-inside {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        display: flex;
+        width: 100%;
+        flex-wrap: nowrap;
+
+        @include lg{
+            max-width: $screen-lg-min;
+            flex-wrap: nowrap;
+            font-size: $mainFontSize;
+        }
+        @include xl{
+            max-width: 90%;
+            font-size: $mainXLFontSize;
+        }
+    }
+
+    .logo-wrapper a img {
+        height: 35px;
+
+        @include lg{
+            height: 60px;
+        }
+    }
+    .header-other-wrapper .log-in-wrapper  {
+            width: 120px;
+            height: 35px;
+
+            p.user-name {
+                font-size: small;
+                line-height: 15px;
+                padding-bottom: 0px;
+                margin-bottom: 0px;
+                
+            }
+
+            a.log-in-out {
+                font-size: $mainFontSize;
+            }
+
+    }
+    
+    #burger-button{
+        position:absolute;
+        top: 0px;
+        right: 50%;
+        transform: translateX(50%);
+        @include lg{
+            display: none;
+        }
+    }
+
+    nav { //mobile first thats why - display none
+        display: none;
+        width: 100%;
+        bottom: 0px;
+        position: relative;
+
+        &.mobile-menu-open {
+            display: block;
+            position: absolute;
+        }
+        
+        ul.nav-ul-mobile{ //menu for mobile
+            background-color: $blueOpacity;
+            opacity: 0.9;
+            display: flex;
+            width: 100%;
+            height: 90vh;
+            justify-content: flex-start;
+            padding-top: 50px;
+            position: absolute;
+            top:0%;
+            flex-direction: column;
+
+            li.nav-li{
+                display: flex;
+                margin: 10px;
+
+                a.nav-a{
+                    padding: 10px 10px;
+                    font-size: $secondFontSize;
+                }
+                .dropdown-nav-ul{
+                    display: none;
+                    
+                    a {
+                        display: block;
+                        padding: 10px;
+                        background-color:$blueOpacity;
+                        transition:all .3s ease-out;
+                        border-top: 1px solid lighten($gray, 50%);
+                    }
+                }
+                
+            }
+            li.nav-li-dropdown-wrapper-mobile.pos-top { //dropdown menu from li
+                position: absolute;
+                top:10px;
+                width: 100%;
+                left:50%;
+                transform: translateX(-50%);
+                .dropdown-nav-ul.open-dropDown{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        position: absolute;
+                        top:50px;
+                        width: 105vw;
+                        height: 80vh;
+                        text-align: center;
+                        background-color: $blueOpacity;
+                        z-index: 3;
+                        li {
+                            width: 100%;
+                            margin-top: 20px;
+                            background-color: $blueOpacity;
+                            
+                            a {
+                                border-top: 1px solid lighten($gray, 50%);
+                                width: 50%;
+                                margin: 0 auto;
+                            }
+                        } 
+                }
+            } 
+        }
+
+        @include lg { // Navigation main menu for big PC
+            display: block;
+
+            ul.nav-ul-pc{
+                display: flex;
+
+                li.nav-li{
+                    display: flex;
+                    margin-left: 5px;
+
+                    a.nav-a{
+                        padding: 10px 15px;
+                        height: 100%;
+                        &:hover {
+                            color:lighten($black, $amount: 50%);
+                            text-decoration: underline;
+                        }
+                    }
+                    
+                }
+                li.nav-li-dropdown-wrapper {
+                    position: relative;
+                    &:hover .dropdown-nav-ul{
+                        display: block;
+                    }
+                    .dropdown-nav-ul{
+                        display: none;
+                        position: absolute;
+                        width: 100%;
+                        top: 100%;
+                        
+                        a {
+                            display: block;
+                            padding: 10px;
+                            background-color:$grayOpacity;
+                            transition:all .3s ease-out;
+                            border-top: 1px solid lighten($gray, 50%);
+                            &:hover {
+                                text-decoration: underline;
+                                color:lighten($black, $amount: 50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+//to up button  
+
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: rgb(204, 239, 248); /* Set a background color */
+    color: black; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+    opacity: 0.5;
+  }
+  
+  #myBtn:hover {
+    background-color: rgb(197, 240, 243); /* Add a dark-grey background on hover */
+    opacity: 0.8;
+  }
+
+
+//main
+main{
+    width: 100%;
+    .empty {
+        height: 120px;
+    }
+    #second-div {
+        text-align: center;
+        font-family: 'Hurricane', cursive;
+        padding: 50px 0px;
+    }
+
+    #container {
+        height: 1000px;
+        text-align: center;
+        padding-top: 50px;
+        background:rgba(255, 112, 243, 0.5);
+    }
+
+}

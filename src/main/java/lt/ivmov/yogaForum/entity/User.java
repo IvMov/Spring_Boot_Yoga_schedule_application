@@ -1,9 +1,12 @@
 package lt.ivmov.yogaForum.entity;
 
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
 @Table(name = "users")
 public class User {
 
@@ -16,6 +19,9 @@ public class User {
 
     @Column
     private String surname;
+
+    @Column
+    private String userName;
 
     @Column
     private String city;

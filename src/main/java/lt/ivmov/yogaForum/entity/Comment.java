@@ -1,9 +1,12 @@
 package lt.ivmov.yogaForum.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @Table(name = "comments")
 public class Comment {
 
@@ -15,11 +18,11 @@ public class Comment {
     private final LocalDateTime creationDateTime = LocalDateTime.now();
 
     @Column(nullable = false)
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    @JoinColumn(name = "author_id", columnDefinition = "users", referencedColumnName = "id")
     private Long userId;
 
     @Column(nullable = false)
-    @JoinColumn(name = "post_id", referencedColumnName = "id")
+    @JoinColumn(name = "post_id", columnDefinition = "posts", referencedColumnName = "id")
     private Long postId;
 
     @Column
