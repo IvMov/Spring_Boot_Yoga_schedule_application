@@ -1,4 +1,4 @@
-package lt.ivmov.yogaForum.entity;
+package lt.ivmov.yogaWeb.entity;
 
 
 import lombok.Getter;
@@ -15,13 +15,13 @@ public class User {
     private Long id;
 
     @Column
+    private String userName;
+
+    @Column
     private String name;
 
     @Column
     private String surname;
-
-    @Column
-    private String userName;
 
     @Column
     private String city;

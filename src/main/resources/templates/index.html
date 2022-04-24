@@ -51,10 +51,13 @@
                             <a th:href="@{http://localhost:8080}" class="nav-a" title="Pagrindinis">Pagrindinis</a>
                         </li> 
                         <li class="nav-li nav-li-n">
-                            <a href="#" class="nav-a" title="Naujenos">Naujenos</a>
+                            <a th:href="@{http://localhost:8080/news}" class="nav-a" title="Naujenos">Naujenos</a>
                         </li> 
                         <li class="nav-li nav-li-n">
-                            <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum">Forum</a>
+                            <a th:href="@{http://localhost:8080/lessons}" class="nav-a" title="Uzsiemimai">Užsiėmimai</a>
+                        </li> 
+                        <li class="nav-li nav-li-n">
+                            <a th:href="@{http://localhost:8080/events}" class="nav-a" title="Renginiai">Renginiai</a>
                         </li> 
                         <li class="nav-li nav-li-dropdown-wrapper" onclick="openCloseMobileDroplist()">
                             <a href="#" class="nav-a open-dropDownA" title="Jogos pratimai" >Jogos pratimai ▼</a>
@@ -64,12 +67,15 @@
                                 <li class="dropdown-nav-li"><a href="#">Meditacijos</a></li>
                                 <li class="dropdown-nav-li"><a href="#">Bla bla bla</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-li nav-li-n">
+                            <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum">Forum</a>
+                        </li>  
+                        <li class="nav-li nav-li-n">
+                            <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="Apie mane">Apie mane</a>
                         </li> 
                         <li class="nav-li nav-li-n">
-                            <a href="#" class="nav-a" title="Apie mane">Apie mane</a>
-                        </li> 
-                        <li class="nav-li nav-li-n">
-                            <a href="#" class="nav-a" title="Kontaktai">Kontaktai</a>
+                            <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Kontaktai">Kontaktai</a>
                         </li> 
                     </ul>
                 </nav>
@@ -81,11 +87,11 @@
 
                 <div class="header-other-wrapper">
 
-                     <!-- there was cart but i change it to log-in -->
-                    <div class="log-in-wrapper">
-                        <p class="user-name">hagbadalandabad</p>
-                        <a class="log-in-out" href="#">Log in</a>
-                    </div>
+                    <!-- there was cart but i change it to log-in -->
+                   <div class="log-in-wrapper">
+                       <a  th:href="@{http://localhost:8080/user}" class="user-name">hagbadalandabad</a>
+                       <a class="log-in-out" th:href="@{http://localhost:8080/welcome}">Log in</a>
+                   </div>
                     
                 </div>
 
@@ -140,7 +146,7 @@
             </div>
         </div>
         <div id="container">
-            <h1>SOME TITLE OF CONTENT</h1>
+            <h1>SOME TITLE OF CONTENT SOON?</h1>
             <p>daug kontentu ar laukeliu</p>
         </div>
     </main>

@@ -1,6 +1,6 @@
-package lt.ivmov.yogaForum.repository;
+package lt.ivmov.yogaWeb.repository;
 
-import lt.ivmov.yogaForum.entity.User;
+import lt.ivmov.yogaWeb.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

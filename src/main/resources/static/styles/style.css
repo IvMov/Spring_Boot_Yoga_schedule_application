@@ -109,14 +109,14 @@ div#header-contacts-wrapper div#header-contacts p a img {
   position: fixed;
   display: flex;
   margin-top: 50px;
-  height: 40px;
+  height: 50px;
   border-top: 1px solid #e1e1e1;
   background-color: #f8f8f8;
   z-index: 100;
 }
 @media (min-width: 992px) {
   #header-nav-wrapper {
-    height: 70px;
+    height: 100px;
   }
 }
 #header-nav-wrapper .header-nav-wrapper-inside {
@@ -141,16 +141,15 @@ div#header-contacts-wrapper div#header-contacts p a img {
   }
 }
 #header-nav-wrapper .logo-wrapper a img {
-  height: 35px;
+  height: 48px;
 }
 @media (min-width: 992px) {
   #header-nav-wrapper .logo-wrapper a img {
-    height: 60px;
+    height: 100px;
   }
 }
 #header-nav-wrapper .header-other-wrapper .log-in-wrapper {
   width: 120px;
-  height: 35px;
 }
 #header-nav-wrapper .header-other-wrapper .log-in-wrapper p.user-name {
   font-size: small;
@@ -189,17 +188,17 @@ div#header-contacts-wrapper div#header-contacts p a img {
   width: 100%;
   height: 90vh;
   justify-content: flex-start;
-  padding-top: 50px;
+  padding-top: 30px;
   position: absolute;
   top: 0%;
   flex-direction: column;
 }
 #header-nav-wrapper nav ul.nav-ul-mobile li.nav-li {
   display: flex;
-  margin: 10px;
+  margin: 2px;
 }
 #header-nav-wrapper nav ul.nav-ul-mobile li.nav-li a.nav-a {
-  padding: 10px 10px;
+  padding: 5px 10px;
   font-size: 20px;
 }
 #header-nav-wrapper nav ul.nav-ul-mobile li.nav-li .dropdown-nav-ul {
@@ -207,7 +206,7 @@ div#header-contacts-wrapper div#header-contacts p a img {
 }
 #header-nav-wrapper nav ul.nav-ul-mobile li.nav-li .dropdown-nav-ul a {
   display: block;
-  padding: 10px;
+  padding: 5px;
   background-color: #f2ffff;
   transition: all 0.3s ease-out;
   border-top: 1px solid #e1e1e1;
@@ -224,7 +223,7 @@ div#header-contacts-wrapper div#header-contacts p a img {
   flex-direction: column;
   justify-content: flex-start;
   position: absolute;
-  top: 50px;
+  top: 30px;
   width: 105vw;
   height: 80vh;
   text-align: center;
@@ -233,7 +232,7 @@ div#header-contacts-wrapper div#header-contacts p a img {
 }
 #header-nav-wrapper nav ul.nav-ul-mobile li.nav-li-dropdown-wrapper-mobile.pos-top .dropdown-nav-ul.open-dropDown li {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
   background-color: #f2ffff;
 }
 #header-nav-wrapper nav ul.nav-ul-mobile li.nav-li-dropdown-wrapper-mobile.pos-top .dropdown-nav-ul.open-dropDown li a {

@@ -1,15 +1,15 @@
-package lt.ivmov.yogaForum.entity;
+package lt.ivmov.yogaWeb.entity;
 
 import lombok.Getter;
-import lt.ivmov.yogaForum.enums.PostTopics;
+import lt.ivmov.yogaWeb.enums.PostTopics;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @Table(name = "posts")
-public class Post {
+@Deprecated(since = "2022-04-23") //Class temporary deprecated - reason lack of time to do now
+public class Post { //TODO: after VIGI want to add forum page with questions/posts and comments from users
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

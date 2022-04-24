@@ -179,12 +179,12 @@ div#header-contacts-wrapper {
     position: fixed;
     display: flex;
     margin-top: 50px;
-    height: 40px;
+    height: 50px;
     border-top: 1px solid lighten($gray, 50%);
     background-color: $grayOpacity;
     z-index: 100;
     @include lg{
-        height: 70px;
+        height: 100px;
     }
 
     .header-nav-wrapper-inside {
@@ -207,15 +207,14 @@ div#header-contacts-wrapper {
     }
 
     .logo-wrapper a img {
-        height: 35px;
+        height: 48px;
 
         @include lg{
-            height: 60px;
+            height: 100px;
         }
     }
     .header-other-wrapper .log-in-wrapper  {
             width: 120px;
-            height: 35px;
 
             p.user-name {
                 font-size: small;
@@ -259,17 +258,17 @@ div#header-contacts-wrapper {
             width: 100%;
             height: 90vh;
             justify-content: flex-start;
-            padding-top: 50px;
+            padding-top: 30px; // padding for sub menu
             position: absolute;
             top:0%;
             flex-direction: column;
 
             li.nav-li{
                 display: flex;
-                margin: 10px;
+                margin: 2px;
 
                 a.nav-a{
-                    padding: 10px 10px;
+                    padding: 5px 10px;
                     font-size: $secondFontSize;
                 }
                 .dropdown-nav-ul{
@@ -277,7 +276,7 @@ div#header-contacts-wrapper {
                     
                     a {
                         display: block;
-                        padding: 10px;
+                        padding: 5px;
                         background-color:$blueOpacity;
                         transition:all .3s ease-out;
                         border-top: 1px solid lighten($gray, 50%);
@@ -296,7 +295,7 @@ div#header-contacts-wrapper {
                         flex-direction: column;
                         justify-content: flex-start;
                         position: absolute;
-                        top:50px;
+                        top:30px;
                         width: 105vw;
                         height: 80vh;
                         text-align: center;
@@ -304,7 +303,7 @@ div#header-contacts-wrapper {
                         z-index: 3;
                         li {
                             width: 100%;
-                            margin-top: 20px;
+                            margin-top: 10px;
                             background-color: $blueOpacity;
                             
                             a {
