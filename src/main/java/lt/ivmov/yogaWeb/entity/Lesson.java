@@ -1,10 +1,9 @@
 package lt.ivmov.yogaWeb.entity;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "lessons_db")
@@ -44,9 +43,11 @@ public class Lesson {
     @Column
     private int vacanciesLimit;
 
-    @ElementCollection
-    @JoinTable(name = "lesson_users", joinColumns = @JoinColumn(name = "lesson_id"))
-    @Column(name = "user_id")
-    private List<User> registeredUsers;
+    @ManyToMany
+    @JoinTable(
+            name = "lessons_students",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private Set<Student> students;
 
 }

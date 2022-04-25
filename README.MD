@@ -1,14 +1,14 @@
-# Web app about Yoga v.0.0.3
+# Web app about Yoga v.0.1.1
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
 Plan for menu:
-    **Home page
-    Schedule
-    Events
-    Reserve(page with drop list)
-    About me
-    Contacts**
+    - Home page
+    - Lessons
+    - Events
+    - Reserve(page with drop list) (empty)
+    - About me
+    - Contacts
 
 ---
 ## Requirement to start this application:

@@ -1,12 +1,9 @@
 package lt.ivmov.yogaWeb.entity;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "events_db")
@@ -44,10 +41,12 @@ public class Event {
     @Column
     private int vacanciesLimit;
 
-    @ElementCollection
-    @JoinTable(name = "event_users", joinColumns = @JoinColumn(name = "event_id"))
-    @Column(name = "user_id")
-    private List<User> registeredUsers;
+    @ManyToMany
+    @JoinTable(
+            name = "events_students",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private Set<Student> students;
 
 
 }

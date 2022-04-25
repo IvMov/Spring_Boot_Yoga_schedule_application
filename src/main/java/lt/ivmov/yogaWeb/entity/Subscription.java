@@ -14,9 +14,6 @@ public class Subscription {
     @Column
     private LocalDateTime payDateTime;
 
-    @Column
-    @JoinColumn(name = "user_id", columnDefinition = "users", referencedColumnName = "id")
-    private Long userId;
 
     @Column
     private Double paidSum;
@@ -24,4 +21,7 @@ public class Subscription {
     @Column
     private int countCredits; //credits meaning - count of paid events or lessons free to use
 
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    public Student student;
 }

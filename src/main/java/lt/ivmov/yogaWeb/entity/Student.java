@@ -4,15 +4,20 @@ package lt.ivmov.yogaWeb.entity;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
-@Table(name = "users")
-public class User {
+@Table(name = "students")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
+    private final LocalDateTime registrationDateTime = LocalDateTime.now();
 
     @Column
     private String userName;
@@ -34,5 +39,15 @@ public class User {
 
     @Column
     private String about;
+
+    @ManyToMany(mappedBy = "students")
+    private Set<Event> events_set;
+
+    @ManyToMany(mappedBy = "students")
+    private Set<Lesson> lessons_set;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "student")
+    private Set<Subscription> subscriptions;
 
 }
