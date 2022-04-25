@@ -1,53 +1,75 @@
 package lt.ivmov.yogaWeb.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping
 public class HomeController {
-    public String getHomePage() {
+
+    @GetMapping
+    public String getHomePage(Model model) {
+        String content = "This will be main page with a lot of different content, but only after backend project ends!";
+        model.addAttribute("content", content);
         return "index";
     }
 
+
     @GetMapping(path = "/forum")
-    public String getForumPage() {
-        return "forum";
+    public String getForumPage(Model model) {
+        String h1Text = "SOME TITLE OF FORUM NOT SOON?";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 
     @GetMapping(path = "/aboutme")
-    public String getAboutPage() {
-        return "about";
+    public String getAboutPage(Model model) {
+        String h1Text = "SOME TITLE OF ABOUT ME NOT SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 
     @GetMapping(path = "/contacts")
-    public String getContactsPage() {
-        return "contacts";
+    public String getContactsPage(Model model) {
+        String h1Text = "SOME TITLE OF CONTACTS NOT SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 
     @GetMapping(path = "/events")
-    public String getEventsPage() {
-        return "events";
+    public String getEventsPage(Model model) {
+        String h1Text = "SOME TITLE OF EVENTS SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 
     @GetMapping(path = "/lessons")
-    public String getLessonsPage() {
-        return "lessons";
+    public String getLessonsPage(Model model) {
+        String h1Text = "SOME TITLE OF LESSONS schedule SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 
     @GetMapping(path = "/welcome")
-    public String getLoginPage() {
-        return "login-page";
+    public String getLoginPage(Model model) {
+        String h1Text = "SOME TITLE OF registration and log in page SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 
     @GetMapping(path = "/news")
-    public String getNewsPage() {
-        return "news";
+    public String getNewsPage(Model model) {
+        String h1Text = "SOME TITLE OF NEWS NOT SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 
     @GetMapping(path = "/user")
-    public String getUserPage() {
-        return "user-page";
+    public String getUserPage(Model model) {
+        String h1Text = "SOME TITLE OF User page SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
     }
 }

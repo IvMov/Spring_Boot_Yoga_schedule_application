@@ -1,14 +1,11 @@
-# Web app about Yoga v.0.1.1
+# Web app about Yoga v.0.1.2
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
-Plan for menu:
-    - Home page
-    - Lessons
-    - Events
-    - Reserve(page with drop list) (empty)
-    - About me
-    - Contacts
+- App to schedule and control lessons and events of yoga by admin and users.
+- Simple users - can reserve place in lesson or event and cancel reservation.
+- Admin user - can create new events and add / cancel any user. 
+- Also, will try to add system of subscribes for not temporary users. 
 
 ---
 ## Requirement to start this application:
