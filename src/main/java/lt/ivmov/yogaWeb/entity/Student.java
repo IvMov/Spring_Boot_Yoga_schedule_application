@@ -11,6 +11,7 @@ import java.util.Set;
 @Getter
 @Table(name = "students")
 public class Student {
+    //TODO: refactor all to customers?
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +41,8 @@ public class Student {
     @Column
     private String about;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students") //TODO: also need to refactor - look in Events -> Set<Student>
     private Set<Event> events_set;
-
-    @ManyToMany(mappedBy = "students")
-    private Set<Lesson> lessons_set;
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "student")

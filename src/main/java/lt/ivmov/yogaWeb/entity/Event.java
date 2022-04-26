@@ -83,6 +83,7 @@ public class Event { //All default is for nonrepeteble "event" duration one day
     private int vacanciesLimit;
 
     @ManyToMany
+    //TODO: refactor to 1) create new entity with boolean payed,or 2) leave this table and add new with entity
     @JoinTable(
             name = "events_students",
             joinColumns = @JoinColumn(name = "event_id"),
