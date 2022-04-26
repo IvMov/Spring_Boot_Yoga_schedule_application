@@ -8,6 +8,9 @@ import java.util.Set;
 @Entity
 @Table(name = "lessons_db")
 public class Lesson {
+    //TODO: need to divide all start and end LocalDateTime to start/endLocalDate and start/endLocalTime
+    //TODO: need to add duration of lesson or end time - need to decide(
+    //TODO: add groupId - if not single lesson (for single - all same groupId - Single)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +28,15 @@ public class Lesson {
     @Column
     private boolean isRegular;
 
+
+
     @Column
     private LocalDateTime startDateTime;
 
     @Column
     private LocalDateTime endDateTime;
+
+
 
     @Column
     private String about;
