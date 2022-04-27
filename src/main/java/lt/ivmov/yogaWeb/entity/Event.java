@@ -28,19 +28,19 @@ public class Event { //All default is for nonrepeteble "event" duration one day
     @Column
     private final LocalDateTime creationDateTime = LocalDateTime.now();
 
-    @Column
+    @Column(columnDefinition = "VARCHAR(20)")
     private EventType type_of = EventType.EVENT;
 
     @Column
     private boolean repeatable = false; //if true -> required setDurationDays()
 
     @Column
-    private String groupId = "Single"; // if repeatable -> setGroupId() unique
+    private String groupId = "single"; // if repeatable -> setGroupId() uniqueId
 
     @Column
     private String title;
 
-    @Column
+    @Column(columnDefinition = "VARCHAR(20)")
     private EventTheme eventTheme;
 
     @Column
@@ -60,7 +60,7 @@ public class Event { //All default is for nonrepeteble "event" duration one day
 
     @ElementCollection
     @JoinTable(name = "event_daysOfWeek", joinColumns = @JoinColumn(name = "event_id"))
-    @Column(name = "day_of_week")
+    @Column(name = "day_of_week", columnDefinition = "VARCHAR(20)", unique = true)
     private Set<DaysOfWeek> activeDaysOfWeek; //schedule will check and match only this days.
     //TODO: think how to change schedule for now, or for long term.
 
@@ -68,10 +68,11 @@ public class Event { //All default is for nonrepeteble "event" duration one day
     private LocalTime startTime; //start-time for every day if not one day
 
     @Column
-    private int durationHours; //TODO: think how to set / change duration for different days
+    private double durationHours; //format 1.5 means 1hour 30 min.
+    //TODO: think how to set / change duration for different days
 
-    @Column
-    private String about;
+    @Column(columnDefinition = "TEXT")
+    private String textAbout;
 
     @Column
     private String imageSrc; //TODO: how can i store images which admin will add for new events? maybe cloud?

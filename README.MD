@@ -1,21 +1,21 @@
-# Web app about Yoga v.0.1.2
+# Web app about Yoga v.0.2.1
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
-- App to schedule and control lessons and events of yoga by admin and users.
-- Simple users - can reserve place in lesson or event and cancel reservation.
-- Admin user - can create new events and add / cancel any user. 
-- Also, will try to add system of subscribes for not temporary users. 
+- **You can find structure plan of this App in this repo -> /materials/Pages_plan_draw_io.pdf**
 
 ---
+
 ## Requirement to start this application:
+
 1. installed Java version 17 or higher;
-2. installed docker and docker-compose;
-3. installed InteliJ IDEA - comunity version is enough;
+2. maven
+3. installed docker and docker-compose;
+4. installed InteliJ IDEA - comunity version is enough;
 
 ___
 
-## How to start app: 
+## How to start app:
 
 1. open project folder in IntelliJ IDEA;
 2. open terminal in root folder "yogaApp";
