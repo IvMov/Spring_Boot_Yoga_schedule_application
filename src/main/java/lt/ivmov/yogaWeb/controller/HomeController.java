@@ -16,6 +16,35 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping(path = "/lessons")
+    public String getLessonsPage(Model model) {
+        String h1Text = "SOME TITLE OF LESSONS schedule SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
+    }
+
+    @GetMapping(path = "/welcome")
+    public String getLoginPage(Model model) {
+        String h1Text = "SOME TITLE OF registration and log in page SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
+    }
+
+    @GetMapping(path = "/user")
+    public String getUserPage(Model model) {
+        String h1Text = "SOME TITLE OF User page SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
+    }
+
+
+    //TODO: in future will do this
+    @GetMapping(path = "/news")
+    public String getNewsPage(Model model) {
+        String h1Text = "SOME TITLE OF NEWS NOT SOON";
+        model.addAttribute("content", h1Text);
+        return "blank";
+    }
 
     @GetMapping(path = "/forum")
     public String getForumPage(Model model) {
@@ -34,41 +63,6 @@ public class HomeController {
     @GetMapping(path = "/contacts")
     public String getContactsPage(Model model) {
         String h1Text = "SOME TITLE OF CONTACTS NOT SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
-
-    @GetMapping(path = "/events")
-    public String getEventsPage(Model model) {
-        String h1Text = "SOME TITLE OF EVENTS SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
-
-    @GetMapping(path = "/lessons")
-    public String getLessonsPage(Model model) {
-        String h1Text = "SOME TITLE OF LESSONS schedule SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
-
-    @GetMapping(path = "/welcome")
-    public String getLoginPage(Model model) {
-        String h1Text = "SOME TITLE OF registration and log in page SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
-
-    @GetMapping(path = "/news")
-    public String getNewsPage(Model model) {
-        String h1Text = "SOME TITLE OF NEWS NOT SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
-
-    @GetMapping(path = "/user")
-    public String getUserPage(Model model) {
-        String h1Text = "SOME TITLE OF User page SOON";
         model.addAttribute("content", h1Text);
         return "blank";
     }

@@ -335,5 +335,28 @@ main #container {
   height: 1000px;
   text-align: center;
   padding-top: 50px;
-  background: rgba(255, 112, 243, 0.5);
+  background: rgba(123, 109, 255, 0.2);
+}
+main #container .events-wrapper .events-line {
+  display: flex;
+  justify-content: space-evenly;
+  height: 80px;
+}
+main #container .events-wrapper .events-line .events-cell {
+  height: 100%;
+  border: 1px solid rgb(122, 122, 122);
+  width: 8%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+main #container .events-wrapper .events-line .events-content-cell {
+  height: 100%;
+  width: 8%;
+  padding: 0;
+}
+main #container .events-wrapper .events-head-line {
+  font-weight: 700;
+  height: 40px;
 }/*# sourceMappingURL=style.css.map */

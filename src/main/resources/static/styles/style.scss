@@ -9,6 +9,7 @@ $blackOpacity: rgba(3, 3, 3, 0.1);
 $mainColor1: rgb(68, 8, 219);
 $mainColor2: rgb(209, 43, 195);
 
+$tableFontSize: 14px;
 $mainFontSize: 16px;
 $mainXLFontSize: 18px;
 $secondFontSize: 20px;
@@ -407,7 +408,36 @@ main{
         height: 1000px;
         text-align: center;
         padding-top: 50px;
-        background:rgba(255, 112, 243, 0.5);
+        background:rgba(123, 109, 255, 0.2);
+
+        .events-wrapper{
+
+            .events-line {
+                display: flex;
+                justify-content: space-evenly;
+                height: 80px;
+
+                .events-cell {
+                    height: 100%;
+                    border:1px solid rgba(122, 122, 122, 1);
+                    width: 8%;
+                    padding: 0;
+                    display: flex;
+                    align-items: center;
+                    font-size: $tableFontSize;
+                }
+                .events-content-cell {
+                    height: 100%;
+                    width: 8%;
+                    padding: 0;
+                }
+            }
+
+            .events-head-line {
+                font-weight: 700;
+                height: 40px;
+            }
+        }
     }
 
 }
