@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule of events</title>
+    <title th:text="${event.getTitle()}">Roberta Yoga - Klaiedoje</title>
     <link rel="shortcut icon" type="image/png" href="/images/fav-icon-8.png">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +17,7 @@
             opacity: 0;
             overflow-x: hidden;
         }
+
 
 
 
@@ -115,55 +116,38 @@
     </div>
 
     <div id="container">
-        <h1>Schedule of the nearest events and lessons</h1>
-        <a class="back-button" th:href="@{http://localhost:8080/schedule}">Back to main schedule</a>
-        <div class="events-wrapper">
-            <div class="events-head-line events-line">
-                <div class="events-head-cell events-cell">id</div>
-                <div class="events-head-cell events-cell">type</div>
-                <div class="events-head-cell events-cell">title</div>
-                <div class="events-head-cell events-cell">theme</div>
-                <div class="events-head-cell events-cell">city</div>
-                <div class="events-head-cell events-cell">address</div>
-                <div class="events-head-cell events-cell">start date</div>
-                <div class="events-head-cell events-cell">end date</div>
-                <div class="events-head-cell events-cell">time start</div>
-                <div class="events-head-cell events-cell">duration hours</div>
-                <div class="events-head-cell events-cell">price</div>
-                <div class="events-head-cell events-cell">places</div>
+        <h1 th:text="${event.getTitle()}"></h1>
+        <div class="event-wrapper">
+            <div class="event-img-wrapper">
+                <img src="#" alt="No img sorry im poor">
             </div>
-            <div class="events-content-wrapper" th:each="event: ${events}">
-                <div class="events-content-line events-line">
-
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/event-{id}(id=${event.getId()})}"
-                           th:text="${event.getId()}"></a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${event.getTypeOf()}">type</div>
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/event-{id}(id=${event.getId()})}"
-                           th:text="${event.getTitle()}"></a>
-                    </div>
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/{theme}(theme=${event.getTheme()})}"
-                           th:text="${event.getTheme()}"></a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${event.getCity()}">city</div>
-
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{${event.getUrlGoogleMaps()}} " target="_blank"
-                           th:text="${event.getAddress()}">address</a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${event.getStartDate()}">start date</div>
-                    <div class="events-content-cell events-cell" th:text="${event.getEndDate()}">end date</div>
-                    <div class="events-content-cell events-cell" th:text="${event.getStartTime()}">start time</div>
-                    <div class="events-content-cell events-cell" th:text="${event.getDurationHours()}">duration
-                        hours
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${event.getCommonPrice()}">price</div>
-                    <div class="events-content-cell events-cell" th:text="${event.getVacanciesNow()}">places</div>
-                    </a>
+            <h2 th:inline="text">Proud to represent [[${event.getUniqueOrRegular()}]] [[${event.getStringType}]]</h2>
+            <h2 th:text="${event.getTitle()}"></h2>
+            <div class="event-table-container">
+                <div class="event-table-line">
+                    <div class="event-table-cell head-cell">When:</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getStartDate()}">YYYY-MM-DD</div>
+                    <div class="event-table-cell head-cell">Beginning at:</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getStartTimeMin()}">HH:mm</div>
+                    <div class="event-table-cell head-cell">Duration:</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getDurationHourMinute()}"></div>
+                    <div class="event-table-cell head-cell">Price, EUR:</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getCommonPrice()}">price</div>
+                    <div class="event-table-cell head-cell">Place left:</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getVacanciesNow()}">x</div>
                 </div>
+            </div>
+            <h3>Where we wait on you?</h3>
+            <div th:inline="text"> City: <span class="event-city-name">[[${event.getCity()}]]</span></div>
+            <div th:inline="text">
+                <a th:href="@{${event.getUrlGoogleMaps()}} " target="_blank"
+                   th:inline="text">
+                    Address: <span class="event-address-name">[[${event.getAddress()}]]</span>
+                </a>
+            </div>
+            <div class="about-event" th:text="${event.getTextAbout()}"></div>
+            <div>For more information you can
+                <a class="event-to-contact" target="_blank" th:href="@{http://localhost:8080/contacts}">contact me</a>
             </div>
         </div>
     </div>

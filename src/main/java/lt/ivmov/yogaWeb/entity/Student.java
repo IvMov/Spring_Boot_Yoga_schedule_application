@@ -20,7 +20,7 @@ public class Student {
     private Long id;
 
     @Column
-    private final LocalDateTime registrationDateTime = LocalDateTime.now();
+    private final LocalDateTime timeStamp = LocalDateTime.now();
 
     @Column
     private String userName;
@@ -44,7 +44,7 @@ public class Student {
     private String about;
 
     @Column
-    private double creditsBalance; // 1 credit = 1 euro
+    private Double creditsBalance; // 1 credit = 1 euro
     //TODO: if subscriber cancel 1 event of group he can or book in same group 1 lesson automatically or get 75% of discount price of 1 event
     //TODO: or if cancel - no credits are return when cancel from group
     //TODO: if single event - canceled - and was paid - return here 1euro = 1credits, which can be used for book any event by user if price is enough (in one + will apear reservation and payment +) or

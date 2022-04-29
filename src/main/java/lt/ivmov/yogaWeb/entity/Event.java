@@ -7,22 +7,20 @@ import lombok.Setter;
 import lt.ivmov.yogaWeb.enums.DaysOfWeek;
 import lt.ivmov.yogaWeb.enums.EventTheme;
 import lt.ivmov.yogaWeb.enums.EventType;
-import lt.ivmov.yogaWeb.repository.EventPaymentRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "events_db")
+@Table(name = "`events`")
 public class Event { //All default is for non-repeatable "event" with duration ONE day
 
     @Id
@@ -30,7 +28,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private Long id;
 
     @Column
-    private final LocalDateTime creationDateTime = LocalDateTime.now();
+    private final LocalDateTime timeStamp = LocalDateTime.now();
 
     @Column(columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
@@ -76,7 +74,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private LocalTime startTime; //start-time of event
 
     @Column
-    private double durationHours; //format 1.5 means 1hour 30 min.
+    private Double durationHours; //format 1.5 means 1hour 30 min.
 
     @Column(columnDefinition = "TEXT")
     private String textAbout; //used to contain text of description of course
@@ -104,12 +102,15 @@ public class Event { //All default is for non-repeatable "event" with duration O
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> students;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private Set<EventPayment> eventPayments; //here all info about payment and registration
 
 
     public String getStringTheme() {
         return this.getTheme().toString();
+    }
+    public String getStringType() {
+        return this.getTypeOf().toString();
     }
 
     public String getEndDate() {
@@ -119,10 +120,32 @@ public class Event { //All default is for non-repeatable "event" with duration O
         return startDate.toString();
     }
 
+    public String getStartTimeMin() {
+        return startTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
+
+    public String getDurationHourMinute() {
+
+        double fractionalPart = getDurationHours() % 1;
+        double integralPart = getDurationHours() - fractionalPart;
+        String minutes = String.format("%.0f", fractionalPart * 60);
+
+        return ( (int) integralPart + "h : " + minutes + "m");
+    }
+
+
     public int getVacanciesNow() {
         Set<Integer> studentsSet = Set.of(1, 2, 3, 5); //TODO: for this moment cant take set students.
-        int a = studentsSet.size();
-        return this.vacanciesLimit - a;
+        int b = this.eventPayments.size();
+//        int a = studentsSet.size();
+        return this.vacanciesLimit - b;
+    }
+
+    public String getUniqueOrRegular() {
+        if("single".equals(getGroupId())){
+            return "unique";
+        }
+        return "regular";
     }
 
     //----!!!Commented cause - don`t need and don`t understand
