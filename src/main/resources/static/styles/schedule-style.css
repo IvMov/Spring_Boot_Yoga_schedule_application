@@ -1,0 +1,106 @@
+#container h1 {
+  width: 100%;
+  margin-bottom: 1em;
+}
+#container .back-button {
+  width: 60%;
+  text-align: left;
+  font-size: 18px;
+  padding-left: 10px;
+}
+#container #new-event-wrapper {
+  display: flex;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+#container #new-event-wrapper #open-event-create-form {
+  width: 80%;
+  margin: 0.5rem auto;
+}
+#container #new-event-wrapper .hide-form {
+  display: none;
+}
+#container #new-event-wrapper .show-form {
+  border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+  display: flex;
+  flex-wrap: wrap;
+}
+#container #new-event-wrapper .show-form #create-event-button {
+  width: 80%;
+  margin: 0.5rem auto;
+}
+#container #new-event-wrapper .show-form .form-elem {
+  margin: 0.1rem;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  #container #new-event-wrapper .show-form .form-elem {
+    width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  #container #new-event-wrapper .show-form .form-elem {
+    width: 14%;
+  }
+  #container #new-event-wrapper .show-form .form-elem:nth-child(1) {
+    width: 5%;
+  }
+  #container #new-event-wrapper .show-form .form-elem:nth-child(2) {
+    width: 5%;
+  }
+  #container #new-event-wrapper .show-form .form-elem.text-about-wrapp {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+  }
+  #container #new-event-wrapper .show-form .form-elem.text-about-wrapp label {
+    margin-right: 5px;
+  }
+  #container #new-event-wrapper .show-form .form-elem.text-about-wrapp textarea {
+    width: 90%;
+    height: 80px;
+  }
+}
+#container #new-event-wrapper .show-form .weekDays-selector input {
+  display: none;
+}
+#container #new-event-wrapper .show-form .weekDays-selector input[type=checkbox] + label {
+  display: inline-block;
+  border-radius: 6px;
+  background: #f2ffff;
+  height: 40px;
+  width: 30px;
+  margin-right: 3px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+#container #new-event-wrapper .show-form .weekDays-selector input[type=checkbox]:checked + label {
+  background: rgb(209, 43, 195);
+  color: #ffffff;
+}
+#container .events-wrapper .events-line {
+  display: flex;
+  justify-content: space-evenly;
+  height: 80px;
+}
+#container .events-wrapper .events-line .events-cell {
+  height: 100%;
+  border: 1px solid rgb(122, 122, 122);
+  width: 8%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+#container .events-wrapper .events-line .events-content-cell {
+  height: 100%;
+  width: 8%;
+  padding: 0;
+}
+#container .events-wrapper .events-head-line {
+  font-weight: 700;
+  height: 40px;
+}/*# sourceMappingURL=schedule-style.css.map */

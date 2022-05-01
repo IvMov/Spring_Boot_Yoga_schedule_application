@@ -17,15 +17,8 @@
             opacity: 0;
             overflow-x: hidden;
         }
-
-
-
-
-
-
-
-
-    </style>
+        
+     </style>
 
 </head>
 <body>
@@ -65,7 +58,7 @@
                         <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Uzsiemimai">Užsiėmimai</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/events}" class="nav-a" title="Renginiai">Renginiai</a>
+                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Renginiai">Renginiai</a>
                     </li>
                     <li class="nav-li nav-li-dropdown-wrapper" onclick="openCloseMobileDroplist()">
                         <a href="#" class="nav-a open-dropDownA" title="Jogos pratimai">Jogos pratimai ▼</a>
@@ -117,6 +110,102 @@
     <div id="container">
         <h1>Schedule of the nearest events and lessons</h1>
         <a class="back-button" th:href="@{http://localhost:8080/schedule}">Back to main schedule</a>
+        
+        <div id="new-event-wrapper">
+            <button id="open-event-create-form" type="button">Create new event</button>
+            <form id="event-create-form" class="hide-form" action="submit">
+<!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="form-elem">
+                    <select id="type-of-event" name="typeOfEvent">
+                        <option th:each="eventType : ${T(lt.ivmov.yogaWeb.enums.EventType).values()}" 
+                            th:value="${eventType}" th:text="${eventType}"></option>
+                    </select>
+                </div>
+<!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="form-elem">
+                    <select id="is-repeateble" name="isRepeatable">
+                        <option>single</option>
+                        <option>multiple</option>
+                    </select>
+                </div>
+                <div class="form-elem">
+                    <label for="title">Title of event</label>
+                    <input type="text" id="title" placeholder="some title" value="Title about event">
+                </div>
+            
+<!--               ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="form-elem">
+                    <select id="theme-of-event" name="themeOfEvent">
+                        <option th:each="theme : ${T(lt.ivmov.yogaWeb.enums.EventTheme).values()}" 
+                            th:value="${theme}" th:text="${theme}"></option>
+                    </select>
+                </div>
+<!--               -ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="form-elem">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" value="Klaipeda">
+                </div>
+                <div class="form-elem">
+                    <label for="adress">Adress</label>
+                    <input type="text" id="adress" value="Nesamoniu str. 9-32 (2nd floor)">
+                </div>
+                <div class="form-elem">
+                    <label for="adress-url">Adress url:</label>
+                    <input type="text" id="adress-url" value="https://g.page/Pravdabeer?share">
+                </div>
+                <div class="form-elem">
+                    <label for="start-date">Start date:</label>
+                    <input type="date" id="start-date" value="2022-05-02">
+                </div>
+                <div class="form-elem">
+                    <label for="period-days">Duration, days:</label>
+                    <input type="number" id="period-days" value="1">
+                </div>
+                <div class="weekDays-selector form-elem">
+                    <input type="checkbox" id="weekday-mon" class="weekday" />
+                    <label for="weekday-mon">M</label>
+                    <input type="checkbox" id="weekday-tue" class="weekday" />
+                    <label for="weekday-tue">T</label>
+                    <input type="checkbox" id="weekday-wed" class="weekday" />
+                    <label for="weekday-wed">W</label>
+                    <input type="checkbox" id="weekday-thu" class="weekday" />
+                    <label for="weekday-thu">T</label>
+                    <input type="checkbox" id="weekday-fri" class="weekday" />
+                    <label for="weekday-fri">F</label>
+                    <input type="checkbox" id="weekday-sat" class="weekday" />
+                    <label for="weekday-sat">S</label>
+                    <input type="checkbox" id="weekday-sun" class="weekday" />
+                    <label for="weekday-sun">S</label>
+                </div>
+                <div class="form-elem">
+                    <label for="start-time">Start time:</label>
+                    <input type="time" id="start-time" value="18:00">
+                </div>
+                <div class="form-elem">
+                    <label for="duration-hours">Duration, hours:</label>
+                    <input type="number" id="duration-hours" step="0.1" value="1.5">
+                </div>
+                <div class="form-elem">
+                    <label for="img-src">Image:</label>
+                    <input type="text" id="img-src" value="https://picsum.photos/370/370?random=1">
+                </div>
+                <div class="form-elem">
+                    <label for="common-price">Price:</label>
+                    <input type="number" id="common-price" step="0.01" value="15.99">
+                </div>
+                <div class="form-elem">
+                    <label for="vacancies-limit">Vacancies:</label>
+                    <input type="number" id="vacancies-limit" value="20">
+                </div>
+                <div class="form-elem text-about-wrapp">
+                    <label for="text-area-about">About event:</label>
+                    <textarea id="text-area-about" rows="10" cols="30">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quis expedita a architecto deleniti cum earum officia rem. Vitae, id. Amet fuga, labore fugit perferendis et corporis hic natus culpa.
+                    </textarea>
+                </div>
+                <button id="create-event-button" type="submit">Create</button>
+
+            </form>
+        </div>
         <div class="events-wrapper">
             <div class="events-head-line events-line">
                 <div class="events-head-cell events-cell">id</div>
@@ -157,9 +246,7 @@
                     <div class="events-content-cell events-cell" th:text="${event.getStartDate()}">start date</div>
                     <div class="events-content-cell events-cell" th:text="${event.getEndDate()}">end date</div>
                     <div class="events-content-cell events-cell" th:text="${event.getStartTime()}">start time</div>
-                    <div class="events-content-cell events-cell" th:text="${event.getDurationHours()}">duration
-                        hours
-                    </div>
+                    <div class="events-content-cell events-cell" th:text="${event.getDurationHours()}">duration hours</div>
                     <div class="events-content-cell events-cell" th:text="${event.getCommonPrice()}">price</div>
                     <div class="events-content-cell events-cell" th:text="${event.getVacanciesNow()}">places</div>
                     </a>
@@ -243,10 +330,12 @@
       integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
       crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="/styles/style.css">
+<link rel="stylesheet" href="/styles/schedule-style.css">
 
 <!-- scripts -->
 
 <script src="/scripts/script.js"></script>
+<script src="/scripts/schedule-script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

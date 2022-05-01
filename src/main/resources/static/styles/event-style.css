@@ -1,0 +1,137 @@
+@media (min-width: 768px) {
+  main #container {
+    padding-left: 5%;
+    padding-right: 5%;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 992px) {
+  main #container {
+    padding-left: 10%;
+    padding-right: 10%;
+    margin: 0 auto;
+  }
+}
+main #container {
+  display: flex;
+  justify-content: flex-start;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+main #container h1 {
+  width: 100%;
+  margin-bottom: 1em;
+}
+main #container .back-button {
+  width: 60%;
+  text-align: left;
+  font-size: 18px;
+  padding-left: 10px;
+}
+main #container .event-wrapper {
+  width: 100%;
+  display: flex;
+}
+main #container .event-wrapper .event-img-wrapper {
+  width: 100%;
+}
+main #container .event-wrapper .event-img-wrapper img {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  main #container .event-wrapper .event-img-wrapper {
+    justify-self: center;
+    width: 60%;
+  }
+}
+@media (min-width: 1200px) {
+  main #container .event-wrapper .event-img-wrapper {
+    justify-self: center;
+    width: 80%;
+  }
+  main #container .event-wrapper .event-img-wrapper img {
+    width: 60%;
+  }
+}
+main #container .event-wrapper h2 {
+  width: 100%;
+  margin: 1rem;
+}
+main #container .event-wrapper h3 {
+  width: 100%;
+  margin: 1rem;
+  text-align: left;
+}
+main #container .event-wrapper .where-when {
+  margin-left: 3rem;
+  width: 100%;
+  text-align: left;
+  padding: 5px;
+}
+main #container .event-wrapper .event-table-container {
+  font-size: 14px;
+  width: 100%;
+}
+main #container .event-wrapper .event-table-container .event-table-line {
+  display: flex;
+  justify-content: space-around;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell {
+  width: 30%;
+  text-align: left;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell:nth-child(odd) {
+  width: 20%;
+  border-bottom: 1px solid #616161;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell:nth-child(3) {
+  width: 30%;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell:nth-child(4) {
+  width: 20%;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell:nth-child(7) {
+  width: 30%;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell:nth-child(8) {
+  width: 20%;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell:nth-child(11) {
+  width: 30%;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell:nth-child(12) {
+  width: 20%;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell.head-cell {
+  font-style: italic;
+  padding: 2px;
+}
+main #container .event-wrapper .event-table-container .event-table-line .event-table-cell.content-cell {
+  padding: 2px;
+  font-weight: 700;
+}
+main #container .event-wrapper .event-to-contact a {
+  display: inline-block;
+  padding: 5px;
+  font-weight: 700;
+}
+@media (min-width: 768px) {
+  main #container .event-wrapper .event-table-container {
+    width: 70%;
+    text-align: center;
+  }
+  main #container .event-wrapper .event-to-contact {
+    margin: 1rem;
+  }
+}
+@media (min-width: 992px) {
+  main #container .event-wrapper .event-table-container {
+    width: 100%;
+    padding-left: 5%;
+  }
+}
+main #container .event-wrapper .about-event {
+  text-indent: 2rem;
+  padding: 5px;
+  text-align: justify;
+}/*# sourceMappingURL=event-style.css.map */

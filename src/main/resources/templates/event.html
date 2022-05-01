@@ -17,15 +17,6 @@
             opacity: 0;
             overflow-x: hidden;
         }
-
-
-
-
-
-
-
-
-
     </style>
 
 </head>
@@ -116,13 +107,15 @@
     </div>
 
     <div id="container">
-        <h1 th:text="${event.getTitle()}"></h1>
+        <h1 th:text="${event.getTitle()}">Placeholder Placeholder</h1>
+        <a class="back-button" th:href="@{http://localhost:8080/schedule}">⇇ Back to schedule</a>
         <div class="event-wrapper">
             <div class="event-img-wrapper">
-                <img src="#" alt="No img sorry im poor">
+                <img src="/images/funny-dog.jpg" alt="No img sorry im poor">
             </div>
             <h2 th:inline="text">Proud to represent [[${event.getUniqueOrRegular()}]] [[${event.getStringType}]]</h2>
-            <h2 th:text="${event.getTitle()}"></h2>
+            <h2 th:text="${event.getTitle()}">Placeholder Placeholder</h2>
+
             <div class="event-table-container">
                 <div class="event-table-line">
                     <div class="event-table-cell head-cell">When:</div>
@@ -130,24 +123,43 @@
                     <div class="event-table-cell head-cell">Beginning at:</div>
                     <div class="event-table-cell content-cell" th:text="${event.getStartTimeMin()}">HH:mm</div>
                     <div class="event-table-cell head-cell">Duration:</div>
-                    <div class="event-table-cell content-cell" th:text="${event.getDurationHourMinute()}"></div>
+                    <div class="event-table-cell content-cell" th:text="${event.getDurationHourMinute()}">Nh : nnm</div>
                     <div class="event-table-cell head-cell">Price, EUR:</div>
-                    <div class="event-table-cell content-cell" th:text="${event.getCommonPrice()}">price</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getCommonPrice()}">xx.99</div>
+                    <div class="event-table-cell head-cell">Days:</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getDaysKLAIDA()}">xx</div>
                     <div class="event-table-cell head-cell">Place left:</div>
-                    <div class="event-table-cell content-cell" th:text="${event.getVacanciesNow()}">x</div>
+                    <div class="event-table-cell content-cell" th:text="${event.getVacanciesNow()}">xx</div>
                 </div>
             </div>
+
             <h3>Where we wait on you?</h3>
-            <div th:inline="text"> City: <span class="event-city-name">[[${event.getCity()}]]</span></div>
-            <div th:inline="text">
+            <div class="where-when" th:inline="text"> City: <span class="event-city-name">[[${event.getCity()}]]</span></div>
+            <div class="where-when" th:inline="text">
                 <a th:href="@{${event.getUrlGoogleMaps()}} " target="_blank"
                    th:inline="text">
                     Address: <span class="event-address-name">[[${event.getAddress()}]]</span>
                 </a>
             </div>
-            <div class="about-event" th:text="${event.getTextAbout()}"></div>
-            <div>For more information you can
-                <a class="event-to-contact" target="_blank" th:href="@{http://localhost:8080/contacts}">contact me</a>
+
+            <h3>When we wait on you?</h3>
+            <div  class="event-days-week where-when" th:inline="text">
+                [[${event.getStringEvery or Only this}]]
+                <ul> 
+                    <li>Monday</li>
+                    <li>Sunday</li>
+                </ul>
+            </div>
+
+            <h3 th:inline="text">Maybe you want to know what we will do during [[${event.getStringType}]]</h3>
+            <div class="about-event" th:text="${event.getTextAbout()}">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                Blanditiis consectetur quisquam itaque molestiae error at enim quod, quos, 
+                mollitia nostrum facilis iste maiores inventore? 
+                Ipsum porro praesentium obcaecati labore nostrum.
+            </div>
+            <div class="event-to-contact">For more information you can
+                <a target="_blank" th:href="@{http://localhost:8080/contacts}">contact me</a>
             </div>
         </div>
     </div>
@@ -227,6 +239,7 @@
       integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
       crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="/styles/style.css">
+<link rel="stylesheet" href="/styles/event-style.css">
 
 <!-- scripts -->
 

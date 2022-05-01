@@ -12,7 +12,7 @@ body, div, p, ul, li, a, h1, h2, h3, h4, h5, img {
 
 body {
   opacity: 1;
-  transition: all 0.5s;
+  transition: all ease-in 0.3s;
   background-color: rgb(255, 255, 255);
   font-size: 16px;
   font-family: Helvetica, sans-serif;
@@ -332,31 +332,7 @@ main #second-div {
   padding: 50px 0px;
 }
 main #container {
-  height: 1000px;
   text-align: center;
   padding-top: 50px;
   background: rgba(123, 109, 255, 0.2);
-}
-main #container .events-wrapper .events-line {
-  display: flex;
-  justify-content: space-evenly;
-  height: 80px;
-}
-main #container .events-wrapper .events-line .events-cell {
-  height: 100%;
-  border: 1px solid rgb(122, 122, 122);
-  width: 8%;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-}
-main #container .events-wrapper .events-line .events-content-cell {
-  height: 100%;
-  width: 8%;
-  padding: 0;
-}
-main #container .events-wrapper .events-head-line {
-  font-weight: 700;
-  height: 40px;
 }/*# sourceMappingURL=style.css.map */

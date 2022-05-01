@@ -25,7 +25,7 @@ public class EventController {
     public String getSchedulePage(Model model) {
         List<Event> eventList = eventService.findAll();
         model.addAttribute("events", eventList);
-        return "events";
+        return "schedule";
     }
 
     @GetMapping("/{theme}")
@@ -34,7 +34,7 @@ public class EventController {
             Model model) {
         List<Event> eventListByTheme = eventService.findAllByTheme(themeName);
         model.addAttribute("events", eventListByTheme);
-        return "events";
+        return "schedule";
     }
 
     @GetMapping("/event-{id}")

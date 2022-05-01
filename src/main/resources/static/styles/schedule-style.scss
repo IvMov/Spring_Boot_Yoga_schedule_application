@@ -1,0 +1,190 @@
+$mainFont: Helvetica, sans-serif;
+$secondFont: Helvetica, sans-serif;
+$white: rgb(255, 255, 255);
+$gray:#616161;
+$grayOpacity:#f8f8f8;
+$blueOpacity: #f2ffff;
+$black: rgb(3, 3, 3);
+$blackOpacity: rgba(3, 3, 3, 0.1);
+$mainColor1: rgb(68, 8, 219);
+$mainColor2: rgb(209, 43, 195);
+
+$tableFontSize: 14px;
+$mainFontSize: 16px;
+$mainXLFontSize: 18px;
+$secondFontSize: 20px;
+$minWidth: 680px;
+
+    // brakepoints for all types
+    $screen-sm-min: 576px;
+    $screen-md-min: 768px;
+    $screen-lg-min: 992px;
+    $screen-xl-min: 1200px;
+    $screen-xxl-min: 1400px;
+
+    // mixins for all pages
+    @mixin sm {
+        @media (min-width: #{$screen-sm-min}) {
+            @content;
+        }
+    }
+
+    @mixin md {
+        @media (min-width: #{$screen-md-min}) {
+            @content;
+        }
+    }
+    
+    @mixin lg {
+        @media (min-width: #{$screen-lg-min}) {
+            @content;
+        }
+    }
+    
+    @mixin xl {
+        @media (min-width: #{$screen-xl-min}) {
+            @content;
+        }
+    }
+
+    @mixin xxl {
+        @media (min-width: #{$screen-xxl-min}) {
+            @content;
+        }
+    }
+
+    @mixin rwd($screen) {
+        @media (min-width: $screen+'px') {
+            @content;
+        }
+    }
+
+// -----start of CSS-------------------start of CSS------------------------start of CSS-----
+
+//main
+
+#container {
+    h1 {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+   .back-button{
+       width: 60%;
+       text-align: left;
+       font-size: $mainXLFontSize;
+        padding-left: 10px;
+   }
+
+    #new-event-wrapper{
+        display: flex;
+        padding: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+
+        #open-event-create-form {
+            width: 80%;
+            margin: .5rem auto;
+        }
+            .hide-form{
+                display: none;
+            }
+            .show-form{
+                border-bottom: 1px solid gray;
+                border-top: 1px solid gray;
+                display: flex;
+                flex-wrap: wrap;
+
+            #create-event-button{
+                width: 80%;
+                margin: .5rem auto;
+            }
+            .form-elem{
+                margin: .1rem;
+                width: 100%;
+            }
+
+                @include md{
+                    .form-elem{
+                        width: 50%;
+                    } 
+                }
+                @include lg{
+                    .form-elem{
+                        &:nth-child(1){
+                            width: 5%;
+                        }
+                        &:nth-child(2){
+                            width: 5%;
+                        }
+                        width: 14%;
+                        &.text-about-wrapp{
+                            width: 100%;
+                            display: flex;
+                            align-items: flex-start;
+                            label{
+                                margin-right: 5px;
+                            }
+                            textarea {
+                                width: 90%;
+                                height: 80px;
+                            }
+                        }
+                        
+                    } 
+                }
+
+                //week days style
+                .weekDays-selector input {
+                    display: none;
+                  }
+                  
+                  .weekDays-selector input[type=checkbox] + label {
+                    display: inline-block;
+                    border-radius: 6px;
+                    background: $blueOpacity;
+                    height: 40px;
+                    width: 30px;
+                    margin-right: 3px;
+                    line-height: 40px;
+                    text-align: center;
+                    cursor: pointer;
+                  }
+                  
+                  .weekDays-selector input[type=checkbox]:checked + label {
+                    background: $mainColor2;
+                    color: #ffffff;
+                  }
+            }
+    }
+
+
+    .events-wrapper{
+
+        .events-line {
+            display: flex;
+            justify-content: space-evenly;
+            height: 80px;
+
+            .events-cell {
+                height: 100%;
+                border:1px solid rgba(122, 122, 122, 1);
+                width: 8%;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                font-size: $tableFontSize;
+            }
+            .events-content-cell {
+                height: 100%;
+                width: 8%;
+                padding: 0;
+            }
+        }
+            .events-head-line {
+                font-weight: 700;
+                height: 40px;
+            }
+        
+    }
+}
+

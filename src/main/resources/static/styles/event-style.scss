@@ -1,0 +1,221 @@
+$mainFont: Helvetica,
+sans-serif;
+$secondFont: Helvetica,
+sans-serif;
+$white: rgb(255, 255, 255);
+$gray:#616161;
+$grayOpacity:#f8f8f8;
+$blueOpacity: #f2ffff;
+$black: rgb(3, 3, 3);
+$blackOpacity: rgba(3, 3, 3, 0.1);
+$mainColor1: rgb(68, 8, 219);
+$mainColor2: rgb(209, 43, 195);
+
+$tableFontSize: 14px;
+$mainFontSize: 16px;
+$mainXLFontSize: 18px;
+$secondFontSize: 20px;
+$minWidth: 680px;
+
+// brakepoints for all types
+$screen-sm-min: 576px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+$screen-xxl-min: 1400px;
+
+// mixins for all pages
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media (min-width: #{$screen-xxl-min}) {
+        @content;
+    }
+}
+
+@mixin rwd($screen) {
+    @media (min-width: $screen+'px') {
+        @content;
+    }
+}
+
+// -----start of CSS-------------------start of CSS------------------------start of CSS-----
+
+main {
+    @include md {
+        #container{
+            padding-left: 5%;
+            padding-right: 5%;
+        margin: 0 auto;
+        }
+    }
+    @include lg {
+        #container{
+        padding-left: 10%;
+        padding-right: 10%;
+        margin: 0 auto;
+        }
+    }
+    #container {
+        display: flex;
+        justify-content: flex-start;
+        word-wrap: break-word;
+        overflow: hidden;
+        h1 {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+       .back-button{
+           width: 60%;
+           text-align: left;
+           font-size: $mainXLFontSize;
+            padding-left: 10px;
+       }
+       .event-wrapper {
+           width: 100%;
+           display:flex;
+
+           // img allign for mobile md, lg START
+           .event-img-wrapper{
+                width: 100%;
+               img{
+                   width: 100%;
+
+               }
+           }
+           @include md {
+            .event-img-wrapper{
+                justify-self: center;
+                width: 60%;
+            }
+           }
+           @include xl {
+            .event-img-wrapper{
+                justify-self: center;
+                width: 80%;
+                img {
+                    width: 60%;
+                }
+            }
+           }
+           // img allign for mobile md, lg END
+
+           h2 {
+               width: 100%;
+               margin: 1rem;
+           }
+           h3{
+               width: 100%;
+               margin: 1rem;
+               text-align: left;
+           }
+           .where-when{
+               margin-left: 3rem;
+               width: 100%;
+               text-align: left;
+               padding: 5px;
+
+           }
+           //table with short info about event
+           .event-table-container{
+            font-size: $tableFontSize;
+               width: 100%;
+               .event-table-line {
+                   display: flex;
+                   justify-content: space-around;
+                   .event-table-cell{
+                        width: 30%;
+                        text-align: left;
+                        
+                       &:nth-child(odd){
+                           width: 20%;
+                           border-bottom: 1px solid $gray;
+                       }
+                       &:nth-child(3){
+                           width: 30%;
+                       }
+                       &:nth-child(4){
+                        width: 20%;
+                        }
+                        &:nth-child(7){
+                            width: 30%;
+                        }
+                        &:nth-child(8){
+                         width: 20%;
+                         }
+                         &:nth-child(11){
+                            width: 30%;
+                        }
+                        &:nth-child(12){
+                         width: 20%;
+                         }
+
+                       
+                    &.head-cell{
+                        font-style: italic;
+                        padding: 2px;
+                    }
+                    &.content-cell{
+                        padding: 2px;
+                        font-weight: 700;
+                    }
+                   }
+               }
+           }
+           .event-to-contact{
+               a{
+                   display: inline-block;
+                   padding: 5px;
+                   font-weight: 700;
+               }
+           }
+           @include md {
+            .event-table-container{
+                width: 70%;
+                text-align: center;
+            }
+            .event-to-contact{
+                margin: 1rem;
+            }
+           }
+           @include lg {
+            .event-table-container{
+               width: 100%;
+               padding-left: 5%;
+            }
+            
+           }
+
+           .about-event{
+            text-indent: 2rem;
+            padding: 5px;
+            text-align: justify;
+        }
+       }
+    
+    }   
+       
+}
+
