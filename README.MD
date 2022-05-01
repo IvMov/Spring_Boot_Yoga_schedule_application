@@ -1,4 +1,4 @@
-# Web app about Yoga v.0.2.9
+# Web app about Yoga v.0.3.4
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
@@ -27,8 +27,7 @@ ___
 
 ### Last changes and TODOs
 - MAIN TODO: add comments to explain all fields and functions (added already: Event)
-- ChangeEvent - got more information about price
-- Change EventPayment - class for control of registration students in events and payments
-- Change StudentPayment (was Subscribes) - reworked to contain information about credits added;
-- TODO: StudentPayment more changes will be - rename in future?;
-- Student - add field creditBalance;
+- ChangeEvent - last two commits:
+  - create templates;
+  - create form for user registration;
+  - create form for event registration;
