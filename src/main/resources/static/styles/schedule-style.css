@@ -3,10 +3,13 @@
   margin-bottom: 1em;
 }
 #container .back-button {
-  width: 60%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: block;
   text-align: left;
   font-size: 18px;
-  padding-left: 10px;
+  padding: 10px;
 }
 #container #new-event-wrapper {
   display: flex;
@@ -26,6 +29,7 @@
   border-top: 1px solid gray;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 #container #new-event-wrapper .show-form #create-event-button {
   width: 80%;
@@ -34,21 +38,49 @@
 #container #new-event-wrapper .show-form .form-elem {
   margin: 0.1rem;
   width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+#container #new-event-wrapper .show-form .form-elem.text-about-wrapp {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+#container #new-event-wrapper .show-form .form-elem.text-about-wrapp label {
+  margin-right: 5px;
+}
+#container #new-event-wrapper .show-form .form-elem.text-about-wrapp textarea {
+  width: 100%;
+  height: 80px;
+}
+#container #new-event-wrapper .show-form .form-elem input {
+  width: 48%;
+}
+#container #new-event-wrapper .show-form .form-elem select {
+  width: 48%;
+}
+#container #new-event-wrapper .show-form .form-elem #week-days {
+  width: 75%;
 }
 @media (min-width: 768px) {
   #container #new-event-wrapper .show-form .form-elem {
-    width: 50%;
+    width: 45%;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   #container #new-event-wrapper .show-form .form-elem {
-    width: 14%;
+    margin-bottom: 1em;
+    width: 32%;
   }
-  #container #new-event-wrapper .show-form .form-elem:nth-child(1) {
-    width: 5%;
+  #container #new-event-wrapper .show-form .form-elem input {
+    width: 70%;
   }
-  #container #new-event-wrapper .show-form .form-elem:nth-child(2) {
-    width: 5%;
+  #container #new-event-wrapper .show-form .form-elem select {
+    width: 70%;
+  }
+  #container #new-event-wrapper .show-form .form-elem #week-days {
+    width: 50%;
   }
   #container #new-event-wrapper .show-form .form-elem.text-about-wrapp {
     width: 100%;
@@ -70,10 +102,10 @@
   display: inline-block;
   border-radius: 6px;
   background: #f2ffff;
-  height: 40px;
-  width: 30px;
-  margin-right: 3px;
-  line-height: 40px;
+  height: 25px;
+  width: 25px;
+  margin-right: 1px;
+  line-height: 25px;
   text-align: center;
   cursor: pointer;
 }
@@ -81,23 +113,48 @@
   background: rgb(209, 43, 195);
   color: #ffffff;
 }
+#container .events-wrapper {
+  overflow: auto;
+}
 #container .events-wrapper .events-line {
   display: flex;
+  width: 1200px;
+  margin: 0 auto;
   justify-content: space-evenly;
-  height: 80px;
+  height: 50px;
+}
+@media (min-width: 1200px) {
+  #container .events-wrapper .events-line .events-cell {
+    font-size: 14px;
+  }
 }
 #container .events-wrapper .events-line .events-cell {
   height: 100%;
   border: 1px solid rgb(122, 122, 122);
-  width: 8%;
+  width: 9%;
   padding: 0;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
+}
+#container .events-wrapper .events-line .events-cell:nth-child(1) {
+  width: 5%;
+}
+#container .events-wrapper .events-line .events-cell:nth-child(2) {
+  width: 5%;
+}
+#container .events-wrapper .events-line .events-cell a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+#container .events-wrapper .events-line .events-cell a:hover {
+  background-color: rgba(122, 122, 122, 0.1);
 }
 #container .events-wrapper .events-line .events-content-cell {
   height: 100%;
-  width: 8%;
+  width: 9%;
   padding: 0;
 }
 #container .events-wrapper .events-head-line {

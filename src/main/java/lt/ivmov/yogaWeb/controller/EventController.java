@@ -46,5 +46,13 @@ public class EventController {
         return "event";
     }
 
+//    @PostMapping("/create")
+//    public String createProduct(Product product, Model model) {
+//        Product createdProduct = productService.create(product);
+//
+//        model.addAttribute("product", createdProduct);
+//        return "redirect:/products/" + createdProduct.getId();
+//    }
+
 
 }

@@ -28,12 +28,12 @@
             <p id="header-p-contacts-phone">
                 Paskambink:
                 <a class="contacts-phone" href="tel:+37064747155">
-                    <img src="images/phone-1.png" alt="phone-image">+37064747155</a>
+                    <img src="/images/phone-1.png" alt="phone-image">+37064747155</a>
             </p>
             <p id="header-p-contacts-mail">
                 Parašyk:
                 <a class="contacts-mail" href="mailto: roberta.joga@gmail.com">
-                    <img src="images/mail-1.png" alt="phone-image"> roberta.yoga@gmail.com</a>
+                    <img src="/images/mail-1.png" alt="phone-image"> roberta.yoga@gmail.com</a>
             </p>
 
         </div>
@@ -49,19 +49,13 @@
             <nav>
                 <ul id="nav-ul">
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080}" class="nav-a" title="Pagrindinis">Pagrindinis</a>
+                        <a th:href="@{http://localhost:8080}" class="nav-a" title="Home">Home</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/news}" class="nav-a" title="Naujenos">Naujenos</a>
-                    </li>
-                    <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Uzsiemimai">Užsiėmimai</a>
-                    </li>
-                    <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/events}" class="nav-a" title="Renginiai">Renginiai</a>
+                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Schedule">Schedule</a>
                     </li>
                     <li class="nav-li nav-li-dropdown-wrapper" onclick="openCloseMobileDroplist()">
-                        <a href="#" class="nav-a open-dropDownA" title="Jogos pratimai">Jogos pratimai ▼</a>
+                        <a href="#" class="nav-a open-dropDownA" title="Jogos pratimai"><s>Jogos pratimai ▼</s></a>
                         <ul class="dropdown-nav-ul">
                             <li class="dropdown-nav-li"><a href="#">Klasikinė joga</a></li>
                             <li class="dropdown-nav-li"><a href="#">Joga nidra</a></li>
@@ -73,10 +67,10 @@
                         <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum">Forum</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="Apie mane">Apie mane</a>
+                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="About me">About me</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Kontaktai">Kontaktai</a>
+                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Contacts">Contacts</a>
                     </li>
                 </ul>
             </nav>
@@ -90,7 +84,7 @@
 
                 <!-- there was cart but i change it to log-in -->
                 <div class="log-in-wrapper">
-                    <a th:href="@{http://localhost:8080/user}" class="user-name">hagbadalandabad</a>
+                    <a th:href="@{http://localhost:8080/welcome}" class="user-name">Guest</a>
                     <a class="log-in-out" th:href="@{http://localhost:8080/welcome}">Log in</a>
                 </div>
 

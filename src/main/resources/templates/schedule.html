@@ -28,12 +28,12 @@
             <p id="header-p-contacts-phone">
                 Paskambink:
                 <a class="contacts-phone" href="tel:+37064747155">
-                    <img src="images/phone-1.png" alt="phone-image">+37064747155</a>
+                    <img src="/images/phone-1.png" alt="phone-image">+37064747155</a>
             </p>
             <p id="header-p-contacts-mail">
                 Parašyk:
                 <a class="contacts-mail" href="mailto: roberta.joga@gmail.com">
-                    <img src="images/mail-1.png" alt="phone-image"> roberta.yoga@gmail.com</a>
+                    <img src="/images/mail-1.png" alt="phone-image"> roberta.yoga@gmail.com</a>
             </p>
 
         </div>
@@ -49,19 +49,13 @@
             <nav>
                 <ul id="nav-ul">
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080}" class="nav-a" title="Pagrindinis">Pagrindinis</a>
+                        <a th:href="@{http://localhost:8080}" class="nav-a" title="Home">Home</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/news}" class="nav-a" title="Naujenos">Naujenos</a>
-                    </li>
-                    <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Uzsiemimai">Užsiėmimai</a>
-                    </li>
-                    <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Renginiai">Renginiai</a>
+                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Schedule">Schedule</a>
                     </li>
                     <li class="nav-li nav-li-dropdown-wrapper" onclick="openCloseMobileDroplist()">
-                        <a href="#" class="nav-a open-dropDownA" title="Jogos pratimai">Jogos pratimai ▼</a>
+                        <a href="#" class="nav-a open-dropDownA" title="Jogos pratimai"><s>Jogos pratimai ▼</s></a>
                         <ul class="dropdown-nav-ul">
                             <li class="dropdown-nav-li"><a href="#">Klasikinė joga</a></li>
                             <li class="dropdown-nav-li"><a href="#">Joga nidra</a></li>
@@ -73,10 +67,10 @@
                         <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum">Forum</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="Apie mane">Apie mane</a>
+                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="About me">About me</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Kontaktai">Kontaktai</a>
+                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Contacts">Contacts</a>
                     </li>
                 </ul>
             </nav>
@@ -90,7 +84,7 @@
 
                 <!-- there was cart but i change it to log-in -->
                 <div class="log-in-wrapper">
-                    <a th:href="@{http://localhost:8080/user}" class="user-name">hagbadalandabad</a>
+                    <a th:href="@{http://localhost:8080/welcome}" class="user-name">Guest</a>
                     <a class="log-in-out" th:href="@{http://localhost:8080/welcome}">Log in</a>
                 </div>
 
@@ -116,6 +110,7 @@
             <form id="event-create-form" class="hide-form" action="submit">
 <!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
                 <div class="form-elem">
+                    <label for="type-of-event">Type of event:</label>
                     <select id="type-of-event" name="typeOfEvent">
                         <option th:each="eventType : ${T(lt.ivmov.yogaWeb.enums.EventType).values()}" 
                             th:value="${eventType}" th:text="${eventType}"></option>
@@ -123,6 +118,7 @@
                 </div>
 <!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
                 <div class="form-elem">
+                    <label for="type-of-event">Event is:</label>
                     <select id="is-repeateble" name="isRepeatable">
                         <option>single</option>
                         <option>multiple</option>
@@ -135,6 +131,7 @@
             
 <!--               ENUM__!!!!!!!!!!!!!!!!!!!!!-->
                 <div class="form-elem">
+                    <label for="type-of-event">Theme is:</label>
                     <select id="theme-of-event" name="themeOfEvent">
                         <option th:each="theme : ${T(lt.ivmov.yogaWeb.enums.EventTheme).values()}" 
                             th:value="${theme}" th:text="${theme}"></option>
@@ -161,28 +158,32 @@
                     <label for="period-days">Duration, days:</label>
                     <input type="number" id="period-days" value="1">
                 </div>
-                <div class="weekDays-selector form-elem">
-                    <input type="checkbox" id="weekday-mon" class="weekday" />
-                    <label for="weekday-mon">M</label>
-                    <input type="checkbox" id="weekday-tue" class="weekday" />
-                    <label for="weekday-tue">T</label>
-                    <input type="checkbox" id="weekday-wed" class="weekday" />
-                    <label for="weekday-wed">W</label>
-                    <input type="checkbox" id="weekday-thu" class="weekday" />
-                    <label for="weekday-thu">T</label>
-                    <input type="checkbox" id="weekday-fri" class="weekday" />
-                    <label for="weekday-fri">F</label>
-                    <input type="checkbox" id="weekday-sat" class="weekday" />
-                    <label for="weekday-sat">S</label>
-                    <input type="checkbox" id="weekday-sun" class="weekday" />
-                    <label for="weekday-sun">S</label>
+                <div class="form-elem week-days-wrapp">
+                    <label for="week-days">Days:</label>
+                    <div id="week-days" class=" form-elem weekDays-selector">
+                        <input type="checkbox" id="weekday-mon" class="weekday" />
+                        <label for="weekday-mon">M</label>
+                        <input type="checkbox" id="weekday-tue" class="weekday" />
+                        <label for="weekday-tue">T</label>
+                        <input type="checkbox" id="weekday-wed" class="weekday" />
+                        <label for="weekday-wed">W</label>
+                        <input type="checkbox" id="weekday-thu" class="weekday" />
+                        <label for="weekday-thu">T</label>
+                        <input type="checkbox" id="weekday-fri" class="weekday" />
+                        <label for="weekday-fri">F</label>
+                        <input type="checkbox" id="weekday-sat" class="weekday" />
+                        <label for="weekday-sat">S</label>
+                        <input type="checkbox" id="weekday-sun" class="weekday" />
+                        <label for="weekday-sun">S</label>
+                    </div>
                 </div>
+                
                 <div class="form-elem">
                     <label for="start-time">Start time:</label>
                     <input type="time" id="start-time" value="18:00">
                 </div>
                 <div class="form-elem">
-                    <label for="duration-hours">Duration, hours:</label>
+                    <label for="duration-hours">Duration, h:</label>
                     <input type="number" id="duration-hours" step="0.1" value="1.5">
                 </div>
                 <div class="form-elem">

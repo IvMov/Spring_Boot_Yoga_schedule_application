@@ -21,6 +21,8 @@ insert into events_students(event_id, student_id) values(2, 3);
 insert into events_students(event_id, student_id) values(2, 4);
 insert into events_students(event_id, student_id) values(3, 1);
 insert into events_students(event_id, student_id) values(3, 4);
+
+
 --
 --INSERT INTO subscriptions(pay_date_time, student_id, paid_sum, count_credits) VALUES("022-04-24T14:28:16", 4, 43.99, 10);
 --INSERT INTO subscriptions(pay_date_time, student_id, paid_sum, count_credits) VALUES("022-04-24T14:28:16", 1, 23.99, 12);
@@ -28,9 +30,13 @@ insert into events_students(event_id, student_id) values(3, 4);
 --
 
             --no need to add in this table days of week for single events
-insert into event_days_of_week(event_id, day_of_week) values(2, "WEDNSDAY");
+insert into event_days_of_week(event_id, day_of_week) values(2, "WEDNESDAY");
 insert into event_days_of_week(event_id, day_of_week) values(2, "FRIDAY");
 insert into event_days_of_week(event_id, day_of_week) values(2, "SUNDAY");
+insert into event_days_of_week(event_id, day_of_week) values (1, "SUNDAY")
+insert into event_days_of_week(event_id, day_of_week) values (1, "SATURDAY")
+insert into event_days_of_week(event_id, day_of_week) values(3, "WEDNESDAY");
+insert into event_days_of_week(event_id, day_of_week) values(3, "FRIDAY");
 
 
 --user 1 press

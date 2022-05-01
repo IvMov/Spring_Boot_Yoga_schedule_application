@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -67,7 +68,8 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     @ElementCollection
     @JoinTable(name = "event_daysOfWeek", joinColumns = @JoinColumn(name = "event_id"))
-    @Column(name = "day_of_week", columnDefinition = "VARCHAR(20)", unique = true)
+    @Column(name = "day_of_week")
+    @Enumerated(EnumType.STRING)
     private Set<DaysOfWeek> activeDaysOfWeek; //look periodDays explanation
 
     @Column
@@ -148,19 +150,33 @@ public class Event { //All default is for non-repeatable "event" with duration O
         return "regular";
     }
 
+    public String getEveryOrOnly(){
+        if(isRepeatable){
+            return "Only";
+        }
+        return "Every";
+    }
+
+//    public String getDays(){
+//        for (Iterator<DaysOfWeek> it = activeDaysOfWeek.iterator(); it.hasNext(); ) {
+//        DaysOfWeek day = it.next();
+//
+//
+//    }
+
     //----!!!Commented cause - don`t need and don`t understand
 
-    public void addStudent(Student student, boolean isPaid) {
-        EventPayment eventPayment = new EventPayment();
-        eventPayment.setStudent(student);
-        eventPayment.setEvent(this);
-        eventPayment.setPaid(isPaid);
-        if (this.eventPayments == null) {
-            this.eventPayments = new HashSet<>();
-        }
-        this.eventPayments.add(eventPayment);
-
-        student.getEventPayments().add(eventPayment);
-    }
+//    public void addStudent(Student student, boolean isPaid) {
+//        EventPayment eventPayment = new EventPayment();
+//        eventPayment.setStudent(student);
+//        eventPayment.setEvent(this);
+//        eventPayment.setPaid(isPaid);
+//        if (this.eventPayments == null) {
+//            this.eventPayments = new HashSet<>();
+//        }
+//        this.eventPayments.add(eventPayment);
+//
+//        student.getEventPayments().add(eventPayment);
+//    }
 }
 
