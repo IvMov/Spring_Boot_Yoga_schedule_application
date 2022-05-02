@@ -4,8 +4,6 @@ import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.enums.EventTheme;
 import lt.ivmov.yogaWeb.exception.EventNotFoundException;
 import lt.ivmov.yogaWeb.repository.EventRepository;
-import org.hibernate.criterion.Example;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

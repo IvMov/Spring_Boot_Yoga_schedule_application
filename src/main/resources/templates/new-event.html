@@ -18,6 +18,9 @@
             overflow-x: hidden;
         }
 
+
+
+
     </style>
 
 </head>
@@ -104,37 +107,37 @@
     <div id="container">
         <h1>Create new event</h1>
         <div id="new-event-wrapper">
-            <form th:action="@{/schedule/create}" method="post" id="event-create-form" th:object="${event}" class="show-form">
-<!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+            <form th:action="@{/schedule/create}" method="post" id="event-create-form" th:object="${event}"
+                  class="show-form">
                 <div class="form-elem">
                     <label for="type-of-event">Type of event:</label>
                     <select id="type-of-event" name="typeOfEvent" th:field="*{typeOf}">
                         <option th:each="eventType : ${T(lt.ivmov.yogaWeb.enums.EventType).values()}"
-                            th:value="${eventType}" th:text="${eventType}"></option>
+                                th:value="${eventType}" th:text="${eventType}"></option>
                     </select>
                 </div>
-<!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
-<!--                <div class="form-elem">-->
-<!--                    <label for="is-repeatable">Event is:</label>-->
-<!--                    <select id="is-repeatable" name="isRepeatable" th:field="*{isRepeatable}">-->
-<!--                        <option value="true">true</option>-->
-<!--                        <option value="false">false</option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <div class="form-elem">
+                    <label for="is-repeatable">Event is:</label>
+                    <select id="is-repeatable" name="isRepeatable">
+                        <option th:field="*{isRepeatable}" value="true">true</option>
+                        <option th:field="*{isRepeatable}" value="false">false</option>
+                    </select>
+                </div>
                 <div class="form-elem">
                     <label for="title">Title of event</label>
-                    <input type="text" id="title" th:field="*{title}" placeholder="some title" value="Title about event">
+                    <input type="text" id="title" th:field="*{title}" placeholder="some title"
+                           value="Title about event">
                 </div>
 
-<!--               ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <!--               ENUM__!!!!!!!!!!!!!!!!!!!!!-->
                 <div class="form-elem">
                     <label for="theme-of-event">Theme is:</label>
                     <select id="theme-of-event" name="themeOfEvent" th:field="*{theme}">
                         <option th:each="evTheme : ${T(lt.ivmov.yogaWeb.enums.EventTheme).values()}"
-                            th:value="${evTheme}" text="${evTheme}"></option>
+                                th:value="${evTheme}" th:text="${evTheme}"></option>
                     </select>
                 </div>
-<!--               -ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <!--               -ENUM__!!!!!!!!!!!!!!!!!!!!!-->
                 <div class="form-elem">
                     <label for="city">City:</label>
                     <input type="text" id="city" value="Klaipeda" th:field="*{city}">
@@ -145,7 +148,8 @@
                 </div>
                 <div class="form-elem">
                     <label for="address-url">Adress url:</label>
-                    <input type="text" id="address-url" content="https://g.page/Pravdabeer?share" value="https://g.page/Pravdabeer?share" th:field="*{urlGoogleMaps}">
+                    <input type="text" id="address-url" content="https://g.page/Pravdabeer?share"
+                           value="https://g.page/Pravdabeer?share" th:field="*{urlGoogleMaps}">
                 </div>
                 <div class="form-elem">
                     <label for="start-date">Start date:</label>
@@ -156,23 +160,16 @@
                     <input type="number" id="period-days" value="1" th:field="*{periodDays}">
                 </div>
                 <div class="form-elem week-days-wrapp">
-                    <label for="week-days">Days:</label>
-                    <div id="week-days" class=" form-elem weekDays-selector" th:field="*{activeDaysOfWeek}">
-                        <input name="days" type="checkbox" id="weekday-mon" class="weekday"/>
-                        <label for="weekday-mon">M</label>
-                        <input name="days" type="checkbox" id="weekday-tue" class="weekday" />
-                        <label for="weekday-tue">T</label>
-                        <input name="days" type="checkbox" id="weekday-wed" class="weekday"/>
-                        <label for="weekday-wed">W</label>
-                        <input name="days" type="checkbox" id="weekday-thu" class="weekday" />
-                        <label for="weekday-thu">T</label>
-                        <input name="days" type="checkbox" id="weekday-fri" class="weekday" />
-                        <label for="weekday-fri">F</label>
-                        <input name="days" type="checkbox" id="weekday-sat" class="weekday" />
-                        <label for="weekday-sat">S</label>
-                        <input name="days" type="checkbox" id="weekday-sun" class="weekday" />
-                        <label for="weekday-sun">S</label>
-                    </div>
+                    <label class="form-label select-label">Days:</label>
+                    <select th:field="*{activeDaysOfWeek}" class="select" multiple style="height: 100%;">
+                        <option value="Md">Monday</option>
+                        <option value="Tu">Tuesday</option>
+                        <option value="Wd">Wednesday</option>
+                        <option value="Th">Thursday</option>
+                        <option value="Fr">Friday</option>
+                        <option value="St">Saturday</option>
+                        <option value="Su">Sunday</option>
+                    </select>
                 </div>
 
                 <div class="form-elem">
@@ -185,7 +182,8 @@
                 </div>
                 <div class="form-elem">
                     <label for="img-src">Image:</label>
-                    <input type="text" id="img-src" value="https://picsum.photos/370/370?random=1" th:field="*{imageSrc}">
+                    <input type="text" id="img-src" value="https://picsum.photos/370/370?random=1"
+                           th:field="*{imageSrc}">
                 </div>
                 <div class="form-elem">
                     <label for="common-price">Price:</label>
@@ -286,6 +284,7 @@
 <!-- scripts -->
 
 <script src="/scripts/script.js"></script>
+<script src="/scripts/new-event.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

@@ -15,8 +15,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -39,7 +37,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     @Column
     @BooleanFlag
-    private boolean isRepeatable = false; //if true -> required setDurationDays()
+    private Boolean isRepeatable = false; //if true -> required setDurationDays()
 
     @Column
     private String groupId = "single"; // if repeatable = true -> setGroupId() some uniqueId
