@@ -33,4 +33,7 @@ public class EventService {
         return eventRepository.findById(id).orElseThrow(EventNotFoundException::new);
     }
 
+    public Event create(Event event) {
+        return eventRepository.save(event);
+    }
 }

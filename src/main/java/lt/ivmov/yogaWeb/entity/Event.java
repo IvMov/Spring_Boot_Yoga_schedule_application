@@ -1,5 +1,6 @@
 package lt.ivmov.yogaWeb.entity;
 
+import jdk.jfr.BooleanFlag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import lt.ivmov.yogaWeb.enums.DaysOfWeek;
 import lt.ivmov.yogaWeb.enums.EventTheme;
 import lt.ivmov.yogaWeb.enums.EventType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -36,6 +38,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private EventType typeOf = EventType.EVENT; //event or lesson -> will be separated in web app
 
     @Column
+    @BooleanFlag
     private boolean isRepeatable = false; //if true -> required setDurationDays()
 
     @Column
@@ -44,23 +47,24 @@ public class Event { //All default is for non-repeatable "event" with duration O
     // will be able to change any event (time, duration and days) in group of events
 
     @Column
-    private String title;
+    private String title = "New title";
 
     @Column(columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
-    private EventTheme theme; //for sort lessons by different themes
+    private EventTheme theme = EventTheme.MEDITATION; //for sort lessons by different themes
 
     @Column
-    private String city;
+    private String city = "Klaipeda";
 
     @Column
-    String address; // example from admin when creating "Taikos str. 140, second floor, room 206"
+    String address = "Nesamoniu str. 11-99"; // example from admin when creating "Taikos str. 140, second floor, room 206"
 
     @Column
-    private String urlGoogleMaps; //example copy from GM -> "https://goo.gl/maps/z7RfTVwChCQ325MJ9"
+    private String urlGoogleMaps = "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"; //example copy from GM -> "https://goo.gl/maps/z7RfTVwChCQ325MJ9"
 
     @Column
-    private LocalDate startDate; //first day of event for repeatable or day of event if not repeatable
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate startDate = LocalDate.of(2022, 05, 03); //first day of event for repeatable or day of event if not repeatable
 
     @Column
     private int periodDays = 1; //Example: 30days + activeDaysOfWeek {MONDAY, SUNDAY} ->
@@ -70,23 +74,29 @@ public class Event { //All default is for non-repeatable "event" with duration O
     @JoinTable(name = "event_daysOfWeek", joinColumns = @JoinColumn(name = "event_id"))
     @Column(name = "day_of_week")
     @Enumerated(EnumType.STRING)
-    private Set<DaysOfWeek> activeDaysOfWeek; //look periodDays explanation
+    private Set<DaysOfWeek> activeDaysOfWeek = Set.of(DaysOfWeek.Md,
+            DaysOfWeek.Tu,
+            DaysOfWeek.Wd,
+            DaysOfWeek.Th,
+            DaysOfWeek.Fr,
+            DaysOfWeek.St,
+            DaysOfWeek.Su); //look periodDays explanation
 
     @Column
-    private LocalTime startTime; //start-time of event
+    private LocalTime startTime = LocalTime.of(18, 05); //start-time of event
 
     @Column
-    private Double durationHours; //format 1.5 means 1hour 30 min.
+    private Double durationHours = 1.5; //format 1.5 means 1hour 30 min.
 
     @Column(columnDefinition = "TEXT")
-    private String textAbout; //used to contain text of description of course
+    private String textAbout = "Lorem ipsum"; //used to contain text of description of course
     //TODO: ANDRIUS think how to 1) create template by which can separate p li ul? 2) or add link with image frome facebook
 
     @Column
-    private String imageSrc; //TODO: ANDRIUS how can i store images which admin will add for new events? maybe cloud?
+    private String imageSrc = "https://picsum.photos/370/370?random=1"; //TODO: ANDRIUS how can i store images which admin will add for new events? maybe cloud?
 
     @Column
-    private Double commonPrice;
+    private Double commonPrice = 10.99;
 
     @Column
     private boolean isDiscount = false; // true -> will for all students show discountPrice
@@ -95,7 +105,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private Double discountPrice = commonPrice; //by default prices ==. if group or some discounts -> another price.
 
     @Column
-    private int vacanciesLimit; //how peoples can participate 1 event
+    private int vacanciesLimit = 10; //how peoples can participate 1 event
 
     @ManyToMany
     @JoinTable( //TODO: Andrius - how to create repository for this table? to put get from db, or no need - its created inside Event/Student?
@@ -156,6 +166,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
         }
         return "Every";
     }
+
 
 //    public String getDays(){
 //        for (Iterator<DaysOfWeek> it = activeDaysOfWeek.iterator(); it.hasNext(); ) {

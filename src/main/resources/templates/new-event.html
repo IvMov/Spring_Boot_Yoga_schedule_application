@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule of events</title>
+    <title>Roberta Yoga - Klaiedoje</title>
     <link rel="shortcut icon" type="image/png" href="/images/fav-icon-8.png">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,8 +17,8 @@
             opacity: 0;
             overflow-x: hidden;
         }
-        
-     </style>
+
+    </style>
 
 </head>
 <body>
@@ -102,59 +102,107 @@
     </div>
 
     <div id="container">
-        <h1>Schedule of the nearest events and lessons</h1>
-        <a class="back-button" th:href="@{http://localhost:8080/schedule}">Back to main schedule</a>
-
+        <h1>Create new event</h1>
         <div id="new-event-wrapper">
-            <button id="open-event-create-form" onclick="location.href='http://localhost:8080/schedule/new-create'" type="button">Create new event</button>
-        </div>
-
-        <div class="events-wrapper">
-            <div class="events-head-line events-line">
-                <div class="events-head-cell events-cell">id</div>
-                <div class="events-head-cell events-cell">type</div>
-                <div class="events-head-cell events-cell">title</div>
-                <div class="events-head-cell events-cell">theme</div>
-                <div class="events-head-cell events-cell">city</div>
-                <div class="events-head-cell events-cell">address</div>
-                <div class="events-head-cell events-cell">start date</div>
-                <div class="events-head-cell events-cell">end date</div>
-                <div class="events-head-cell events-cell">time start</div>
-                <div class="events-head-cell events-cell">duration hours</div>
-                <div class="events-head-cell events-cell">price</div>
-                <div class="events-head-cell events-cell">places</div>
-            </div>
-            <div class="events-content-wrapper" th:each="ev: ${events}">
-                <div class="events-content-line events-line">
-
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
-                           th:text="${ev.getId()}"></a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getTypeOf()}">type</div>
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
-                           th:text="${ev.getTitle()}"></a>
-                    </div>
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/{theme}(theme=${ev.getTheme()})}"
-                           th:text="${ev.getTheme()}"></a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getCity()}">city</div>
-
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{${ev.getUrlGoogleMaps()}} " target="_blank"
-                           th:text="${ev.getAddress()}">address</a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getStartDate()}">start date</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getEndDate()}">end date</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getStartTime()}">start time</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getDurationHours()}">duration hours</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getCommonPrice()}">price</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getVacanciesNow()}">places</div>
-                    </a>
+            <form th:action="@{/schedule/create}" method="post" id="event-create-form" th:object="${event}" class="show-form">
+<!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="form-elem">
+                    <label for="type-of-event">Type of event:</label>
+                    <select id="type-of-event" name="typeOfEvent" th:field="*{typeOf}">
+                        <option th:each="eventType : ${T(lt.ivmov.yogaWeb.enums.EventType).values()}"
+                            th:value="${eventType}" th:text="${eventType}"></option>
+                    </select>
                 </div>
-            </div>
+<!--                ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+<!--                <div class="form-elem">-->
+<!--                    <label for="is-repeatable">Event is:</label>-->
+<!--                    <select id="is-repeatable" name="isRepeatable" th:field="*{isRepeatable}">-->
+<!--                        <option value="true">true</option>-->
+<!--                        <option value="false">false</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+                <div class="form-elem">
+                    <label for="title">Title of event</label>
+                    <input type="text" id="title" th:field="*{title}" placeholder="some title" value="Title about event">
+                </div>
+
+<!--               ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="form-elem">
+                    <label for="theme-of-event">Theme is:</label>
+                    <select id="theme-of-event" name="themeOfEvent" th:field="*{theme}">
+                        <option th:each="evTheme : ${T(lt.ivmov.yogaWeb.enums.EventTheme).values()}"
+                            th:value="${evTheme}" text="${evTheme}"></option>
+                    </select>
+                </div>
+<!--               -ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+                <div class="form-elem">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" value="Klaipeda" th:field="*{city}">
+                </div>
+                <div class="form-elem">
+                    <label for="address">Adress</label>
+                    <input type="text" id="address" value="Nesamoniu str. 9-32 (2nd floor)" th:field="*{address}">
+                </div>
+                <div class="form-elem">
+                    <label for="address-url">Adress url:</label>
+                    <input type="text" id="address-url" content="https://g.page/Pravdabeer?share" value="https://g.page/Pravdabeer?share" th:field="*{urlGoogleMaps}">
+                </div>
+                <div class="form-elem">
+                    <label for="start-date">Start date:</label>
+                    <input type="date" id="start-date" th:field="*{startDate}">
+                </div>
+                <div class="form-elem">
+                    <label for="period-days">Duration, days:</label>
+                    <input type="number" id="period-days" value="1" th:field="*{periodDays}">
+                </div>
+                <div class="form-elem week-days-wrapp">
+                    <label for="week-days">Days:</label>
+                    <div id="week-days" class=" form-elem weekDays-selector" th:field="*{activeDaysOfWeek}">
+                        <input name="days" type="checkbox" id="weekday-mon" class="weekday"/>
+                        <label for="weekday-mon">M</label>
+                        <input name="days" type="checkbox" id="weekday-tue" class="weekday" />
+                        <label for="weekday-tue">T</label>
+                        <input name="days" type="checkbox" id="weekday-wed" class="weekday"/>
+                        <label for="weekday-wed">W</label>
+                        <input name="days" type="checkbox" id="weekday-thu" class="weekday" />
+                        <label for="weekday-thu">T</label>
+                        <input name="days" type="checkbox" id="weekday-fri" class="weekday" />
+                        <label for="weekday-fri">F</label>
+                        <input name="days" type="checkbox" id="weekday-sat" class="weekday" />
+                        <label for="weekday-sat">S</label>
+                        <input name="days" type="checkbox" id="weekday-sun" class="weekday" />
+                        <label for="weekday-sun">S</label>
+                    </div>
+                </div>
+
+                <div class="form-elem">
+                    <label for="start-time">Start time:</label>
+                    <input type="time" id="start-time" value="18:00" th:field="*{startTime}">
+                </div>
+                <div class="form-elem">
+                    <label for="duration-hours">Duration, h:</label>
+                    <input type="number" id="duration-hours" step="0.1" value="1.5" th:field="*{durationHours}">
+                </div>
+                <div class="form-elem">
+                    <label for="img-src">Image:</label>
+                    <input type="text" id="img-src" value="https://picsum.photos/370/370?random=1" th:field="*{imageSrc}">
+                </div>
+                <div class="form-elem">
+                    <label for="common-price">Price:</label>
+                    <input type="number" id="common-price" step="0.01" value="15.99" th:field="*{commonPrice}">
+                </div>
+                <div class="form-elem">
+                    <label for="vacancies-limit">Vacancies:</label>
+                    <input type="number" id="vacancies-limit" value="20" th:field="*{vacanciesLimit}">
+                </div>
+                <div class="form-elem text-about-wrapp">
+                    <label for="text-area-about">About event:</label>
+                    <textarea th:field="*{textAbout}" id="text-area-about" rows="10" cols="30">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quis expedita a architecto deleniti cum earum officia rem. Vitae, id. Amet fuga, labore fugit perferendis et corporis hic natus culpa.
+                    </textarea>
+                </div>
+                <button id="create-event-button" title="Create" type="submit">Create</button>
+
+            </form>
         </div>
     </div>
 </main>
@@ -233,7 +281,7 @@
       integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
       crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="/styles/style.css">
-<link rel="stylesheet" href="/styles/schedule-style.css">
+<link rel="stylesheet" href="/styles/new-event-style.css">
 
 <!-- scripts -->
 

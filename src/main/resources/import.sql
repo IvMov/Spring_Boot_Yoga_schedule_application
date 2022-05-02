@@ -30,13 +30,13 @@ insert into events_students(event_id, student_id) values(3, 4);
 --
 
             --no need to add in this table days of week for single events
-insert into event_days_of_week(event_id, day_of_week) values(2, "WEDNESDAY");
-insert into event_days_of_week(event_id, day_of_week) values(2, "FRIDAY");
-insert into event_days_of_week(event_id, day_of_week) values(2, "SUNDAY");
-insert into event_days_of_week(event_id, day_of_week) values (1, "SUNDAY")
-insert into event_days_of_week(event_id, day_of_week) values (1, "SATURDAY")
-insert into event_days_of_week(event_id, day_of_week) values(3, "WEDNESDAY");
-insert into event_days_of_week(event_id, day_of_week) values(3, "FRIDAY");
+insert into event_days_of_week(event_id, day_of_week) values(2, "Wd");
+insert into event_days_of_week(event_id, day_of_week) values(2, "Fr");
+insert into event_days_of_week(event_id, day_of_week) values(2, "Su");
+insert into event_days_of_week(event_id, day_of_week) values (1, "Su")
+insert into event_days_of_week(event_id, day_of_week) values (1, "St")
+insert into event_days_of_week(event_id, day_of_week) values(3, "Wd");
+insert into event_days_of_week(event_id, day_of_week) values(3, "Fr");
 
 
 --user 1 press
