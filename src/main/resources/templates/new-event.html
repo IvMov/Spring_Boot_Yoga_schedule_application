@@ -52,28 +52,19 @@
             <nav>
                 <ul id="nav-ul">
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080}" class="nav-a" title="Home">Home</a>
+                        <a th:href="@{http://localhost:8080}" class="nav-a" title="Home" th:text="#{navHomeKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Schedule">Schedule</a>
-                    </li>
-                    <li class="nav-li nav-li-dropdown-wrapper" onclick="openCloseMobileDroplist()">
-                        <a href="#" class="nav-a open-dropDownA" title="Jogos pratimai"><s>Jogos pratimai ▼</s></a>
-                        <ul class="dropdown-nav-ul">
-                            <li class="dropdown-nav-li"><a href="#">Klasikinė joga</a></li>
-                            <li class="dropdown-nav-li"><a href="#">Joga nidra</a></li>
-                            <li class="dropdown-nav-li"><a href="#">Meditacijos</a></li>
-                            <li class="dropdown-nav-li"><a href="#">Bla bla bla</a></li>
-                        </ul>
+                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Schedule" th:text="#{navScheduleKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum">Forum</a>
+                        <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum" th:text="#{navForumKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="About me">About me</a>
+                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="About me" th:text="#{navAboutKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Contacts">Contacts</a>
+                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Contacts" th:text="#{navContactsKey}"></a>
                     </li>
                 </ul>
             </nav>
