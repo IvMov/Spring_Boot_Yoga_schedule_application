@@ -11,7 +11,7 @@ This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstra
 1. installed Java version 17 or higher;
 2. maven
 3. installed docker and docker-compose;
-4. installed InteliJ IDEA - comunity version is enough;
+4. installed IntelliJ IDEA - community version is enough;
 
 ___
 
@@ -26,9 +26,11 @@ ___
 ---
 
 ### Last changes and TODOs
-- MAIN TODO: add comments to explain all fields and functions (added already: Event) 
-  - TODO: refactor EventPayments and StudentPayments to Payments/Transactions/Actions?
+- MAIN TODO: 
+  - to add comments to explain all fields and functions (added already: Event)
+  - to add errors pages 4xx and 5xx;
+  - to add user registration
   
-- event creation form works for all fields;
-- Remove drop-down menu part from all pages and .js
-- Start to creating multi-lang
+- Changes:
+  - refactor Payments from 2 entities KISS =);
+  - add exception logging - exceptionHandler.
