@@ -50,14 +50,12 @@ public class Student {
     //TODO: if single event - canceled - and was paid - return here 1euro = 1credits, which can be used for book any event by user if price is enough (in one + will apear reservation and payment +) or
     // admin will see that summ to pay lower and can + when will get summ
 
-    @ManyToMany(mappedBy = "students") //TODO: maybe need to delete? look in Events -> Set<Student>
-    private Set<Event> events_set;
-
-    @OneToMany(mappedBy = "student")
-    private Set<EventPayment> eventPayments;
+    @ManyToMany(mappedBy = "students")
+    private Set<Event> events;
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "student")
-    private Set<StudentPayment> studentCredits;
+    private Set<Payment> payments;
+
 
 }

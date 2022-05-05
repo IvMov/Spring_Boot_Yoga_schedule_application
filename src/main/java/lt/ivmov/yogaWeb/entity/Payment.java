@@ -1,6 +1,8 @@
 package lt.ivmov.yogaWeb.entity;
 
 import lombok.Setter;
+import lt.ivmov.yogaWeb.enums.PaymentMethod;
+import lt.ivmov.yogaWeb.enums.PaymentType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,26 +11,34 @@ import java.time.LocalDateTime;
 
 @Entity
 @Setter
-@Table(name = "events_payments")
-@IdClass(EventPayment.class)
-public class EventPayment implements Serializable {
+@Table(name = "payments")
+public class Payment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "time_of_action")
-    private final LocalDateTime timeOfCreation = LocalDateTime.now();
+    @Column
+    private final LocalDateTime timeStamp = LocalDateTime.now();
 
-    @Column(name = "is_paid")
-    private boolean isPaid;
+    @Column(name = "`type`")
+    @Enumerated(EnumType.STRING)
+    private PaymentType type = PaymentType.INCOME;
 
     @Column
-    private double creditsPaid = 0.00;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod method = PaymentMethod.BANK;
+
+    @Column
+    private Boolean isPaid;
+
+    @Column
+    private Double credits = 0.00; //always 0 for income
+    //TODO: 2022-05-05 if INCOME - user.credits = summ; if cost summ = user.credits
     //TODO: get credits if user have it(admin will see how need to total payment and after get payment - can press that paid)
 
     @Column
-    private double totalPaid = 0.00; //if isPaid -> take price from event price to autofill form.
+    private Double sum;
 
     @ManyToOne
     @JoinColumn(name = "student_id", updatable = false, referencedColumnName = "id")

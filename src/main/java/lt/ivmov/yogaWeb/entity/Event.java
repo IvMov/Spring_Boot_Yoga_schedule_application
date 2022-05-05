@@ -113,7 +113,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private Set<Student> students;
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
-    private Set<EventPayment> eventPayments; //here all info about payment and registration
+    private Set<Payment> payments; //here all info about payment and registration
 
 
     public String getStringTheme() {
@@ -146,7 +146,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     public int getVacanciesNow() {
         Set<Integer> studentsSet = Set.of(1, 2, 3, 5); //TODO: for this moment cant take set students.
-        int b = this.eventPayments.size();
+        int b = this.payments.size();
 //        int a = studentsSet.size();
         return this.vacanciesLimit - b;
     }
@@ -176,16 +176,16 @@ public class Event { //All default is for non-repeatable "event" with duration O
     //----!!!Commented cause - don`t need and don`t understand
 
 //    public void addStudent(Student student, boolean isPaid) {
-//        EventPayment eventPayment = new EventPayment();
+//        Payment eventPayment = new Payment();
 //        eventPayment.setStudent(student);
 //        eventPayment.setEvent(this);
 //        eventPayment.setPaid(isPaid);
-//        if (this.eventPayments == null) {
-//            this.eventPayments = new HashSet<>();
+//        if (this.payments == null) {
+//            this.payments = new HashSet<>();
 //        }
-//        this.eventPayments.add(eventPayment);
+//        this.payments.add(eventPayment);
 //
-//        student.getEventPayments().add(eventPayment);
+//        student.getPayments().add(eventPayment);
 //    }
 }
 

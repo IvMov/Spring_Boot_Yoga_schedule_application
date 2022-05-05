@@ -40,16 +40,16 @@ insert into event_days_of_week(event_id, day_of_week) values(3, "Fr");
 
 
 --user 1 press
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (0, "2022-05-01 19:32:23", 0.00, 0.00, 1, 2);
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (0, "2022-05-01 19:34:43", 0.00, 0.00, 1, 3);
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (1, "2022-05-01 20:12:13", 10.00, 0.00, 1, 2);
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (1, "2022-05-01 20:12:23", 10.00, 0.00, 1, 3);
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (1, "2022-05-01 20:12:13", 10.00, 0.00, 1, 2);
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (1, "2022-05-01 20:12:23", 0.00, 10.00, 3, 1);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 0, "2022-05-01 19:32:23", 0.00, 0.00, 1, 2);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 0, "2022-05-01 19:34:43", 0.00, 0.00, 1, 3);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 1, "2022-05-01 20:12:13", 10.00, 0.00, 1, 2);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 1, "2022-05-01 20:12:23", 10.00, 0.00, 1, 3);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 1, "2022-05-01 20:12:13", 10.00, 0.00, 1, 2);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 1, "2022-05-01 20:12:23", 0.00, 10.00, 3, 1);
 --user pressed +
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (0, "2022-05-01 19:32:23", 0.00, 0.00, 2, 1);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 0, "2022-05-01 19:32:23", 0.00, 0.00, 2, 1);
  --admin pressed + about payment
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (1, "2022-05-01 21:32:23", 10.00, 0.00, 2, 1);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 1, "2022-05-01 21:32:23", 10.00, 0.00, 2, 1);
 --return money to user or he want to reserve another event (using subscribes and credits)
-insert into events_payments (is_paid, time_of_action, total_paid, credits_paid, student_id, event_id) values (0, "2022-05-01 22:32:23", 0.00, 0.00, 2, 1);
+insert into payments (type, method, is_paid, time_stamp, sum, credits, student_id, event_id) values ("INCOME", "FRIEND", 0, "2022-05-01 22:32:23", 0.00, 0.00, 2, 1);
 
