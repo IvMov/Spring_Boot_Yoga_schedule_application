@@ -25,12 +25,12 @@
     <div id="header-contacts-wrapper">
         <div id="header-contacts">
             <p id="header-p-contacts-phone">
-                Paskambink:
+                <span th:text="#{callMeKey}"></span>
                 <a class="contacts-phone" href="tel:+37064747155">
                     <img src="/images/phone-1.png" alt="phone-image">+37064747155</a>
             </p>
             <p id="header-p-contacts-mail">
-                Parašyk:
+                <span th:text="#{writeMeKey}"></span>
                 <a class="contacts-mail" href="mailto: roberta.joga@gmail.com">
                     <img src="/images/mail-1.png" alt="phone-image"> roberta.yoga@gmail.com</a>
             </p>
@@ -74,8 +74,8 @@
 
                 <!-- there was cart but i change it to log-in -->
                 <div class="log-in-wrapper">
-                    <a th:href="@{http://localhost:8080/welcome}" class="user-name">Guest</a>
-                    <a class="log-in-out" th:href="@{http://localhost:8080/welcome}">Log in</a>
+                    <a th:href="@{http://localhost:8080/welcome}" class="user-name" th:text="#{userNameKey}"></a>
+                    <a class="log-in-out" th:href="@{http://localhost:8080/welcome}" th:text="#{logInKey}"></a>
                 </div>
 
             </div>
