@@ -18,7 +18,16 @@
             overflow-x: hidden;
         }
         
-     </style>
+
+
+
+
+
+
+
+
+
+    </style>
 
 </head>
 <body>
@@ -52,16 +61,20 @@
                         <a th:href="@{http://localhost:8080}" class="nav-a" title="Home" th:text="#{navHomeKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Schedule" th:text="#{navScheduleKey}"></a>
+                        <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Schedule"
+                           th:text="#{navScheduleKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum" th:text="#{navForumKey}"></a>
+                        <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum"
+                           th:text="#{navForumKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="About me" th:text="#{navAboutKey}"></a>
+                        <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="About me"
+                           th:text="#{navAboutKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Contacts" th:text="#{navContactsKey}"></a>
+                        <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Contacts"
+                           th:text="#{navContactsKey}"></a>
                     </li>
                 </ul>
             </nav>
@@ -97,55 +110,112 @@
         <a class="back-button" th:href="@{http://localhost:8080/schedule}">Back to main schedule</a>
 
         <div id="new-event-wrapper">
-            <button id="open-event-create-form" onclick="location.href='http://localhost:8080/schedule/new-event'" type="button">Create new event</button>
+            <button id="open-event-create-form" onclick="location.href='http://localhost:8080/schedule/new-event'"
+                    type="button">Create new event
+            </button>
         </div>
 
         <div class="events-wrapper">
-            <div class="events-head-line events-line">
-                <div class="events-head-cell events-cell">id</div>
-                <div class="events-head-cell events-cell">type</div>
-                <div class="events-head-cell events-cell">title</div>
-                <div class="events-head-cell events-cell">theme</div>
-                <div class="events-head-cell events-cell">city</div>
-                <div class="events-head-cell events-cell">address</div>
-                <div class="events-head-cell events-cell">start date</div>
-                <div class="events-head-cell events-cell">end date</div>
-                <div class="events-head-cell events-cell">time start</div>
-                <div class="events-head-cell events-cell">duration hours</div>
-                <div class="events-head-cell events-cell">price</div>
-                <div class="events-head-cell events-cell">places</div>
-            </div>
-            <div class="events-content-wrapper" th:each="ev: ${events}">
-                <div class="events-content-line events-line">
+            <!--            paginnation on top of table-->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/schedule(page=${currentPage - 1})}"
+                           th:if="${currentPage > 0}"
+                           th:text="Previous">
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
+                        <a class="page-link"
+                           th:href="@{/schedule(page=${page})}"
+                           th:text="${page + 1}">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/schedule(page=${currentPage + 1})}"
+                           th:if="${currentPage + 1 < maxPages}"
+                           th:text="Next">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
-                           th:text="${ev.getId()}"></a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getTypeOf()}">type</div>
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
-                           th:text="${ev.getTitle()}"></a>
-                    </div>
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{/schedule/{theme}(theme=${ev.getTheme()})}"
-                           th:text="${ev.getTheme()}"></a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getCity()}">city</div>
-
-                    <div class="events-content-cell event-cell-link events-cell">
-                        <a th:href="@{${ev.getUrlGoogleMaps()}} " target="_blank"
-                           th:text="${ev.getAddress()}">address</a>
-                    </div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getStartDate()}">start date</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getEndDate()}">end date</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getStartTime()}">start time</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getDurationHours()}">duration hours</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getCommonPrice()}">price</div>
-                    <div class="events-content-cell events-cell" th:text="${ev.getVacanciesNow()}">places</div>
-                    </a>
-                </div>
+            <div class="schedule">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">title</th>
+                        <th scope="col">theme</th>
+                        <th scope="col">city</th>
+                        <th scope="col">address</th>
+                        <th scope="col">start date</th>
+                        <th scope="col">end date</th>
+                        <th scope="col">time start</th>
+                        <th scope="col">duration hours</th>
+                        <th scope="col">price</th>
+                        <th scope="col">places</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="ev: ${events}">
+                    <tr>
+                        <th scope="row">
+                            <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
+                               th:text="${ev.getId()}">Num
+                            </a>
+                        </th>
+                        <td>
+                            <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
+                               th:text="${ev.getTitle()}">title
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/schedule/{theme}(theme=${ev.getTheme()})}"
+                               th:text="${ev.getTheme()}">theme
+                            </a>
+                        </td>
+                        <td th:text="${ev.getCity()}">city</td>
+                        <td>
+                            <a th:href="@{${ev.getUrlGoogleMaps()}} " target="_blank"
+                               th:text="${ev.getAddress()}">some url
+                            </a>
+                        </td>
+                        <td th:text="${ev.getStartDate()}">start date</td>
+                        <td th:text="${ev.getEndDate()}">end date</td>
+                        <td th:text="${ev.getStartTime()}">start time</td>
+                        <td th:text="${ev.getDurationHours()}">duration</td>
+                        <td th:text="${ev.getCommonPrice()}">price</td>
+                        <td th:text="${ev.getVacanciesNow()}">places</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+
+            <!--            paginnation on bottom of table of table-->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/schedule(page=${currentPage - 1})}"
+                           th:if="${currentPage > 0}"
+                           th:text="Previous">
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
+                        <a class="page-link"
+                           th:href="@{/schedule(page=${page})}"
+                           th:text="${page + 1}">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/schedule(page=${currentPage + 1})}"
+                           th:if="${currentPage + 1 < maxPages}"
+                           th:text="Next">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </main>

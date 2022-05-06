@@ -1,17 +1,14 @@
 package lt.ivmov.yogaWeb.controller;
 
 import lt.ivmov.yogaWeb.entity.Event;
-import lt.ivmov.yogaWeb.enums.DaysOfWeek;
-import lt.ivmov.yogaWeb.repository.EventRepository;
 import lt.ivmov.yogaWeb.service.EventService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.tags.form.CheckboxesTag;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/schedule")
@@ -24,18 +21,30 @@ public class EventController {
     }
 
     @GetMapping
-    public String getSchedulePage(Model model) {
-        List<Event> eventList = eventService.findAll();
+    public String getEventList(
+            @RequestParam(name = "page", defaultValue = "0") int pageNum,
+            Model model) {
+
+        Page<Event> eventPage = eventService.findAllForPage(5, pageNum);
+        List<Event> eventList = eventPage.getContent();
+
         model.addAttribute("events", eventList);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("maxPages", eventPage.getTotalPages());
+
         return "schedule";
     }
 
     @GetMapping("/{theme}")
     public String getScheduleByTheme(
             @PathVariable(name = "theme") String themeName,
+            @RequestParam(name = "page", defaultValue = "0") int pageNum,
             Model model) {
-        List<Event> eventListByTheme = eventService.findAllByTheme(themeName);
+        Page<Event> eventPageByTheme = eventService.findAllByTheme(themeName, 5, pageNum);
+        List<Event> eventListByTheme = eventPageByTheme.getContent();
         model.addAttribute("events", eventListByTheme);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("maxPages", eventPageByTheme.getTotalPages());
         return "schedule";
     }
 
@@ -47,7 +56,8 @@ public class EventController {
         model.addAttribute("event", foundEvent);
         return "event";
     }
-     @GetMapping("/new-event")
+
+    @GetMapping("/new-event")
     public String getEventForm(Model model) {
 
         model.addAttribute("event", new Event());
