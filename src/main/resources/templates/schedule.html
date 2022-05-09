@@ -15,10 +15,11 @@
 
     <div id="container">
         <h1>Schedule of the nearest events and lessons</h1>
-        <a class="back-button" th:href="@{http://localhost:8080/schedule}">Back to main schedule</a>
+        <a class="back-button" th:href="@{/public/schedule}">Back to main schedule</a>
 
         <div id="new-event-wrapper">
-            <button id="open-event-create-form" onclick="location.href='http://localhost:8080/schedule/new-event'"
+            <button id="open-event-create-form"
+                    onclick="location.href='/private/schedule/new-event'"
                     type="button">Create new event
             </button>
         </div>
@@ -29,19 +30,19 @@
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/schedule(page=${currentPage - 1})}"
+                           th:href="@{/public/schedule(page=${currentPage - 1})}"
                            th:if="${currentPage > 0}"
                            th:text="Previous">
                         </a>
                     </li>
                     <li class="page-item" th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
                         <a class="page-link"
-                           th:href="@{/schedule(page=${page})}"
+                           th:href="@{/public/schedule(page=${page})}"
                            th:text="${page + 1}">1</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/schedule(page=${currentPage + 1})}"
+                           th:href="@{/public/schedule(page=${currentPage + 1})}"
                            th:if="${currentPage + 1 < maxPages}"
                            th:text="Next">
                         </a>
@@ -71,17 +72,17 @@
                     <tbody th:each="ev: ${events}">
                     <tr>
                         <th scope="row">
-                            <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
+                            <a th:href="@{/public/schedule/event-{id}(id=${ev.getId()})}"
                                th:text="${ev.getId()}">Num
                             </a>
                         </th>
                         <td>
-                            <a th:href="@{/schedule/event-{id}(id=${ev.getId()})}"
+                            <a th:href="@{/public/schedule/event-{id}(id=${ev.getId()})}"
                                th:text="${ev.getTitle()}">title
                             </a>
                         </td>
                         <td>
-                            <a th:href="@{/schedule/{theme}(theme=${ev.getTheme()})}"
+                            <a th:href="@{/public/schedule/{theme}(theme=${ev.getTheme()})}"
                                th:text="${ev.getTheme()}">theme
                             </a>
                         </td>
@@ -107,19 +108,19 @@
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/schedule(page=${currentPage - 1})}"
+                           th:href="@{/public/schedule(page=${currentPage - 1})}"
                            th:if="${currentPage > 0}"
                            th:text="Previous">
                         </a>
                     </li>
                     <li class="page-item" th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
                         <a class="page-link"
-                           th:href="@{/schedule(page=${page})}"
+                           th:href="@{/public/schedule(page=${page})}"
                            th:text="${page + 1}">1</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/schedule(page=${currentPage + 1})}"
+                           th:href="@{/public/schedule(page=${currentPage + 1})}"
                            th:if="${currentPage + 1 < maxPages}"
                            th:text="Next">
                         </a>

@@ -3,7 +3,6 @@ package lt.ivmov.yogaWeb.controller;
 import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.service.EventService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/schedule")
-public class EventController {
+@RequestMapping("/public/schedule")
+public class EventPublicController {
 
     private EventService eventService;
 
-    public EventController(EventService eventService) {
+    public EventPublicController(EventService eventService) {
         this.eventService = eventService;
     }
 
@@ -56,21 +55,5 @@ public class EventController {
         model.addAttribute("event", foundEvent);
         return "event";
     }
-
-    @GetMapping("/new-event")
-    public String getEventForm(Model model) {
-
-        model.addAttribute("event", new Event());
-        return "new-event";
-    }
-
-    @PostMapping("/create")
-    public String createEvent(Event event, Model model) {
-        Event createdEvent = eventService.create(event);
-        model.addAttribute("event", createdEvent);
-
-        return "redirect:/schedule";
-    }
-
 
 }

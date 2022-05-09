@@ -41,6 +41,9 @@ public class Student {
     private String email;
 
     @Column
+    private String password;
+
+    @Column
     private String about;
 
     @Column

@@ -41,7 +41,7 @@
         <div id="header-nav-wrapper">
             <div class="header-nav-wrapper-inside">
                 <div class="logo-wrapper">
-                    <a th:href="@{http://localhost:8080}">
+                    <a th:href="@{http://localhost:8080/public}">
                         <img id="logo" src="/images/logo.png" alt="logo">
                     </a>
                 </div>
@@ -49,22 +49,22 @@
                 <nav>
                     <ul id="nav-ul">
                         <li class="nav-li nav-li-n">
-                            <a th:href="@{http://localhost:8080}" class="nav-a" title="Home" th:text="#{navHomeKey}"></a>
+                            <a th:href="@{http://localhost:8080/public}" class="nav-a" title="Home" th:text="#{navHomeKey}"></a>
                         </li>
                         <li class="nav-li nav-li-n">
-                            <a th:href="@{http://localhost:8080/schedule}" class="nav-a" title="Schedule"
+                            <a th:href="@{http://localhost:8080/public/schedule}" class="nav-a" title="Schedule"
                                th:text="#{navScheduleKey}"></a>
                         </li>
                         <li class="nav-li nav-li-n">
-                            <a th:href="@{http://localhost:8080/forum}" class="nav-a" title="Forum"
+                            <a th:href="@{http://localhost:8080/public/forum}" class="nav-a" title="Forum"
                                th:text="#{navForumKey}"></a>
                         </li>
                         <li class="nav-li nav-li-n">
-                            <a th:href="@{http://localhost:8080/aboutme}" class="nav-a" title="About me"
+                            <a th:href="@{http://localhost:8080/public/aboutme}" class="nav-a" title="About me"
                                th:text="#{navAboutKey}"></a>
                         </li>
                         <li class="nav-li nav-li-n">
-                            <a th:href="@{http://localhost:8080/contacts}" class="nav-a" title="Contacts"
+                            <a th:href="@{http://localhost:8080/public/contacts}" class="nav-a" title="Contacts"
                                th:text="#{navContactsKey}"></a>
                         </li>
                     </ul>
@@ -79,8 +79,11 @@
 
                     <!-- there was cart but i change it to log-in -->
                     <div class="log-in-wrapper">
-                        <a th:href="@{http://localhost:8080/login}" class="user-name" th:text="#{userNameKey}"></a>
+                        <a th:href="@{http://localhost:8080/private/user}" class="user-name" th:text="#{userNameKey}"></a>
                         <a class="log-in-out" th:href="@{http://localhost:8080/login}" th:text="#{logInKey}"></a>
+                        <form th:action="@{http://localhost:8080/logout}" method="post">
+                            <button type="submit" th:text="#{logOutKey}">Log out</button>
+                        </form>
                     </div>
 
                 </div>
