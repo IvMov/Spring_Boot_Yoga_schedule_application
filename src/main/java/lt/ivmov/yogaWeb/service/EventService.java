@@ -21,6 +21,8 @@ public class EventService {
     }
 
     public Page<Event> findAllForPage(int pageSize, int pageNum) {
+        //TODO: need to change to schedule. Get all dates ->
+        // by week then sort all output by time, and only after that fulfill schedule with time and days (sort by days)
 
         Pageable pageable = Pageable
                 .ofSize(pageSize)
