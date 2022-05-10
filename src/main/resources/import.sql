@@ -57,3 +57,9 @@ insert into payments (type, method, is_paid, time_stamp, sum, credits, user_id, 
 --return money to user or he want to reserve another event (using subscribes and credits)
 insert into payments (type, method, is_paid, time_stamp, sum, credits, user_id, event_id) values ("INCOME", "FRIEND", 0, "2022-05-01 22:32:23", 0.00, 0.00, 2, 1);
 
+insert into users_roles (user_id, role) values (1, "USER");
+insert into users_roles (user_id, role) values (1, "ADMIN");
+insert into users_roles (user_id, role) values (2, "USER");
+insert into users_roles (user_id, role) values (3, "USER");
+insert into users_roles (user_id, role) values (4, "USER");
+

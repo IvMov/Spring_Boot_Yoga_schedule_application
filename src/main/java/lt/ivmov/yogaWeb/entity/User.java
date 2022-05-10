@@ -3,6 +3,8 @@ package lt.ivmov.yogaWeb.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lt.ivmov.yogaWeb.enums.DaysOfWeek;
+import lt.ivmov.yogaWeb.enums.UserRoles;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -60,5 +62,10 @@ public class User {
             mappedBy = "user")
     private Set<Payment> payments;
 
+    @ElementCollection
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Set<UserRoles> roles;
 
 }
