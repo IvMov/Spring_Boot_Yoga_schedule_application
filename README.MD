@@ -1,8 +1,8 @@
-# Web app about Yoga v.0.3.9
+# Web app about Yoga v.0.4.1
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
-- **You can find structure plan of this App in this repo -> /materials/Pages_plan_draw_io.pdf**
+- You can find structure plan of this App in this repo -> /materials/Pages_plan_draw_io.pdf
 
 ---
 
@@ -28,9 +28,13 @@ ___
 ### Last changes and TODOs
 - MAIN TODO: 
   - to add comments to explain all fields and functions (added already: Event)
-  - to add errors pages 4xx and 5xx;
-  - to add user registration
+  - to refactor Event methods - need to extract to EventServise?
+  - to add user login and user roles
+  - to create calendar with schedule
   
 - Changes:
-  - refactor Payments from 2 entities KISS =);
-  - add exception logging - exceptionHandler.
+  - first steps with spring security
+  - can to log in;
+  - split event controller to private and public
+  - add button to logout
+  - add fragments (vary useful for front)

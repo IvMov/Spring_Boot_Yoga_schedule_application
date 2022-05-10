@@ -37,12 +37,12 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     @Column
     @BooleanFlag
-    private Boolean isRepeatable = false; //if true -> required setDurationDays()
+    private Boolean isRepeatable = false; //if true -> will schedule by daysOfWeek 180 days in future? and give some groupId
 
     @Column
     private String groupId = "single"; // if repeatable = true -> setGroupId() some uniqueId
     //TODO: by groupId and activeDaysOfWeek - calculate and create automatically N event objects -
-    // will be able to change any event (time, duration and days) in group of events
+    // will be able to change any event (time, duration and days) in group of events or change all group.
 
     @Column
     private String title = "New title";
@@ -55,30 +55,24 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private String city = "Klaipeda";
 
     @Column
-    String address = "Nesamoniu str. 11-99"; // example from admin when creating "Taikos str. 140, second floor, room 206"
+    String address = "Nesamoniu str. 11-99"; // example from admin when creating "Nesamoniu str. 11-99, second floor, room 206"
 
     @Column
-    private String urlGoogleMaps = "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"; //example copy from GM -> "https://goo.gl/maps/z7RfTVwChCQ325MJ9"
+    private String urlGoogleMaps = "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"; //example -> "https://goo.gl/maps/z7RfTVwChCQ325MJ9"
 
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate = LocalDate.of(2022, 05, 03); //first day of event for repeatable or day of event if not repeatable
 
     @Column
-    private int periodDays = 1; //Example: 30days + activeDaysOfWeek {MONDAY, SUNDAY} ->
-    //-> result schedule only dates which is monday sunday in nearest 30 days.
+    private int periodDays = 1; //for single events which can be few days.
+    //TODO: need to set activeDaysOfWeek from startDate and periodDays
 
     @ElementCollection
     @JoinTable(name = "event_daysOfWeek", joinColumns = @JoinColumn(name = "event_id"))
     @Column(name = "day_of_week")
     @Enumerated(EnumType.STRING)
-    private Set<DaysOfWeek> activeDaysOfWeek = Set.of(DaysOfWeek.Md,
-            DaysOfWeek.Tu,
-            DaysOfWeek.Wd,
-            DaysOfWeek.Th,
-            DaysOfWeek.Fr,
-            DaysOfWeek.St,
-            DaysOfWeek.Su); //look periodDays explanation
+    private Set<DaysOfWeek> activeDaysOfWeek;//look periodDays explanation
 
     @Column
     private LocalTime startTime = LocalTime.of(18, 05); //start-time of event
@@ -88,10 +82,11 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     @Column(columnDefinition = "TEXT")
     private String textAbout = "Lorem ipsum"; //used to contain text of description of course
-    //TODO: ANDRIUS think how to 1) create template by which can separate p li ul? 2) or add link with image frome facebook
+    //TODO: think how to 1) create template by which can separate p li ul?
 
     @Column
-    private String imageSrc = "https://picsum.photos/370/370?random=1"; //TODO: ANDRIUS how can i store images which admin will add for new events? maybe cloud?
+    private String imageSrc = "https://picsum.photos/370/370?random=1";
+    //TODO: how can i store images which admin will add for new events? maybe cloud?
 
     @Column
     private Double commonPrice = 10.99;
@@ -100,13 +95,13 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private boolean isDiscount = false; // true -> will for all students show discountPrice
 
     @Column
-    private Double discountPrice = commonPrice; //by default prices ==. if group or some discounts -> another price.
+    private Double discount = 0.00; //by default discount = 0. (from 0 to 1)
 
     @Column
     private int vacanciesLimit = 10; //how peoples can participate 1 event
 
     @ManyToMany
-    @JoinTable( //TODO: Andrius - how to create repository for this table? to put get from db, or no need - its created inside Event/Student?
+    @JoinTable(
             name = "events_students",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
@@ -119,6 +114,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     public String getStringTheme() {
         return this.getTheme().toString();
     }
+
     public String getStringType() {
         return this.getTypeOf().toString();
     }
@@ -140,52 +136,28 @@ public class Event { //All default is for non-repeatable "event" with duration O
         double integralPart = getDurationHours() - fractionalPart;
         String minutes = String.format("%.0f", fractionalPart * 60);
 
-        return ( (int) integralPart + "h : " + minutes + "m");
+        return ((int) integralPart + "h : " + minutes + "m");
     }
 
 
     public int getVacanciesNow() {
-        Set<Integer> studentsSet = Set.of(1, 2, 3, 5); //TODO: for this moment cant take set students.
-        int b = this.payments.size();
-//        int a = studentsSet.size();
+        int b = this.students.size();
         return this.vacanciesLimit - b;
     }
 
     public String getUniqueOrRegular() {
-        if("single".equals(getGroupId())){
+        if (!isRepeatable) {
             return "unique";
         }
         return "regular";
     }
 
-    public String getEveryOrOnly(){
-        if(isRepeatable){
+    public String getEveryOrOnly() {
+        if (isRepeatable) {
             return "Only";
         }
         return "Every";
     }
 
-
-//    public String getDays(){
-//        for (Iterator<DaysOfWeek> it = activeDaysOfWeek.iterator(); it.hasNext(); ) {
-//        DaysOfWeek day = it.next();
-//
-//
-//    }
-
-    //----!!!Commented cause - don`t need and don`t understand
-
-//    public void addStudent(Student student, boolean isPaid) {
-//        Payment eventPayment = new Payment();
-//        eventPayment.setStudent(student);
-//        eventPayment.setEvent(this);
-//        eventPayment.setPaid(isPaid);
-//        if (this.payments == null) {
-//            this.payments = new HashSet<>();
-//        }
-//        this.payments.add(eventPayment);
-//
-//        student.getPayments().add(eventPayment);
-//    }
 }
 

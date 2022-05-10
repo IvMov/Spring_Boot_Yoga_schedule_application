@@ -38,17 +38,17 @@ public class Student {
     private String phone;
 
     @Column
-    private String email;
+    private String email; //used for log in
 
     @Column
-    private String password;
+    private String password; //used for log in
 
     @Column
     private String about;
 
     @Column
     private Double creditsBalance; // 1 credit = 1 euro
-    //TODO: if subscriber cancel 1 event of group he can or book in same group 1 lesson automatically or get 75% of discount price of 1 event
+    //TODO: if subscriber cancel 1 event of group he can or book in same group 1 lesson automatically or get 75% of price of 1 event
     //TODO: or if cancel - no credits are return when cancel from group
     //TODO: if single event - canceled - and was paid - return here 1euro = 1credits, which can be used for book any event by user if price is enough (in one + will apear reservation and payment +) or
     // admin will see that summ to pay lower and can + when will get summ

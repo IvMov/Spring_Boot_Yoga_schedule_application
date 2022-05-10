@@ -30,7 +30,7 @@ public class Payment implements Serializable {
     private PaymentMethod method = PaymentMethod.BANK;
 
     @Column
-    private Boolean isPaid;
+    private Boolean isPaid = false;
 
     @Column
     private Double credits = 0.00; //always 0 for income

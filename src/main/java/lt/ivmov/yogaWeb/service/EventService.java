@@ -45,10 +45,13 @@ public class EventService {
     }
 
     public Event findById(Long id) {
-        return eventRepository.findById(id).orElseThrow(EventNotFoundException::new);
+        return eventRepository.findById(id)
+                .orElseThrow(EventNotFoundException::new);
     }
 
     public Event create(Event event) {
         return eventRepository.save(event);
     }
+
+
 }

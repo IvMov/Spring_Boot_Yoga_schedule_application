@@ -1,11 +1,11 @@
 package lt.ivmov.yogaWeb.enums;
 
 public enum DaysOfWeek {
-    Md,
-    Tu,
-    Wd,
-    Th,
-    Fr,
-    St,
-    Su
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
 }

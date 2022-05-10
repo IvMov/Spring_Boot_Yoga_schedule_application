@@ -16,28 +16,7 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping(path = "/lessons")
-    public String getLessonsPage(Model model) {
-        String h1Text = "SOME TITLE OF LESSONS schedule SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
-
-    @GetMapping(path = "/user")
-    public String getUserPage(Model model) {
-        String h1Text = "SOME TITLE OF User page SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
-
-
     //TODO: in future will do this
-    @GetMapping(path = "/news")
-    public String getNewsPage(Model model) {
-        String h1Text = "SOME TITLE OF NEWS NOT SOON";
-        model.addAttribute("content", h1Text);
-        return "blank";
-    }
 
     @GetMapping(path = "/forum")
     public String getForumPage(Model model) {

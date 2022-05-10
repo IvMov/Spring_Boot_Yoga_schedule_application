@@ -33,5 +33,4 @@ public class EventPrivateController {
         return "redirect:/public/schedule";
     }
 
-
 }
