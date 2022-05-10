@@ -1,4 +1,4 @@
-# Web app about Yoga v.0.4.1
+# Web app about Yoga v.0.4.2
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
@@ -28,13 +28,9 @@ ___
 ### Last changes and TODOs
 - MAIN TODO: 
   - to add comments to explain all fields and functions (added already: Event)
-  - to refactor Event methods - need to extract to EventServise?
+  - to refactor Event methods - need to extract to EventService?
   - to add user login and user roles
   - to create calendar with schedule
   
 - Changes:
-  - first steps with spring security
-  - can to log in;
-  - split event controller to private and public
-  - add button to logout
-  - add fragments (vary useful for front)
+  -finally refactor Student to User

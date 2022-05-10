@@ -11,8 +11,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "students")
-public class Student {
+@Table(name = "users")
+public class User {
     //TODO: refactor all to customers want User - but mySql is blocked user?
 
     @Id
@@ -53,11 +53,11 @@ public class Student {
     //TODO: if single event - canceled - and was paid - return here 1euro = 1credits, which can be used for book any event by user if price is enough (in one + will apear reservation and payment +) or
     // admin will see that summ to pay lower and can + when will get summ
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "users")
     private Set<Event> events;
 
     @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "student")
+            mappedBy = "user")
     private Set<Payment> payments;
 
 

@@ -92,7 +92,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private Double commonPrice = 10.99;
 
     @Column
-    private boolean isDiscount = false; // true -> will for all students show discountPrice
+    private boolean isDiscount = false; // true -> will for all users show discountPrice
 
     @Column
     private Double discount = 0.00; //by default discount = 0. (from 0 to 1)
@@ -102,10 +102,10 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     @ManyToMany
     @JoinTable(
-            name = "events_students",
+            name = "events_users",
             joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students;
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users;
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private Set<Payment> payments; //here all info about payment and registration
@@ -141,7 +141,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
 
     public int getVacanciesNow() {
-        int b = this.students.size();
+        int b = this.users.size();
         return this.vacanciesLimit - b;
     }
 

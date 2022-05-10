@@ -41,8 +41,8 @@ public class Payment implements Serializable {
     private Double sum;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", updatable = false, referencedColumnName = "id")
-    private Student student;
+    @JoinColumn(name = "user_id", updatable = false, referencedColumnName = "id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "event_id", updatable = false, referencedColumnName = "id")
