@@ -3,18 +3,25 @@ package lt.ivmov.yogaWeb.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.ivmov.yogaWeb.enums.DaysOfWeek;
 import lt.ivmov.yogaWeb.enums.UserRoles;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     //TODO: refactor all to customers want User - but mySql is blocked user?
 
     @Id
@@ -23,9 +30,6 @@ public class User {
 
     @Column
     private final LocalDateTime timeStamp = LocalDateTime.now();
-
-    @Column
-    private String userName;
 
     @Column
     private String name;
@@ -41,6 +45,9 @@ public class User {
 
     @Column
     private String email; //used for log in
+
+    @Column
+    private String userName;
 
     @Column
     private String password; //used for log in
@@ -66,6 +73,39 @@ public class User {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
+    @Fetch(value = FetchMode.JOIN) //analog fetch EAGER
     private Set<UserRoles> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString()))
+                .toList();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

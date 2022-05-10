@@ -1,4 +1,4 @@
-# Web app about Yoga v.0.4.2
+# Web app about Yoga v.0.4.3
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
@@ -33,4 +33,5 @@ ___
   - to create calendar with schedule
   
 - Changes:
-  -finally refactor Student to User
+  - add roles and login with email
+  - configure userService and rewrite user getAuthorities()
