@@ -1,7 +1,7 @@
-insert into users(user_name, name, surname, city, phone, email, password, about) values ("Errid1", "Ivan1", "Movchanets1", "Klaipeda1", "+111111111111", "admin@admin.com", "$2a$12$BHFe7BAUeh.jFmMS.FUmou15rR4wCuD74rHGNTOAuO0JAcIgu56Ra", "I am first user");
-insert into users(user_name, name, surname, city, phone, email, password, about) values ("Errid2", "Ivan2", "Movchanets2", "Klaipeda2", "+222222222222", "user@user.com", "$2a$12$dXr9wY596x1LfySTnmkopO5eGUCFOIoWTCaiHmkXFH5HebM6bKDcK", "I am second user user");
-insert into users(user_name, name, surname, city, phone, email, password, about) values ("Errid3", "Ivan3", "Movchanets3", "Klaipeda3", "+333333333333", "user3@user.com", "$2a$12$dXr9wY596x1LfySTnmkopO5eGUCFOIoWTCaiHmkXFH5HebM6bKDcK", "I am third user user");
-insert into users(user_name, name, surname, city, phone, email, password, about) values ("Errid4", "Ivan4", "Movchanets4", "Klaipeda4", "+444444444444", "user4@user.com", "$2a$12$dXr9wY596x1LfySTnmkopO5eGUCFOIoWTCaiHmkXFH5HebM6bKDcK", "I am fourth user user");
+insert into users(user_name, name, surname, city, phone, email, password, about) values ("Ivan923", "Ivan", "Movchanets", "Klaipeda1", "+111111111111", "admin@admin.com", "$2a$12$BHFe7BAUeh.jFmMS.FUmou15rR4wCuD74rHGNTOAuO0JAcIgu56Ra", "I am first user");
+insert into users(user_name, name, surname, city, phone, email, password, about) values ("Vitalij123", "Vitalij", "Ivaniuk", "Klaipeda2", "+222222222222", "user@user.com", "$2a$12$dXr9wY596x1LfySTnmkopO5eGUCFOIoWTCaiHmkXFH5HebM6bKDcK", "I am second user user");
+insert into users(user_name, name, surname, city, phone, email, password, about) values ("Petras347", "Petras", "Kurmelis", "Klaipeda3", "+333333333333", "user3@user.com", "$2a$12$dXr9wY596x1LfySTnmkopO5eGUCFOIoWTCaiHmkXFH5HebM6bKDcK", "I am third user user");
+insert into users(user_name, name, surname, city, phone, email, password, about) values ("Stepan666", "Stepan", "Mogila", "Klaipeda4", "+444444444444", "user4@user.com", "$2a$12$dXr9wY596x1LfySTnmkopO5eGUCFOIoWTCaiHmkXFH5HebM6bKDcK", "I am fourth user user");
 
 insert into events(type_of, is_repeatable, group_id, title, theme, city, address, url_google_maps,  start_date, period_days, start_time, duration_hours, text_about, image_src, common_price, is_discount, discount, vacancies_limit) values ("EVENT", 0,  "single", "event1", "NIDRA", "Klaipeda", "Nesamoniu str. 11-8 (2nd floor)","https://goo.gl/maps/ezCxf4tMarLiwVPW9", "2022-04-28", "1", "18:00", "2", "This is text about event varryyyyy loooooong teeeeext", "/images/image.jpg", "11.99", 1, "10.00", 11);
 insert into events(type_of, is_repeatable, group_id, title, theme, city, address, url_google_maps,  start_date, period_days, start_time, duration_hours, text_about, image_src, common_price, is_discount, discount, vacancies_limit) values ("LESSON", 1,  "lessonsGroup1", "Lesson for all", "ACTIVE", "Kaunas", "Nesamoniu str. 12-91 (3nd floor)","https://goo.gl/maps/ezCxf4tMarLiwVPW9", "2022-05-28", "10", "16:00", "2", "This is text about this lesson varryyyyy loooooong teeeeext", "/images/image.jpg", "20.99", 1, "10.00", 20);
@@ -41,7 +41,6 @@ insert into event_days_of_week(event_id, day_of_week) values (1, "SUNDAY")
 insert into event_days_of_week(event_id, day_of_week) values (1, "SATURDAY")
 insert into event_days_of_week(event_id, day_of_week) values(3, "WEDNESDAY");
 insert into event_days_of_week(event_id, day_of_week) values(3, "FRIDAY");
-
 
 --user 1 press
 insert into payments (type, method, is_paid, time_stamp, sum, credits, user_id, event_id) values ("INCOME", "FRIEND", 0, "2022-05-01 19:32:23", 0.00, 0.00, 1, 2);

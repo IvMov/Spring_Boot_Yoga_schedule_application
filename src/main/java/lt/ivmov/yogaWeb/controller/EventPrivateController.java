@@ -3,6 +3,7 @@ package lt.ivmov.yogaWeb.controller;
 import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.service.EventService;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,14 @@ public class EventPrivateController {
     }
 
     @GetMapping("/new-event")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getEventForm(Model model) {
         model.addAttribute("event", new Event());
         return "new-event";
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public String createEvent(Event event, Model model) {
         Event createdEvent = eventService.create(event);
         model.addAttribute("event", createdEvent);

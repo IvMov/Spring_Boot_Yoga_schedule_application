@@ -33,5 +33,5 @@ ___
   - to create calendar with schedule
   
 - Changes:
-  - add roles and login with email
-  - configure userService and rewrite user getAuthorities()
+  - add thymeleaf-security dependency 
+  - add rules of visibility for different roles

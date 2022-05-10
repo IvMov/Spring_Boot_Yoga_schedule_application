@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="lt" xmlns:th="http://www.thymeleaf.org">
+<html lang="lt" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="/fragments/fragments :: head"></head>
 
@@ -15,10 +15,12 @@
 
     <div id="container">
         <h1>Schedule of the nearest events and lessons</h1>
-        <a class="back-button" th:href="@{/public/schedule}">Back to main schedule</a>
+
+        <a style="justify-self:flex-start;" class="back-button" th:href="@{/public/schedule}">Back to main schedule</a>
 
         <div id="new-event-wrapper">
-            <button id="open-event-create-form"
+            <button sec:authorize="hasRole('ROLE_ADMIN')"
+                    id="open-event-create-form"
                     onclick="location.href='/private/schedule/new-event'"
                     type="button">Create new event
             </button>

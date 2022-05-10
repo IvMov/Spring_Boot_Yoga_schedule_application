@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -47,7 +46,7 @@ public class User implements UserDetails {
     private String email; //used for log in
 
     @Column
-    private String userName;
+    private String userName = name + ((Math.random()*998)+1);
 
     @Column
     private String password; //used for log in
