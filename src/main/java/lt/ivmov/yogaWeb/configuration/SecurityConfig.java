@@ -1,10 +1,12 @@
 package lt.ivmov.yogaWeb.configuration;
 
+import lombok.NonNull;
 import lt.ivmov.yogaWeb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,8 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Autowired
+
     private UserService userService;
+
+    @Autowired
+    public SecurityConfig(@NonNull @Lazy UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public void configure(WebSecurity web) {
@@ -36,18 +43,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/login/**", "/public/**", "/**/logout").permitAll()
+                .antMatchers("/login/**", "/registration/**", "/public/**", "/**/logout").permitAll()
                 .antMatchers("/private/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
-            .formLogin()
+                .formLogin()
                 .permitAll()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/public/schedule", true)
                 .failureUrl("/login?error=true")
                 .and()
-            .logout()
+                .logout()
                 .logoutSuccessUrl("/public")
                 .permitAll();
 
@@ -60,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

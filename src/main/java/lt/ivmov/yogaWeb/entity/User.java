@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,25 +32,28 @@ public class User implements UserDetails {
     private final LocalDateTime timeStamp = LocalDateTime.now();
 
     @Column
-    private String name;
+    private String name = "Name";
 
     @Column
-    private String surname;
+    private String surname = "Surname";
 
     @Column
-    private String city;
+    private String city = "Unknown";
 
     @Column
-    private String phone;
+    private String phone = "+37060985783";
 
     @Column
-    private String email; //used for log in
+    private String email = "lala@lala.com"; //used for log in
 
     @Column
-    private String userName = name + ((Math.random()*998)+1);
+    private String userName = name + (int) ((Math.random() * 998) + 1);
 
     @Column
     private String password; //used for log in
+
+    @Column
+    private String passwordCheck; //temporary for password check
 
     @Column
     private String about;
@@ -62,18 +66,18 @@ public class User implements UserDetails {
     // admin will see that summ to pay lower and can + when will get summ
 
     @ManyToMany(mappedBy = "users")
-    private Set<Event> events;
+    private Set<Event> events = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user")
-    private Set<Payment> payments;
+    private Set<Payment> payments = new HashSet<>();
 
     @ElementCollection
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @Fetch(value = FetchMode.JOIN) //analog fetch EAGER
-    private Set<UserRoles> roles;
+    private Set<UserRoles> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/public/schedule")
 public class EventPublicController {
 
+
     private EventService eventService;
 
     public EventPublicController(EventService eventService) {

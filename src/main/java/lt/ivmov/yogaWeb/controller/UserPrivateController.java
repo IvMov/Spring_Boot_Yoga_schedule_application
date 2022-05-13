@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserPrivateController {
 
     @GetMapping
-    public String getLogInPage(){
+    public String getUserPage(){
         return "blank";
     }
 }
