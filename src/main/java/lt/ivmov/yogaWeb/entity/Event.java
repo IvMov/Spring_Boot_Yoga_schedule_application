@@ -78,7 +78,8 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private LocalTime startTime = LocalTime.of(18, 05); //start-time of event
 
     @Column
-    private Double durationHours = 1.5; //format 1.5 means 1hour 30 min.
+    private Double durationHours; //format 1.5 means 1hour 30 min.
+    //TODO: need to refactor to LocalTime variable
 
     @Column(columnDefinition = "TEXT")
     private String textAbout = "Lorem ipsum"; //used to contain text of description of course
@@ -131,10 +132,18 @@ public class Event { //All default is for non-repeatable "event" with duration O
     }
 
     public String getDurationHourMinute() {
-
+        if (getDurationHours() == null) {
+            return "no info";
+        }
         double fractionalPart = getDurationHours() % 1;
         double integralPart = getDurationHours() - fractionalPart;
-        String minutes = String.format("%.0f", fractionalPart * 60);
+        String minutes = "";
+
+        if (fractionalPart != 0) {
+            minutes = String.format("%.0f", fractionalPart * 60);
+        } else {
+            minutes = "00";
+        }
 
         return ((int) integralPart + "h : " + minutes + "m");
     }
