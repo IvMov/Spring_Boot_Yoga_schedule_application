@@ -33,7 +33,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     @Column(columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
-    private EventType typeOf = EventType.EVENT; //event or lesson -> will be separated in web app
+    private EventType type = EventType.EVENT; //event or lesson -> will be separated in web app
 
     @Column
     @BooleanFlag
@@ -116,7 +116,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     }
 
     public String getStringType() {
-        return this.getTypeOf().toString();
+        return this.getType().toString();
     }
 
     public String getEndDate() {
@@ -141,8 +141,8 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
 
     public int getVacanciesNow() {
-        int b = this.users.size();
-        return this.vacanciesLimit - b;
+        int users = this.users.size();
+        return this.vacanciesLimit - users;
     }
 
     public String getUniqueOrRegular() {

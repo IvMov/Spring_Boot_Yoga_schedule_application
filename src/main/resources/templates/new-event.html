@@ -19,7 +19,7 @@
                   class="show-form">
                 <div class="form-elem">
                     <label for="type-of-event">Type of event:</label>
-                    <select id="type-of-event" name="typeOfEvent" th:field="*{typeOf}">
+                    <select id="type-of-event" name="typeEvent" th:field="*{type}">
                         <option th:each="eventType : ${T(lt.ivmov.yogaWeb.enums.EventType).values()}"
                                 th:value="${eventType}" th:text="${eventType}"></option>
                     </select>

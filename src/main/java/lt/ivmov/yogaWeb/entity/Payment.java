@@ -38,7 +38,7 @@ public class Payment implements Serializable {
     //TODO: get credits if user have it(admin will see how need to total payment and after get payment - can press that paid)
 
     @Column
-    private Double sum;
+    private Double sum; //credits + paid by user.
 
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false, referencedColumnName = "id")
@@ -46,6 +46,6 @@ public class Payment implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "event_id", updatable = false, referencedColumnName = "id")
-    private Event event;
+    private Event event; //null for income - only way?
 
 }

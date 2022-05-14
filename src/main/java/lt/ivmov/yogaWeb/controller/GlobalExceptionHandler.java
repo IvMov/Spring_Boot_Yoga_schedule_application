@@ -12,6 +12,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EventNotFoundException.class)
     public String handleEvetnNotFoundException() {
         log.error("Looking for event which does not exist");
-        return "redirect:/schedule";
+        return "redirect:/public/schedule";
     }
 }

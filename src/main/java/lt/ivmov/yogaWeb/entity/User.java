@@ -47,7 +47,7 @@ public class User implements UserDetails {
     private String email = "lala@lala.com"; //used for log in
 
     @Column
-    private String userName = name + (int) ((Math.random() * 998) + 1);
+    private String userName = name + (int) ((Math.random() * 9998) + 1);
 
     @Column
     private String password; //used for log in
