@@ -1,4 +1,4 @@
-# Web app about Yoga v.0.4.3
+# Web app about Yoga v.0.4.5
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
@@ -23,15 +23,3 @@ ___
 4. run application "YogaForumApplication"
 5. open in browser - localhost:8080;
 
----
-
-### Last changes and TODOs
-- MAIN TODO: 
-  - to add comments to explain all fields and functions (added already: Event)
-  - to refactor Event methods - need to extract to EventService?
-  - to add user login and user roles
-  - to create calendar with schedule
-  
-- Changes:
-  - add thymeleaf-security dependency 
-  - add rules of visibility for different roles
