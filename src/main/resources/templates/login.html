@@ -9,7 +9,7 @@
     <div class="empty">
     </div>
     <div id="second-div">
-        <h1>Some lovely and nice text to clients with vary nice font</h1>
+        <h1 th:text="#{loginLovelyTextKey}">Some lovely and nice text to clients with vary nice font</h1>
     </div>
 
     <div id="container">
@@ -24,17 +24,20 @@
                                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
                                         <p id="change-log-in-text"
-                                           class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 change">Log in</p>
+                                           class="text-center h2 fw-bold mb-5 mx-1 mx-md-4 mt-4 change"
+                                           th:text="#{loginCanDoKey}">
+                                            Here you can log in or sign in like new user!</p>
 
                                         <form id="log-in-form" class="mx-1 mx-md-4" th:action="@{/login}" method="post">
-
 
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input type="email" required="true" id="email" name="username"
                                                            class="form-control"/>
-                                                    <label class="form-label" for="email">Your Email</label>
+                                                    <label class="form-label"
+                                                           for="email"
+                                                           th:text="#{loginEmailKey}">Your Email</label>
                                                 </div>
                                             </div>
 
@@ -43,23 +46,29 @@
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input type="password" required="true" name="password"
                                                            id="password-first" class="form-control"/>
-                                                    <label class="form-label" for="password-first">Password</label>
+                                                    <label class="form-label"
+                                                           for="password-first"
+                                                           th:text="#{loginPasswordKey}">Password</label>
                                                 </div>
                                             </div>
 
                                             <div class="d-flex justify-content-center mb-3 mb-lg-4 button-to-log-wrapp">
                                                 <button id="button-to-log" type="submit"
-                                                        class="btn btn-primary btn-lg w-100">Log in
+                                                        class="btn btn-primary btn-lg w-100"
+                                                        th:text="#{loginLoginKey}">
+                                                    Log in
                                                 </button>
                                             </div>
 
                                             <div class="d-flex justify-content-center mb-3 mb-lg-4 button-to-sign-wrapp">
                                                 <label for="button-to-sign"
-                                                       style="font-size: small; width: 100%;">
+                                                       style="font-size: small; width: 100%;"
+                                                       th:text="#{loginNoAcountKey}">
                                                     Didn't have acount? Registration only 1 min!</label>
                                                 <a id="button-to-sign"
                                                    class="btn btn-primary btn-lg w-100"
-                                                    th:href="@{/registration/new-user}">New user?</a>
+                                                   th:href="@{/registration/new-user}"
+                                                   th:text="#{loginNewUserKey}">New user?</a>
                                             </div>
 
 
