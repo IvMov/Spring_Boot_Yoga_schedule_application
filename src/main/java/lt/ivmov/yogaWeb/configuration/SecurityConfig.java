@@ -1,6 +1,7 @@
 package lt.ivmov.yogaWeb.configuration;
 
 import lombok.NonNull;
+import lt.ivmov.yogaWeb.repository.UserRepository;
 import lt.ivmov.yogaWeb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -26,13 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-
-    private UserService userService;
-
     @Autowired
-    public SecurityConfig(@NonNull @Lazy UserService userService) {
-        this.userService = userService;
-    }
+    private UserRepository userRepository;
 
     @Override
     public void configure(WebSecurity web) {
@@ -65,12 +61,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        var userService = new UserService(passwordEncoder(), userRepository);
         auth.userDetailsService(userService);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserService userService(PasswordEncoder passwordEncoder,
+                                   UserRepository userRepository){
+        return new UserService(passwordEncoder, userRepository);
     }
 
 }
