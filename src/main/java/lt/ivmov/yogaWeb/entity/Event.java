@@ -121,7 +121,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     }
 
     public String getEndDate() {
-        if (this.periodDays != 1) {
+        if (this.periodDays >= 2) {
             return this.startDate.plusDays(periodDays - 1).toString();
         }
         return startDate.toString();
