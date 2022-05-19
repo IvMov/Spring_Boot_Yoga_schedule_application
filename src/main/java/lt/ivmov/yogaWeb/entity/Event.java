@@ -78,7 +78,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private LocalTime startTime = LocalTime.of(18, 05); //start-time of event
 
     @Column
-    private Double durationHours; //format 1.5 means 1hour 30 min.
+    private Double durationHours = 1.20; //format 1.5 means 1hour 30 min.
     //TODO: need to refactor to LocalTime variable
 
     @Column(columnDefinition = "TEXT")
@@ -160,12 +160,24 @@ public class Event { //All default is for non-repeatable "event" with duration O
         }
         return "regular";
     }
+    public String getUniqueOrRegularLt() {
+        if (!isRepeatable) {
+            return "unikalus";
+        }
+        return "eilinis";
+    }
 
     public String getEveryOrOnly() {
         if (isRepeatable) {
             return "Only";
         }
         return "Every";
+    }
+    public String getEveryOrOnlyLt() {
+        if (isRepeatable) {
+            return "Tik šitas:";
+        }
+        return "Kiekviena:";
     }
 
 }

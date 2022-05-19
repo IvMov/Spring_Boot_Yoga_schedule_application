@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roberta Yoga - Klaiedoje</title>
+    <title th:text="#{mainTitleKey}">Yoga in Klaipeda</title>
     <link rel="shortcut icon" type="image/png" href="/images/fav-icon-8.png">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +19,8 @@
 
 
 
+
+
     </style>
 </head>
 
@@ -28,16 +30,20 @@
         <div id="header-contacts">
             <p id="header-p-contacts-phone">
                 <span th:text="#{callMeKey}"></span>
-                <a class="contacts-phone" href="tel:+37064747155">
-                    <img src="/images/phone-1.png" alt="phone-image">+37064747155</a>
+                <a class="contacts-phone" href="tel:+37060985783<">
+                    <img src="/images/phone-1.png" alt="phone-image">+37060985783</a>
             </p>
             <p id="header-p-contacts-mail">
                 <span th:text="#{writeMeKey}"></span>
-                <a class="contacts-mail" href="mailto: roberta.joga@gmail.com">
-                    <img src="/images/mail-1.png" alt="phone-image"> roberta.yoga@gmail.com</a>
+                <a class="contacts-mail" href="mailto: iv.movchanets@gmail.com">
+                    <img src="/images/mail-1.png" alt="phone-image"> iv.movchanets@gmail.com</a>
             </p>
-
+            <div class="lang-wrapper d-flex" style="position:fixed; top:1%; right:1%;">
+                <a class="d-block p-1" th:href="@{?lang=EN}">EN</a>
+                <a class="d-block p-1" th:href="@{?lang=LT}">LT</a>
+            </div>
         </div>
+
     </div>
 
     <div id="header-nav-wrapper">
@@ -59,8 +65,8 @@
                            th:text="#{navScheduleKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/public/forum}" class="nav-a" title="Forum"
-                           th:text="#{navForumKey}"></a>
+                        <a th:href="@{http://localhost:8080/public/events}" class="nav-a" title="Events"
+                           th:text="#{navEventsKey}"></a>
                     </li>
                     <li class="nav-li nav-li-n">
                         <a th:href="@{http://localhost:8080/public/aboutme}" class="nav-a" title="About me"
@@ -80,11 +86,10 @@
 
             <div class="header-other-wrapper">
 
-                <!-- there was cart but i change it to log-in -->
                 <div class="log-in-wrapper">
                     <a th:href="@{http://localhost:8080/private/user}" class="user-name"
                        sec:authorize="isAuthenticated()"
-                        th:text=${#authentication.getName()}></a>
+                       th:text=${#authentication.getName()}></a>
                     <a class="log-in-out"
                        th:href="@{http://localhost:8080/login}"
                        th:text="#{logInKey}"
