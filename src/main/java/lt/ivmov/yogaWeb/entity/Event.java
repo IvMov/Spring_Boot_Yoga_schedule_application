@@ -15,7 +15,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -111,15 +114,6 @@ public class Event { //All default is for non-repeatable "event" with duration O
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private Set<Payment> payments; //here all info about payment and registration
 
-
-    public String getStringTheme() {
-        return this.getTheme().toString();
-    }
-
-    public String getStringType() {
-        return this.getType().toString();
-    }
-
     public String getEndDate() {
         if (this.periodDays >= 2) {
             return this.startDate.plusDays(periodDays - 1).toString();
@@ -156,28 +150,16 @@ public class Event { //All default is for non-repeatable "event" with duration O
 
     public String getUniqueOrRegular() {
         if (!isRepeatable) {
-            return "unique";
+            return "uniqueKey";
         }
-        return "regular";
-    }
-    public String getUniqueOrRegularLt() {
-        if (!isRepeatable) {
-            return "unikalus";
-        }
-        return "eilinis";
+        return "regularKey";
     }
 
     public String getEveryOrOnly() {
         if (isRepeatable) {
-            return "Only";
+            return "onlyKey";
         }
-        return "Every";
-    }
-    public String getEveryOrOnlyLt() {
-        if (isRepeatable) {
-            return "Tik šitas:";
-        }
-        return "Kiekviena:";
+        return "everyKey";
     }
 
 }

@@ -24,18 +24,31 @@
                 <img src="https://picsum.photos/400/300?random=1" alt="No img">
             </div>
             <h2>
-                <span th:text="#{eventWelcomeKey}">Welcome to</span>
-                <span th:if="${(param.lang != null) and (param.lang[0] == 'EN')}"
-                      th:inline="text">[[${event.getUniqueOrRegular()}]] [[${event.getStringType}]]</span>
-                <span th:if="${(param.lang != null) and (param.lang[0] == 'LT')}"
-                      th:inline="text">[[${event.getUniqueOrRegularLt()}]] [[${event.getStringType}]]</span>
+                <span th:text="#{eventWelcomeKey} + #{${event.getUniqueOrRegular()}}">Welcome to</span>
+                <span th:inline="text">[[#{${event.getType().getKeyOfType()}}]]</span>
             </h2>
             <h2 th:text="${event.getTitle()}">Title</h2>
-
+            <div id="new-event-wrapper">
+                <form sec:authorize="hasRole('ROLE_USER')"
+                      th:action="@{/private/schedule/event-{evId}/add-user (evId=${event.getId()})}"
+                      method="post">
+                    <button
+                            id="ad-user-to-event"
+                            type="submit">Want to participate
+                    </button>
+                </form>
+            </div>
             <div class="event-table-container">
                 <div class="event-table-line">
                     <div class="event-table-cell head-cell"
-                         th:text="#{eventWhenKey}">When:
+                         th:text="#{eventThemeKey}">Theme:
+                    </div>
+                    <div class="event-table-cell content-cell" th:text="#{${event.getTheme().getKeyOfTheme()}}">
+                    </div>
+
+                    <div class=" event-table-cell head-cell
+                    "
+                         th:text="#{eventWhenKey}"> When:
                     </div>
                     <div class="event-table-cell content-cell" th:text="${event.getStartDate()}">YYYY-MM-DD</div>
                     <div class="event-table-cell head-cell"
@@ -50,10 +63,6 @@
                          th:text="#{eventPriceKey}">Price, EUR:
                     </div>
                     <div class="event-table-cell content-cell" th:text="${event.getCommonPrice()}">xx.99</div>
-                    <div class="event-table-cell head-cell"
-                         th:text="#{eventDaysKey}">Days:
-                    </div>
-                    <div class="event-table-cell content-cell" th:text="${event.getActiveDaysOfWeek()}">xx</div>
                     <div class="event-table-cell head-cell"
                          th:text="#{eventPlacesKey}">Place left:
                     </div>
@@ -75,19 +84,12 @@
 
             <h3 th:text="#{eventWhenWaitKey}">When we wait on you?</h3>
             <div class="event-days-week where-when">
-                <span th:if="${(param.lang != null) and (param.lang[0] == 'EN')}" th:inline="text">
-                    [[${event.getEveryOrOnly()}]]</span>
-                <span th:if="${(param.lang != null) and (param.lang[0] == 'LT')}" th:inline="text">
-                    [[${event.getEveryOrOnlyLt()}]]</span>
+                <span th:text="#{${event.getEveryOrOnly()}}">every</span>
 
-                <ul th:if="${(param.lang != null) and (param.lang[0] == 'EN')}"
-                    th:each="day: ${event.getActiveDaysOfWeek()}">
-                    <li th:text="${day}"></li>
+                <ul th:each="day: ${event.getActiveDaysOfWeek()}">
+                    <li th:text="#{${day.getKeyOfDay()}}"></li>
                 </ul>
-                <ul th:if="${(param.lang != null) and (param.lang[0] == 'LT')}"
-                    th:each="day: ${event.getActiveDaysOfWeek()}">
-                    <li th:text="${day.getDaysInLithuanian()}"></li>
-                </ul>
+
             </div>
 
             <h3 th:text="#{eventWhatWeDoKey}">Maybe you want to know what we will do during events</h3>

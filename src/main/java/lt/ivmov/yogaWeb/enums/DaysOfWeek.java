@@ -1,21 +1,28 @@
 package lt.ivmov.yogaWeb.enums;
 
-public enum DaysOfWeek {
-    MONDAY("Pirmadienis"),
-    TUESDAY("Antradienis"),
-    WEDNESDAY("Trečiadienis"),
-    THURSDAY("Ketvirtadienis"),
-    FRIDAY("Penktadienis"),
-    SATURDAY("Šeštaadienis"),
-    SUNDAY("Sekmadienis");
+public enum DaysOfWeek { //TODO: need to return values mapped by dayNumber
+    MONDAY(1, "monKey"),
+    TUESDAY(2, "tueKey"),
+    WEDNESDAY(3, "wedKey"),
+    THURSDAY(4, "thuKey"),
+    FRIDAY(5, "friKey"),
+    SATURDAY(6, "satKey"),
+    SUNDAY(7, "sunKey");
 
-    private final String daysInLithuanian;
+    private final int dayNumber;
+    private final String keyOfDay;
 
-    DaysOfWeek(String daysInLithuanian) {
-        this.daysInLithuanian = daysInLithuanian;
+    DaysOfWeek(int dayNumber, String keyOfDay) {
+        this.dayNumber = dayNumber;
+        this.keyOfDay = keyOfDay;
     }
 
-    public String getDaysInLithuanian() {
-        return daysInLithuanian;
+    public String getKeyOfDay() {
+        return keyOfDay;
     }
+
+    public int getDayNumber() {
+        return dayNumber;
+    }
+
 }
