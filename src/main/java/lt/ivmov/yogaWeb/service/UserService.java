@@ -1,16 +1,13 @@
 package lt.ivmov.yogaWeb.service;
 
-import com.sun.istack.NotNull;
 import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.enums.UserRoles;
+import lt.ivmov.yogaWeb.exception.UserNotFoundException;
 import lt.ivmov.yogaWeb.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 public class UserService implements UserDetailsService {
 
@@ -37,6 +34,13 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    }
+
+    public User update(User user) {
+        return userRepository.save(user);
+    }
 
 
 }
