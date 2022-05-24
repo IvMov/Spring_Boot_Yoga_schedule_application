@@ -32,7 +32,7 @@
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/public/schedule(page=${currentPage - 1})}"
+                           th:href="@{?(page=${currentPage - 1})}"
                            th:if="${currentPage > 0}"
                            th:text="Previous">
                         </a>
@@ -40,12 +40,12 @@
                     <li class="page-item"
                         th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
                         <a class="page-link"
-                           th:href="@{/public/schedule(page=${page})}"
+                           th:href="@{?(page=${page})}"
                            th:text="${page + 1}">1</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/public/schedule(page=${currentPage + 1})}"
+                           th:href="@{?(page=${currentPage + 1})}"
                            th:if="${currentPage + 1 < maxPages}"
                            th:text="Next">
                         </a>
@@ -111,12 +111,12 @@
                 </table>
             </div>
 
-            <!--            paginnation on bottom of table -->
+            <!--            pagination on bottom of table -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/public/schedule(page=${currentPage - 1})}"
+                           th:href="@{?(page=${currentPage - 1})}"
                            th:if="${currentPage > 0}"
                            th:text="Previous">
                         </a>
@@ -124,12 +124,12 @@
                     <li class="page-item"
                         th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
                         <a class="page-link"
-                           th:href="@{/public/schedule(page=${page})}"
+                           th:href="@{?(page=${page})}"
                            th:text="${page + 1}">1</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link"
-                           th:href="@{/public/schedule(page=${currentPage + 1})}"
+                           th:href="@{?(page=${currentPage + 1})}"
                            th:if="${currentPage + 1 < maxPages}"
                            th:text="Next">
                         </a>

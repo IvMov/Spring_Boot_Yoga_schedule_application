@@ -1,6 +1,7 @@
 package lt.ivmov.yogaWeb.controller;
 
 import lt.ivmov.yogaWeb.entity.Event;
+import lt.ivmov.yogaWeb.enums.EventTheme;
 import lt.ivmov.yogaWeb.service.EventService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,7 @@ public class EventPublicController {
 
     @GetMapping("/schedule/{theme}")
     public String getScheduleByTheme(
-            @PathVariable(name = "theme") String themeName,
+            @PathVariable(name = "theme") EventTheme themeName,
             @RequestParam(name = "page", defaultValue = "0") int pageNum,
             Model model) {
 

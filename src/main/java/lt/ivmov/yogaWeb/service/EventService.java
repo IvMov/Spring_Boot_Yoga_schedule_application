@@ -31,20 +31,12 @@ public class EventService {
         return eventRepository.findAll(pageable);
     }
 
-    public Page<Event> findAllByTheme(String themeName, int pageSize, int pageNum) {
-
-        List<Event> events = eventRepository.findAll();
-
-        List <Event> eventsByTheme =events
-                .stream()
-                .filter(e -> e.getTheme() == EventTheme.valueOf(themeName))
-                .collect(Collectors.toList());
+    public Page<Event> findAllByTheme(EventTheme themeName, int pageSize, int pageNum) {
 
         Pageable pageable = Pageable
                 .ofSize(pageSize)
                 .withPage(pageNum);
-
-        return new PageImpl<>(eventsByTheme, pageable, eventsByTheme.size());
+        return eventRepository.findAllByTheme(themeName, pageable);
     }
 
     public Event findById(Long id) {
