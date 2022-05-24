@@ -18,27 +18,50 @@
             opacity: 0;
             overflow-x: hidden;
         }
+
+
+
+
     </style>
 </head>
 
 <body>
 <header th:fragment="header">
     <div id="header-contacts-wrapper">
+
         <div id="header-contacts">
+
             <p id="header-p-contacts-phone">
                 <span th:text="#{callMeKey}"></span>
-                <a class="contacts-phone" href="tel:+37060985783<">
-                    <img src="/images/phone-1.png" alt="phone-image">+37060985783</a>
+                <a class="contacts-phone"
+                   href="tel:+37060985783<">
+                    <img src="/images/phone-1.png"
+                         alt="phone-image">
+                    +37060985783
+                </a>
             </p>
+
             <p id="header-p-contacts-mail">
                 <span th:text="#{writeMeKey}"></span>
-                <a class="contacts-mail" href="mailto: iv.movchanets@gmail.com">
-                    <img src="/images/mail-1.png" alt="phone-image"> iv.movchanets@gmail.com</a>
+                <a class="contacts-mail"
+                   href="mailto: iv.movchanets@gmail.com">
+                    <img src="/images/mail-1.png"
+                         alt="phone-image">
+                    iv.movchanets@gmail.com
+                </a>
             </p>
+
             <div class="lang-wrapper d-flex" style="position:fixed; top:1%; right:1%;">
-                <a class="d-block p-1" th:href="@{?lang=EN}">EN</a>
-                <a class="d-block p-1" th:href="@{?lang=LT}">LT</a>
+                <a class="d-block p-1"
+                   th:href="@{?lang=EN}">
+                    EN
+                </a>
+                <a class="d-block p-1"
+                   th:href="@{?lang=LT}">
+                    LT
+                </a>
             </div>
+
         </div>
 
     </div>
@@ -54,24 +77,34 @@
             <nav>
                 <ul id="nav-ul">
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/public}" class="nav-a" title="Home"
-                           th:text="#{navHomeKey}"></a>
+                        <a class="nav-a"
+                           title="Home"
+                           th:href="@{http://localhost:8080/public}"
+                           th:text="#{navHomeKey}">First</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/public/schedule}" class="nav-a" title="Schedule"
-                           th:text="#{navScheduleKey}"></a>
+                        <a class="nav-a"
+                           title="Schedule"
+                           th:href="@{http://localhost:8080/public/schedule}"
+                           th:text="#{navScheduleKey}">Second</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/public/events}" class="nav-a" title="Events"
-                           th:text="#{navEventsKey}"></a>
+                        <a class="nav-a"
+                           title="Events"
+                           th:href="@{http://localhost:8080/public/events}"
+                           th:text="#{navEventsKey}">Third</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/public/aboutme}" class="nav-a" title="About me"
-                           th:text="#{navAboutKey}"></a>
+                        <a class="nav-a"
+                           title="About me"
+                           th:href="@{http://localhost:8080/public/aboutme}"
+                           th:text="#{navAboutKey}">Fourth</a>
                     </li>
                     <li class="nav-li nav-li-n">
-                        <a th:href="@{http://localhost:8080/public/contacts}" class="nav-a" title="Contacts"
-                           th:text="#{navContactsKey}"></a>
+                        <a class="nav-a"
+                           title="Contacts"
+                           th:href="@{http://localhost:8080/public/contacts}"
+                           th:text="#{navContactsKey}">Last</a>
                     </li>
                 </ul>
             </nav>
@@ -84,18 +117,25 @@
             <div class="header-other-wrapper">
 
                 <div class="log-in-wrapper">
-                    <a th:href="@{http://localhost:8080/private/user}" class="user-name"
+                    <a class="user-name"
+                       th:href="@{http://localhost:8080/private/user}"
                        sec:authorize="isAuthenticated()"
                        th:text=${#authentication.getName()}></a>
                     <a class="log-in-out"
                        th:href="@{http://localhost:8080/login}"
                        th:text="#{logInKey}"
                        sec:authorize="!isAuthenticated()"></a>
+
                     <form method="post"
                           th:action="@{http://localhost:8080/logout}"
                           sec:authorize="isAuthenticated()">
-                        <button type="submit" th:text="#{logOutKey}">Log out</button>
+
+                        <button type="submit"
+                                th:text="#{logOutKey}">
+                            Log out
+                        </button>
                     </form>
+
                 </div>
 
             </div>
@@ -165,7 +205,13 @@
         <a target="_blank" class="text-dark" href="https://www.linkedin.com/in/ivanmovchanets/">Ivan Movchanets</a>
     </div>
 </footer>
-<button th:fragment="button-to-top" onclick="topFunction()" id="myBtn" title="Go to top">⇮</button>
+
+<button onclick="topFunction()"
+        id="myBtn"
+        title="Go to top"
+        th:fragment="button-to-top">
+    ⇮
+</button>
 
 <div th:fragment="links">
     <!-- css -->

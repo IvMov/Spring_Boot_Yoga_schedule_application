@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/public/schedule")
+@RequestMapping("/public")
 public class EventPublicController {
 
 
-    private EventService eventService;
+    private final EventService eventService;
 
     public EventPublicController(EventService eventService) {
         this.eventService = eventService;
     }
 
-    @GetMapping
+    @GetMapping("/schedule")
     public String getEventList(
             @RequestParam(name = "page", defaultValue = "0") int pageNum,
             Model model) {
@@ -35,20 +35,27 @@ public class EventPublicController {
         return "schedule";
     }
 
-    @GetMapping("/{theme}")
+    @GetMapping("/schedule/{theme}")
     public String getScheduleByTheme(
             @PathVariable(name = "theme") String themeName,
             @RequestParam(name = "page", defaultValue = "0") int pageNum,
             Model model) {
+
         Page<Event> eventPageByTheme = eventService.findAllByTheme(themeName, 5, pageNum);
         List<Event> eventListByTheme = eventPageByTheme.getContent();
+
         model.addAttribute("events", eventListByTheme);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("maxPages", eventPageByTheme.getTotalPages());
         return "schedule";
     }
 
-    @GetMapping("/event-{id}")
+    @GetMapping("/events")
+    public String getEventsPage(){
+        return "blank";
+    }
+
+    @GetMapping("/schedule/event/{id}")
     public String getEventPage(
             @PathVariable(name = "id") Long id,
             Model model) {

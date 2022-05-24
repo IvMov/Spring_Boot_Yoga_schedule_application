@@ -45,8 +45,8 @@ public class EventServiceTest {
         eventService.create(event);
         Page<Event> pageFromDb = eventService.findAllForPage(1, 0);
 
-        assertThat(pageFromDb.getContent().get(0).getStringTheme()).isEqualTo("ACTIVE");
-        assertThat(pageFromDb.getContent().get(0).getStringType()).isEqualTo("EVENT");
+        assertThat(pageFromDb.getContent().get(0).getTheme().toString()).isEqualTo("ACTIVE");
+        assertThat(pageFromDb.getContent().get(0).getType().toString()).isEqualTo("EVENT");
 
     }
 
@@ -59,9 +59,9 @@ public class EventServiceTest {
         event.setStartDate(LocalDate.of(2022, 05, 12));
 
         event.setTitle("Test title");
-        event.setActiveDaysOfWeek(Set.of(DaysOfWeek.MONDAY));
+        event.setWeekDays(Set.of(DaysOfWeek.MONDAY));
         event.setCommonPrice(100.99);
-        event.setDurationHours(1.5);
+        event.setDurationMinutes(100);
         event.setStartTime(LocalTime.of(22, 05));
         return event;
     }

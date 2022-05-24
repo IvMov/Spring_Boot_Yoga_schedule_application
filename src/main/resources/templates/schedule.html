@@ -14,14 +14,14 @@
     </div>
 
     <div id="container">
-        <h1>Schedule of the nearest events and lessons</h1>
+        <h1>Schedule of the nearest events and events</h1>
 
         <a style="justify-self:flex-start;" class="back-button" th:href="@{/public/schedule}">Back to main schedule</a>
 
         <div id="new-event-wrapper">
             <button sec:authorize="hasRole('ROLE_ADMIN')"
                     id="open-event-create-form"
-                    onclick="location.href='/private/schedule/new-event'"
+                    onclick="location.href='/private/schedule/event/new'"
                     type="button">Create new event
             </button>
         </div>
@@ -37,7 +37,8 @@
                            th:text="Previous">
                         </a>
                     </li>
-                    <li class="page-item" th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
+                    <li class="page-item"
+                        th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
                         <a class="page-link"
                            th:href="@{/public/schedule(page=${page})}"
                            th:text="${page + 1}">1</a>
@@ -52,7 +53,7 @@
                 </ul>
             </nav>
 
-            <!--            TODO: need to refactor to calendar with days of week and time. For this=> look in EventService-->
+            <!--   TODO: need to refactor to calendar with days of week and time.-->
 
             <div class="schedule">
                 <table class="table table-striped">
@@ -74,12 +75,17 @@
                     <tbody th:each="ev: ${events}">
                     <tr>
                         <th scope="row">
-                            <a th:href="@{/public/schedule/event-{id}(id=${ev.getId()})}"
+                            <a th:href="@{/public/schedule/event/{id}(id=${ev.getId()})}"
+                               sec:authorize="!isAuthenticated()"
+                               th:text="${ev.getId()}">Num
+                            </a>
+                            <a sec:authorize="hasRole('ROLE_USER')"
+                               th:href="@{/private/schedule/event/{id}(id=${ev.getId()})}"
                                th:text="${ev.getId()}">Num
                             </a>
                         </th>
                         <td>
-                            <a th:href="@{/public/schedule/event-{id}(id=${ev.getId()})}"
+                            <a th:href="@{/public/schedule/event/{id}(id=${ev.getId()})}"
                                th:text="${ev.getTitle()}">title
                             </a>
                         </td>
@@ -97,7 +103,7 @@
                         <td th:text="${ev.getStartDate()}">start date</td>
                         <td th:text="${ev.getEndDate()}">end date</td>
                         <td th:text="${ev.getStartTime()}">start time</td>
-                        <td th:text="${ev.getDurationHours()}">duration</td>
+                        <td th:text="${ev.getDurationMinutes()}">duration</td>
                         <td th:text="${ev.getCommonPrice()}">price</td>
                         <td th:text="${ev.getVacanciesNow()}">places</td>
                     </tr>
@@ -115,7 +121,8 @@
                            th:text="Previous">
                         </a>
                     </li>
-                    <li class="page-item" th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
+                    <li class="page-item"
+                        th:each="page: ${#numbers.sequence(0, maxPages - 1)}">
                         <a class="page-link"
                            th:href="@{/public/schedule(page=${page})}"
                            th:text="${page + 1}">1</a>
@@ -133,7 +140,8 @@
     </div>
 </main>
 
-<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1" style="background-color: #f1f1f1;"></footer>
+<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1"
+        style="background-color: #f1f1f1;"></footer>
 
 <button th:replace="/fragments/fragments :: button-to-top"></button>
 

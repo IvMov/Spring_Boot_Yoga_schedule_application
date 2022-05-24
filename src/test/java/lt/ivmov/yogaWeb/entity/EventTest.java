@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -21,7 +22,7 @@ public class EventTest {
 
         //test for days = null
         assertThat(event.getEndDate()).isEqualTo("2022-05-12");
-        event.setPeriodDays(days);
+        event.setDurationDays(days);
         if (days >= 2) {
             assertThat(event.getEndDate()).isEqualTo(event.getStartDate().plusDays(days - 1).toString());
         } else {
@@ -31,47 +32,36 @@ public class EventTest {
 
     }
 
-    @Test
-    void isGetStartTimeMinShowCorrect() {
-        Event event = createTestEvent();
-
-        assertThat(event.getStartTimeMin()).isEqualTo("22:05");
-        event.setStartTime(LocalTime.of(00, 00));
-        assertThat(event.getStartTimeMin()).isEqualTo("00:00");
-
-    }
-
     @ParameterizedTest
-    @ValueSource(doubles = {0.01, 0.50, 0.99, 1.00, 24.00})
-    void isGetDurationHourMinuteCorrectFormated(double duration) { //will be refactored with main field -> duration
+    @ValueSource(ints = {1, 7, 10, 23, 30, 59, 61, 150, 363})
+    void isGetDurationHourMinuteCorrectFormatted(int duration) { //will be refactored with main field -> duration
         Event event = createTestEvent();
 
-        assertThat(event.getDurationHourMinute()).isEqualTo("no info");
-
-        event.setDurationHours(duration);
-        assertThat(event.getDurationHourMinute()).isEqualTo(getResultTimeNotNullable(duration));
+        event.setDurationMinutes(duration);
+        assertThat(event.getDurationHoursMinutes()).isEqualTo(getResultTimeNotNullable(duration));
 
     }
 
-    private String getResultTimeNotNullable(double duration) {
+    private String getResultTimeNotNullable(int duration) {
 
-        double fractionalPart = duration % 1;
-        double integralPart = duration - fractionalPart;
-        String minutes = "";
+        Duration durationInMinutes = Duration.ofMinutes(duration);
 
-        if (fractionalPart != 0) {
-            minutes = String.format("%.0f", fractionalPart * 60);
+        int hours = durationInMinutes.toHoursPart();
+        int minutes = durationInMinutes.toMinutesPart();
+        String stringMinutes = "";
+
+        if (minutes <= 9) {
+            stringMinutes = "0" + minutes;
         } else {
-            minutes = "00";
+            stringMinutes = String.valueOf(minutes);
         }
 
-        return ((int) integralPart + "h : " + minutes + "m");
+        return hours + "h : " + stringMinutes + "m";
     }
 
     private Event createTestEvent() {
         Event event = new Event();
         event.setStartDate(LocalDate.of(2022, 05, 12));
-        event.setStartTime(LocalTime.of(22, 05));
         return event;
     }
 }

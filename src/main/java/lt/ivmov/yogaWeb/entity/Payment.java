@@ -19,7 +19,7 @@ public class Payment implements Serializable {
     private Long id;
 
     @Column
-    private final LocalDateTime timeStamp = LocalDateTime.now();
+    private final LocalDateTime timestamp = LocalDateTime.now();
 
     @Column(name = "`type`")
     @Enumerated(EnumType.STRING)

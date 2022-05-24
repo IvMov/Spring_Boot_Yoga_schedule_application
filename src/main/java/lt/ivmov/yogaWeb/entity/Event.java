@@ -11,32 +11,30 @@ import lt.ivmov.yogaWeb.enums.EventType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "`events`")
-public class Event { //All default is for non-repeatable "event" with duration ONE day
+public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private final LocalDateTime timeStamp = LocalDateTime.now();
+    private final LocalDateTime timestamp = LocalDateTime.now();
 
     @Column(columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
-    private EventType type = EventType.EVENT; //event or lesson -> will be separated in web app
+    private EventType type = EventType.EVENT;
 
     @Column
     @BooleanFlag
@@ -48,7 +46,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     // will be able to change any event (time, duration and days) in group of events or change all group.
 
     @Column
-    private String title = "New title";
+    private String title = "some title";
 
     @Column(columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
@@ -61,28 +59,29 @@ public class Event { //All default is for non-repeatable "event" with duration O
     String address = "Nesamoniu str. 11-99"; // example from admin when creating "Nesamoniu str. 11-99, second floor, room 206"
 
     @Column
-    private String urlGoogleMaps = "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"; //example -> "https://goo.gl/maps/z7RfTVwChCQ325MJ9"
+    private String urlGoogleMaps = "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"; //example -> "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"
 
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate = LocalDate.of(2022, 05, 03); //first day of event for repeatable or day of event if not repeatable
 
     @Column
-    private int periodDays = 1; //for single events which can be few days.
+    private int durationDays = 1;
     //TODO: need to set activeDaysOfWeek from startDate and periodDays
 
     @ElementCollection
-    @JoinTable(name = "event_daysOfWeek", joinColumns = @JoinColumn(name = "event_id"))
+    @JoinTable(name = "events_days",
+            joinColumns = @JoinColumn(name = "event_id"))
     @Column(name = "day_of_week")
     @Enumerated(EnumType.STRING)
-    private Set<DaysOfWeek> activeDaysOfWeek;//look periodDays explanation
+    private Set<DaysOfWeek> weekDays;  //in which days of week will be event if it is repeatable
 
     @Column
-    private LocalTime startTime = LocalTime.of(18, 05); //start-time of event
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime startTime = LocalTime.of(18, 10); //start-time of event
 
     @Column
-    private Double durationHours = 1.20; //format 1.5 means 1hour 30 min.
-    //TODO: need to refactor to LocalTime variable
+    private int durationMinutes = 60; //format 1.5 means 1hour 30 min.
 
     @Column(columnDefinition = "TEXT")
     private String textAbout = "Lorem ipsum"; //used to contain text of description of course
@@ -99,7 +98,7 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private boolean isDiscount = false; // true -> will for all users show discountPrice
 
     @Column
-    private Double discount = 0.00; //by default discount = 0. (from 0 to 1)
+    private Double discount = 0.00; //by default discount = 0. (from 0 to 1) percents
 
     @Column
     private int vacanciesLimit = 10; //how peoples can participate 1 event
@@ -115,31 +114,27 @@ public class Event { //All default is for non-repeatable "event" with duration O
     private Set<Payment> payments; //here all info about payment and registration
 
     public String getEndDate() {
-        if (this.periodDays >= 2) {
-            return this.startDate.plusDays(periodDays - 1).toString();
+        if (this.durationDays >= 2) {
+            return this.startDate.plusDays(durationDays - 1).toString();
         }
         return startDate.toString();
     }
 
-    public String getStartTimeMin() {
-        return startTime.format(DateTimeFormatter.ofPattern("HH:mm"));
-    }
+    public String getDurationHoursMinutes() {
 
-    public String getDurationHourMinute() {
-        if (getDurationHours() == null) {
-            return "no info";
-        }
-        double fractionalPart = getDurationHours() % 1;
-        double integralPart = getDurationHours() - fractionalPart;
-        String minutes = "";
+        Duration duration = Duration.ofMinutes(getDurationMinutes());
+        int hours = duration.toHoursPart();
 
-        if (fractionalPart != 0) {
-            minutes = String.format("%.0f", fractionalPart * 60);
+        int minutes = duration.toMinutesPart();
+        String stringMinutes = "";
+
+        if (minutes <= 9) {
+            stringMinutes = "0" + minutes;
         } else {
-            minutes = "00";
+            stringMinutes = String.valueOf(minutes);
         }
 
-        return ((int) integralPart + "h : " + minutes + "m");
+        return hours + "h : " + stringMinutes + "m";
     }
 
 

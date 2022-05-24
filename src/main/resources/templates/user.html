@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="lt" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/fragments :: head"></head>
+
+<body>
+<header th:replace="/fragments/fragments :: header"></header>
+
+<main>
+    <div class="empty">
+    </div>
+    <div id="second-div">
+        <h1>Some lovely and nice text to clients with vary nice font</h1>
+    </div>
+
+    <div id="container">
+        <h1 th:text="${content}"></h1>
+        <p>TEMPORARY EMPTY</p>
+    </div>
+</main>
+
+<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1" style="background-color: #f1f1f1;"></footer>
+
+<button th:replace="/fragments/fragments :: button-to-top"></button>
+
+<div th:replace="/fragments/fragments :: links"></div>
+
+</body>
+</html>

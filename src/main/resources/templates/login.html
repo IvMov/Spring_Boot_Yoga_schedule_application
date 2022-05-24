@@ -26,34 +26,49 @@
                                         <p id="change-log-in-text"
                                            class="text-center h2 fw-bold mb-5 mx-1 mx-md-4 mt-4 change"
                                            th:text="#{loginCanDoKey}">
-                                            Here you can log in or sign in like new user!</p>
+                                            Here you can log in or sign in like new user!
+                                        </p>
 
-                                        <form id="log-in-form" class="mx-1 mx-md-4" th:action="@{/login}" method="post">
+                                        <form method="post"
+                                              id="log-in-form"
+                                              class="mx-1 mx-md-4"
+                                              th:action="@{/login}">
 
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input type="email" required="true" id="email" name="username"
+                                                    <input type="email"
+                                                           required="true"
+                                                           id="email"
+                                                           name="username"
                                                            class="form-control"/>
                                                     <label class="form-label"
                                                            for="email"
-                                                           th:text="#{loginEmailKey}">Your Email</label>
+                                                           th:text="#{loginEmailKey}">
+                                                        Your Email
+                                                    </label>
                                                 </div>
                                             </div>
 
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input type="password" required="true" name="password"
-                                                           id="password-first" class="form-control"/>
+                                                    <input type="password"
+                                                           required="true"
+                                                           name="password"
+                                                           id="password-first"
+                                                           class="form-control"/>
                                                     <label class="form-label"
                                                            for="password-first"
-                                                           th:text="#{loginPasswordKey}">Password</label>
+                                                           th:text="#{loginPasswordKey}">
+                                                        Password
+                                                    </label>
                                                 </div>
                                             </div>
 
                                             <div class="d-flex justify-content-center mb-3 mb-lg-4 button-to-log-wrapp">
-                                                <button id="button-to-log" type="submit"
+                                                <button type="submit"
+                                                        id="button-to-log"
                                                         class="btn btn-primary btn-lg w-100"
                                                         th:text="#{loginLoginKey}">
                                                     Log in
@@ -64,19 +79,21 @@
                                                 <label for="button-to-sign"
                                                        style="font-size: small; width: 100%;"
                                                        th:text="#{loginNoAcountKey}">
-                                                    Didn't have acount? Registration only 1 min!</label>
+                                                    Didn't have acount? Registration only 1 min!
+                                                </label>
                                                 <a id="button-to-sign"
                                                    class="btn btn-primary btn-lg w-100"
-                                                   th:href="@{/registration/new-user}"
-                                                   th:text="#{loginNewUserKey}">New user?</a>
+                                                   th:href="@{/public/user/new}"
+                                                   th:text="#{loginNewUserKey}">
+                                                    New user?
+                                                </a>
                                             </div>
-
 
                                         </form>
 
                                     </div>
                                     <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                                        <img src="https://picsum.photos/300/300?random=1"
+                                        <img src="https://picsum.photos/300/400?random=1"
                                              class="img-fluid" alt="Sample image">
                                     </div>
                                 </div>

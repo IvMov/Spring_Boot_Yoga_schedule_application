@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="lt" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="lt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="/fragments/fragments :: head"></head>
 
 <body>
 <header th:replace="/fragments/fragments :: header"></header>
-
 <main>
     <div class="empty">
     </div>
@@ -15,61 +15,96 @@
     <div id="container">
         <h1>Create new event</h1>
         <div id="new-event-wrapper">
-            <form th:action="@{/private/schedule/create}" method="post" id="event-create-form" th:object="${event}"
+            <form method="post"
+                  id="event-create-form"
+                  th:action="@{/private/schedule/event/create}"
+                  th:object="${event}"
                   class="show-form">
+
                 <div class="form-elem">
                     <label for="type-of-event">Type of event:</label>
-                    <select id="type-of-event" name="typeEvent" th:field="*{type}">
-                        <option th:each="eventType : ${T(lt.ivmov.yogaWeb.enums.EventType).values()}"
-                                th:value="${eventType}" th:text="${eventType}"></option>
+                    <select id="type-of-event"
+                            name="typeEvent"
+                            th:field="*{type}">
+                        <option th:each="evType : ${T(lt.ivmov.yogaWeb.enums.EventType).values()}"
+                                th:value="${evType}" th:text="${evType}"></option>
                     </select>
                 </div>
+
                 <div class="form-elem">
-                    <label for="is-repeatable">Event is:</label>
+                    <label for="is-repeatable">Repeatable:</label>
                     <select id="is-repeatable" name="isRepeatable">
                         <option th:field="*{isRepeatable}" value="true">true</option>
                         <option th:field="*{isRepeatable}" value="false">false</option>
                     </select>
                 </div>
+
                 <div class="form-elem">
                     <label for="title">Title of event</label>
-                    <input type="text" id="title" th:field="*{title}" placeholder="some title"
-                           value="Title about event">
+                    <input type="text"
+                           id="title"
+                           placeholder="some title"
+                           value="Title about event"
+                           th:field="*{title}">
                 </div>
 
-                <!--               ENUM__!!!!!!!!!!!!!!!!!!!!!-->
                 <div class="form-elem">
                     <label for="theme-of-event">Theme is:</label>
-                    <select id="theme-of-event" name="themeOfEvent" th:field="*{theme}">
+                    <select id="theme-of-event"
+                            name="themeOfEvent"
+                            th:field="*{theme}">
                         <option th:each="evTheme : ${T(lt.ivmov.yogaWeb.enums.EventTheme).values()}"
-                                th:value="${evTheme}" th:text="${evTheme}"></option>
+                                th:value="${evTheme}"
+                                th:text="${evTheme}">
+                        </option>
                     </select>
                 </div>
-                <!--               -ENUM__!!!!!!!!!!!!!!!!!!!!!-->
+
                 <div class="form-elem">
                     <label for="city">City:</label>
-                    <input type="text" id="city" value="Klaipeda" th:field="*{city}">
+                    <input type="text"
+                           id="city"
+                           value="Klaipeda"
+                           th:field="*{city}">
                 </div>
+
                 <div class="form-elem">
-                    <label for="address">Adress</label>
-                    <input type="text" id="address" value="Nesamoniu str. 9-32 (2nd floor)" th:field="*{address}">
+                    <label for="address">Address</label>
+                    <input type="text"
+                           id="address"
+                           value="Nesamoniu str. 9-32 (2nd floor)"
+                           th:field="*{address}">
                 </div>
+
                 <div class="form-elem">
                     <label for="address-url">Adress url:</label>
-                    <input type="text" id="address-url" content="https://g.page/Pravdabeer?share"
-                           value="https://g.page/Pravdabeer?share" th:field="*{urlGoogleMaps}">
+                    <input type="text" id="address-url"
+                           content="https://g.page/Pravdabeer?share"
+                           value="https://g.page/Pravdabeer?share"
+                           th:field="*{urlGoogleMaps}">
                 </div>
+
                 <div class="form-elem">
                     <label for="start-date">Start date:</label>
-                    <input type="date" id="start-date" th:field="*{startDate}">
+                    <input type="date"
+                           id="start-date"
+                           th:field="*{startDate}">
                 </div>
+
                 <div class="form-elem">
                     <label for="period-days">Duration, days:</label>
-                    <input type="number" id="period-days" value="1" th:field="*{periodDays}">
+                    <input type="number"
+                           id="period-days"
+                           value="1"
+                           th:field="*{durationDays}">
                 </div>
+
                 <div class="form-elem week-days-wrapp">
                     <label class="form-label select-label">Days:</label>
-                    <select th:field="*{activeDaysOfWeek}" class="select" multiple style="height: 155px;">
+                    <select class="select"
+                            multiple
+                            style="height: 155px;"
+                            th:field="*{weekDays}">
                         <option value="MONDAY">Monday</option>
                         <option value="TUESDAY">Tuesday</option>
                         <option value="WEDNESDAY">Wednesday</option>
@@ -82,38 +117,70 @@
 
                 <div class="form-elem">
                     <label for="start-time">Start time:</label>
-                    <input type="time" id="start-time" value="18:00" th:field="*{startTime}">
+                    <input type="time"
+                           id="start-time"
+                           value="18:00"
+                           th:field="*{startTime}">
                 </div>
+
                 <div class="form-elem">
-                    <label for="duration-hours">Duration, h:</label>
-                    <input type="number" id="duration-hours" step="0.1" value="1.5" th:field="*{durationHours}">
+                    <label for="duration-minutes">Duration, min:</label>
+                    <input type="number"
+                           id="duration-minutes"
+                           step="1"
+                           value="100"
+                           th:field="*{durationMinutes}">
                 </div>
+
                 <div class="form-elem">
                     <label for="img-src">Image:</label>
-                    <input type="text" id="img-src" value="https://picsum.photos/370/370?random=1"
+                    <input type="text"
+                           id="img-src"
+                           value="https://picsum.photos/370/370?random=1"
                            th:field="*{imageSrc}">
                 </div>
+
                 <div class="form-elem">
                     <label for="common-price">Price:</label>
-                    <input type="number" id="common-price" step="0.01" value="15.99" th:field="*{commonPrice}">
+                    <input type="number"
+                           id="common-price"
+                           step="0.01"
+                           value="15.99"
+                           th:field="*{commonPrice}">
                 </div>
+
                 <div class="form-elem">
                     <label for="vacancies-limit">Vacancies:</label>
-                    <input type="number" id="vacancies-limit" value="20" th:field="*{vacanciesLimit}">
+                    <input type="number"
+                           id="vacancies-limit"
+                           value="20"
+                           th:field="*{vacanciesLimit}">
                 </div>
+
                 <div class="form-elem text-about-wrapp">
                     <label for="text-area-about">About event:</label>
-                    <textarea th:field="*{textAbout}" id="text-area-about" rows="10" cols="30">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quis expedita a architecto deleniti cum earum officia rem. Vitae, id. Amet fuga, labore fugit perferendis et corporis hic natus culpa.
+                    <textarea id="text-area-about"
+                              rows="10" cols="30"
+                              th:field="*{textAbout}">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Fuga quis expedita a architecto deleniti cum earum officia rem.
+                        Vitae, id. Amet fuga, labore fugit perferendis et corporis hic natus culpa.
                     </textarea>
                 </div>
-                <button id="create-event-button" title="Create" type="submit">Create</button>
+
+                <button id="create-event-button"
+                        title="create"
+                        type="submit">
+                    Create
+                </button>
 
             </form>
         </div>
     </div>
 </main>
 
-<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1" style="background-color: #f1f1f1;"></footer>
+<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1"
+        style="background-color: #f1f1f1;"></footer>
 
 <button th:replace="/fragments/fragments :: button-to-top"></button>
 

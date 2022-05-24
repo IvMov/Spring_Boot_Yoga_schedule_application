@@ -1,13 +1,11 @@
 package lt.ivmov.yogaWeb.configuration;
 
-import lombok.NonNull;
 import lt.ivmov.yogaWeb.repository.UserRepository;
 import lt.ivmov.yogaWeb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -72,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserService userService(PasswordEncoder passwordEncoder,
-                                   UserRepository userRepository){
+                                   UserRepository userRepository) {
         return new UserService(passwordEncoder, userRepository);
     }
 

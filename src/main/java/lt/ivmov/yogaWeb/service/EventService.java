@@ -21,7 +21,7 @@ public class EventService {
     }
 
     public Page<Event> findAllForPage(int pageSize, int pageNum) {
-        //TODO: need to change to schedule. Get all dates ->
+        //TODO: want to change to schedule. Get all dates ->
         // by week then sort all output by time, and only after that fulfill schedule with time and days (sort by days)
 
         Pageable pageable = Pageable
@@ -33,15 +33,18 @@ public class EventService {
 
     public Page<Event> findAllByTheme(String themeName, int pageSize, int pageNum) {
 
+        List<Event> events = eventRepository.findAll();
+
+        List <Event> eventsByTheme =events
+                .stream()
+                .filter(e -> e.getTheme() == EventTheme.valueOf(themeName))
+                .collect(Collectors.toList());
+
         Pageable pageable = Pageable
                 .ofSize(pageSize)
                 .withPage(pageNum);
 
-        List<Event> allItems =  eventRepository.findAll(pageable) //TODO: pageable not WORK need to understand why
-                .stream()//
-                .filter(e -> e.getTheme() == EventTheme.valueOf(themeName))
-                .collect(Collectors.toList());
-        return new PageImpl<>(allItems);
+        return new PageImpl<>(eventsByTheme, pageable, eventsByTheme.size());
     }
 
     public Event findById(Long id) {

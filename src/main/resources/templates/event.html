@@ -16,21 +16,29 @@
 
     <div id="container">
         <h1 th:text="${event.getTitle()}">Placeholder Placeholder</h1>
+
         <a class="back-button"
            th:href="@{http://localhost:8080/public/schedule}"
-           th:text="#{backToScheduleKey}">Back to schedule</a>
+           th:text="#{backToScheduleKey}">
+            Back to schedule
+        </a>
+
         <div class="event-wrapper">
+
             <div class="event-img-wrapper">
-                <img src="https://picsum.photos/400/300?random=1" alt="No img">
+                <img src="https://picsum.photos/320/180?random=1" alt="No img">
             </div>
+
             <h2>
                 <span th:text="#{eventWelcomeKey} + #{${event.getUniqueOrRegular()}}">Welcome to</span>
                 <span th:inline="text">[[#{${event.getType().getKeyOfType()}}]]</span>
             </h2>
+
             <h2 th:text="${event.getTitle()}">Title</h2>
+
             <div id="new-event-wrapper">
                 <form sec:authorize="hasRole('ROLE_USER')"
-                      th:action="@{/private/schedule/event-{evId}/add-user (evId=${event.getId()})}"
+                      th:action="@{/private/schedule/event/{id}/add-user (id=${event.getId()})}"
                       method="post">
                     <button
                             id="ad-user-to-event"
@@ -38,67 +46,107 @@
                     </button>
                 </form>
             </div>
+
             <div class="event-table-container">
+
                 <div class="event-table-line">
+
                     <div class="event-table-cell head-cell"
-                         th:text="#{eventThemeKey}">Theme:
+                         th:text="#{eventThemeKey}">
+                        Theme:
                     </div>
-                    <div class="event-table-cell content-cell" th:text="#{${event.getTheme().getKeyOfTheme()}}">
+                    <div class="event-table-cell content-cell"
+                         th:text="#{${event.getTheme().getKeyOfTheme()}}">
                     </div>
 
-                    <div class=" event-table-cell head-cell
-                    "
-                         th:text="#{eventWhenKey}"> When:
+                    <div class=" event-table-cell head-cell"
+                         th:text="#{eventWhenKey}">
+                        When:
                     </div>
-                    <div class="event-table-cell content-cell" th:text="${event.getStartDate()}">YYYY-MM-DD</div>
+                    <div class="event-table-cell content-cell"
+                         th:text="${event.getStartDate()}">
+                        YYYY-MM-DD
+                    </div>
+
                     <div class="event-table-cell head-cell"
-                         th:text="#{eventStartAtKey}">Beginning at:
+                         th:text="#{eventStartAtKey}">
+                        Beginning at:
                     </div>
-                    <div class="event-table-cell content-cell" th:text="${event.getStartTimeMin()}">HH:mm</div>
+                    <div class="event-table-cell content-cell"
+                         th:text="${event.getStartTime()}">
+                        HH:mm
+                    </div>
+
                     <div class="event-table-cell head-cell"
-                         th:text="#{eventDurationKey}">Duration:
+                         th:text="#{eventDurationKey}">
+                        Duration:
                     </div>
-                    <div class="event-table-cell content-cell" th:text="${event.getDurationHourMinute()}">Nh : nnm</div>
+                    <div class="event-table-cell content-cell"
+                         th:text="${event.getDurationHoursMinutes()}">
+                        0h : 00m
+                    </div>
+
                     <div class="event-table-cell head-cell"
-                         th:text="#{eventPriceKey}">Price, EUR:
+                         th:text="#{eventPriceKey}">
+                        Price, EUR:
                     </div>
-                    <div class="event-table-cell content-cell" th:text="${event.getCommonPrice()}">xx.99</div>
+                    <div class="event-table-cell content-cell"
+                         th:text="${event.getCommonPrice()}">
+                        xx.99
+                    </div>
+
                     <div class="event-table-cell head-cell"
-                         th:text="#{eventPlacesKey}">Place left:
+                         th:text="#{eventPlacesKey}">
+                        Place left:
                     </div>
-                    <div class="event-table-cell content-cell" th:text="${event.getVacanciesNow()}">xx</div>
+                    <div class="event-table-cell content-cell"
+                         th:text="${event.getVacanciesNow()}">
+                        xx
+                    </div>
+
                 </div>
+
             </div>
 
             <h3 th:text="#{eventWhereWaitKey}">Where we wait on you?</h3>
+
             <div class="where-when">
                 <span th:text="#{eventCityKey}">City:</span>
-                <span th:inline="text" class="event-city-name">[[${event.getCity()}]]</span>
+                <span th:inline="text"
+                      class="event-city-name">
+                    [[${event.getCity()}]]
+                </span>
             </div>
-            <div class="where-when" th:inline="text">
-                <a th:href="@{${event.getUrlGoogleMaps()}} " target="_blank">
+
+            <div class="where-when"
+                 th:inline="text">
+                <a target="_blank"
+                   th:href="@{${event.getUrlGoogleMaps()}}">
                     <span th:text="#{eventAddressKey}">Address:</span>
-                    <span th:inline="text" class="event-address-name">[[${event.getAddress()}]]</span>
+                    <span class="event-address-name"
+                          th:inline="text">
+                        [[${event.getAddress()}]]
+                    </span>
                 </a>
             </div>
 
             <h3 th:text="#{eventWhenWaitKey}">When we wait on you?</h3>
+
             <div class="event-days-week where-when">
                 <span th:text="#{${event.getEveryOrOnly()}}">every</span>
 
-                <ul th:each="day: ${event.getActiveDaysOfWeek()}">
+                <ul th:each="day: ${event.getWeekDays()}">
                     <li th:text="#{${day.getKeyOfDay()}}"></li>
                 </ul>
-
             </div>
 
             <h3 th:text="#{eventWhatWeDoKey}">Maybe you want to know what we will do during events</h3>
-            <div class="about-event" th:text="${event.getTextAbout()}">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Blanditiis consectetur quisquam itaque molestiae error at enim quod, quos,
-                mollitia nostrum facilis iste maiores inventore?
-                Ipsum porro praesentium obcaecati labore nostrum.
+
+            <div class="about-event"
+                 th:text="${event.getTextAbout()}">
+                Lorem ipsum, dolor sit amet
             </div>
+
             <div class="event-to-contact">
                 <span th:text="#{eventForMoreInfoKey}">For more information you can</span>
                 <a target="_blank"

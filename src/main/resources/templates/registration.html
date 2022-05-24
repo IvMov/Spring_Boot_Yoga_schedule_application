@@ -26,10 +26,10 @@
                                         <p id="change-log-in-text"
                                            class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 change">Log in</p>
 
-                                        <form id="log-in-form"
+                                        <form method="post"
+                                              id="log-in-form"
                                               class="mx-1 mx-md-4"
-                                              th:action="@{/registration/signin}"
-                                              method="post"
+                                              th:action="@{/public/user/register}"
                                               th:object="${user}">
 
                                             <div class="d-flex flex-row align-items-center mb-4">
@@ -37,17 +37,18 @@
                                                 <div class="form-outline flex-fill mb-0">
                                                     <input type="text"
                                                            id="f-name"
-                                                           th:field="*{name}"
-                                                           class="form-control"/>
-                                                    <label class="form-label" for="f-name">Your
-                                                        Name</label>
+                                                           class="form-control"
+                                                           th:field="*{name}"/>
+                                                    <label class="form-label" for="f-name">Your Name</label>
                                                 </div>
                                             </div>
 
                                             <div class="d-flex flex-row align-items-center mb-4 ">
                                                 <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input type="text" id="l-name" class="form-control"
+                                                    <input type="text"
+                                                           id="l-name"
+                                                           class="form-control"
                                                            th:field="*{surname}"/>
                                                     <label class="form-label" for="l-name">Your Surname</label>
                                                 </div>
@@ -105,7 +106,9 @@
                                             <div class="form-check d-flex justify-content-center mb-0 hide">
                                                 <p style="font-size: small; width: 50%; margin-right: 3rem;">All
                                                     information about you will never be passed on to third parties</p>
-                                                <input class="form-check-input me-2" type="checkbox" value=""
+                                                <input class="form-check-input me-2"
+                                                       type="checkbox"
+                                                       value=""
                                                        id="is-informed"/>
                                                 <label class="form-check-label" for="is-informed">
                                                     Got it!
@@ -113,7 +116,8 @@
                                             </div>
 
                                             <div class="d-flex justify-content-center mb-3 mb-lg-4 button-to-reg-wrapp">
-                                                <button id="button-to-reg" type="submit"
+                                                <button type="submit"
+                                                        id="button-to-reg"
                                                         class="btn btn-primary btn-lg w-100">Sign In
                                                 </button>
                                             </div>
@@ -122,10 +126,8 @@
 
                                     </div>
                                     <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                                        <img src="https://picsum.photos/370/370?random=1"
+                                        <img src="https://picsum.photos/300/400?random=1"
                                              class="img-fluid" alt="Sample image">
-
                                     </div>
                                 </div>
                             </div>

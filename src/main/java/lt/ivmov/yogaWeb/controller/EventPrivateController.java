@@ -5,6 +5,7 @@ import lt.ivmov.yogaWeb.entity.Payment;
 import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.service.EventService;
 import lt.ivmov.yogaWeb.service.UserService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/private/schedule")
+@RequestMapping("/private")
 public class EventPrivateController {
 
     private final EventService eventService;
@@ -24,23 +25,23 @@ public class EventPrivateController {
         this.userService = userService;
     }
 
-    @GetMapping("/new-event")
+    @GetMapping("/schedule/event/new")
     @PreAuthorize("hasRole('ADMIN')")
     public String getEventForm(Model model) {
         model.addAttribute("event", new Event());
         return "new-event";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/schedule/event/create")
     @PreAuthorize("hasRole('ADMIN')")
     public String createEvent(Event event, Model model) {
         Event createdEvent = eventService.create(event);
         model.addAttribute("event", createdEvent);
 
-        return "redirect:/public/schedule";
+        return "redirect:/public/schedule/event/" + createdEvent.getId();
     }
 
-    @GetMapping("/event-{id}")
+    @GetMapping("/schedule/event/{id}")
     public String getEventPage(
             @PathVariable(name = "id") Long id,
             Model model) {
@@ -49,9 +50,9 @@ public class EventPrivateController {
         return "event";
     }
 
-    @PostMapping("/event-{evId}/add-user")
+    @PostMapping("/schedule/event/{id}/add-user")
     @PreAuthorize("hasRole('USER')")
-    public String addUserToEvent(@PathVariable(name = "evId") Long id,
+    public String addUserToEvent(@PathVariable(name = "id") Long id,
                                  Authentication authentication,
                                  Model model) {
 
@@ -74,7 +75,7 @@ public class EventPrivateController {
         eventService.update(event);
         userService.update(user);
 
-        return "redirect:/public/schedule/event-" + event.getId();
+        return "redirect:/public/schedule/event/" + event.getId();
     }
 
 }

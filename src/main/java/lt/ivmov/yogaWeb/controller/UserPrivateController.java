@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/private/user")
+@RequestMapping("/private")
 public class UserPrivateController {
 
-    @GetMapping
+    @GetMapping("/user")
     public String getUserPage(){
-        return "blank";
+        return "user";
     }
 }

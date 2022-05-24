@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column
-    private final LocalDateTime timeStamp = LocalDateTime.now();
+    private final LocalDateTime timestamp = LocalDateTime.now();
 
     @Column
     private String name = "Name";
@@ -44,13 +44,13 @@ public class User implements UserDetails {
     private String phone = "+37060985783";
 
     @Column
-    private String email = "lala@lala.com"; //used for log in
+    private String email = "lala@lala.com";
 
     @Column
-    private String userName = name + (int) ((Math.random() * 9998) + 1);
+    private String username = name + (int) ((Math.random() * 9998) + 1);
 
     @Column
-    private String password; //used for log in
+    private String password;
 
     @Column
     private String passwordCheck; //temporary for password check
@@ -88,7 +88,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userName;
+        return this.username;
     }
 
     @Override
