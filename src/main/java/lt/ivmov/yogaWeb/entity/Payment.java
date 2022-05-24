@@ -23,14 +23,11 @@ public class Payment implements Serializable {
 
     @Column(name = "`type`")
     @Enumerated(EnumType.STRING)
-    private PaymentType type = PaymentType.INCOME;
+    private PaymentType type = PaymentType.COST;
 
     @Column
     @Enumerated(EnumType.STRING)
     private PaymentMethod method = PaymentMethod.BANK;
-
-    @Column
-    private Boolean isPaid = false;
 
     @Column
     private Double credits = 0.00; //always 0 for income
@@ -41,11 +38,16 @@ public class Payment implements Serializable {
     private Double sum; //credits + paid by user.
 
     @ManyToOne
-    @JoinColumn(name = "user_id", updatable = false, referencedColumnName = "id")
+    @JoinColumn(name = "user_id",
+            updatable = false,
+            referencedColumnName = "id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id", updatable = false, referencedColumnName = "id")
-    private Event event; //null for income - only way?
+    @OneToOne
+    @JoinColumn(name = "activity_id",
+    updatable = false,
+    referencedColumnName = "id")
+    private Activity activity;
+
 
 }

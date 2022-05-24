@@ -72,6 +72,10 @@ public class User implements UserDetails {
             mappedBy = "user")
     private Set<Payment> payments = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "user")
+    private Set<Activity> activities = new HashSet<>();
+
     @ElementCollection
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")

@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -108,10 +109,10 @@ public class Event {
             name = "events_users",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
-    private Set<Payment> payments; //here all info about payment and registration
+    private Set<Activity> activities = new HashSet<>();
 
     public String getEndDate() {
         if (this.durationDays >= 2) {

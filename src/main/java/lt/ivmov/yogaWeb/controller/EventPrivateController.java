@@ -1,8 +1,11 @@
 package lt.ivmov.yogaWeb.controller;
 
+import lt.ivmov.yogaWeb.entity.Activity;
 import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.entity.Payment;
 import lt.ivmov.yogaWeb.entity.User;
+import lt.ivmov.yogaWeb.enums.ActivityStatus;
+import lt.ivmov.yogaWeb.service.ActivityService;
 import lt.ivmov.yogaWeb.service.EventService;
 import lt.ivmov.yogaWeb.service.UserService;
 import org.jetbrains.annotations.NotNull;
@@ -19,10 +22,14 @@ public class EventPrivateController {
 
     private final EventService eventService;
     private final UserService userService;
+    private final ActivityService activityService;
 
-    public EventPrivateController(EventService eventService, UserService userService) {
+    public EventPrivateController(EventService eventService,
+                                  UserService userService,
+                                  ActivityService activityService) {
         this.eventService = eventService;
         this.userService = userService;
+        this.activityService = activityService;
     }
 
     @GetMapping("/schedule/event/new")
@@ -57,23 +64,21 @@ public class EventPrivateController {
                                  Model model) {
 
         String email = ((User) authentication.getPrincipal()).getEmail();
+
         User user = userService.findByEmail(email);
         Event event = eventService.findById(id);
 
-        Payment payment = new Payment();
+        Activity activity = new Activity();
+        activity.setStatus(ActivityStatus.WANT);
+        activity.setEvent(event);
+        activity.setUser(user);
 
-        event.getUsers().add(user);
-        event.getPayments().add(payment);
-
-        user.getEvents().add(event);
-        user.getPayments().add(payment);
-
-        payment.setEvent(event);
-        payment.setUser(user);
-
+        event.getActivities().add(activity);
+        user.getActivities().add(activity);
 
         eventService.update(event);
         userService.update(user);
+        activityService.update(activity);
 
         return "redirect:/public/schedule/event/" + event.getId();
     }
