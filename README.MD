@@ -1,4 +1,4 @@
-# Web app about Yoga v.0.4.5
+# Web app about Yoga v.0.5.5
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
 
