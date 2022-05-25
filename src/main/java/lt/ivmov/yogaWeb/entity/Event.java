@@ -15,7 +15,6 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -102,14 +101,24 @@ public class Event {
     private Double discount = 0.00; //by default discount = 0. (from 0 to 1) percents
 
     @Column
+    private Double finalPrice = 0.00;
+
+    @Column
     private int vacanciesLimit = 10; //how peoples can participate 1 event
 
     @ManyToMany
     @JoinTable(
-            name = "events_users",
+            name = "paid_events_users",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users = new HashSet<>();
+    private Set<User> usersPaid = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "unpaid_events_users",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> usersUnpaid = new HashSet<>();
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private Set<Activity> activities = new HashSet<>();
@@ -140,7 +149,7 @@ public class Event {
 
 
     public int getVacanciesNow() {
-        int users = this.users.size();
+        int users = this.usersPaid.size();
         return this.vacanciesLimit - users;
     }
 

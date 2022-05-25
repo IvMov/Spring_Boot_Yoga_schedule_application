@@ -4,6 +4,7 @@ public enum PaymentMethod {
     CASH,
     BANK,
     MIXED,
+    CREDITS,
     FRIEND
 
 }

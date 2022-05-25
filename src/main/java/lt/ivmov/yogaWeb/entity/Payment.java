@@ -1,5 +1,6 @@
 package lt.ivmov.yogaWeb.entity;
 
+import lombok.Getter;
 import lombok.Setter;
 import lt.ivmov.yogaWeb.enums.PaymentMethod;
 import lt.ivmov.yogaWeb.enums.PaymentType;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Setter
+@Getter
 @Table(name = "payments")
 public class Payment implements Serializable {
 
@@ -43,7 +45,7 @@ public class Payment implements Serializable {
             referencedColumnName = "id")
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "activity_id",
     updatable = false,
     referencedColumnName = "id")

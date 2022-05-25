@@ -3,6 +3,7 @@ package lt.ivmov.yogaWeb.enums;
 public enum ActivityStatus {
 
     WANT,
-    PAID,
+    PARTICULARLY_PAID,
+    FULLY_PAID,
     CANCELED
 }

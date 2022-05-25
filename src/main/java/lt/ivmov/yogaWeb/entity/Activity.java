@@ -1,15 +1,16 @@
 package lt.ivmov.yogaWeb.entity;
 
 
+import lombok.Getter;
 import lombok.Setter;
 import lt.ivmov.yogaWeb.enums.ActivityStatus;
-import lt.ivmov.yogaWeb.enums.PaymentMethod;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Setter
+@Getter
 @Table(name = "activities")
 public class Activity {
 
@@ -36,7 +37,7 @@ public class Activity {
             referencedColumnName = "id")
     private Event event;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id",
             updatable = false,
             referencedColumnName = "id")

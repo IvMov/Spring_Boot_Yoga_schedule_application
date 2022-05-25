@@ -21,15 +21,9 @@ import org.springframework.web.bind.annotation.*;
 public class EventPrivateController {
 
     private final EventService eventService;
-    private final UserService userService;
-    private final ActivityService activityService;
 
-    public EventPrivateController(EventService eventService,
-                                  UserService userService,
-                                  ActivityService activityService) {
+    public EventPrivateController(EventService eventService) {
         this.eventService = eventService;
-        this.userService = userService;
-        this.activityService = activityService;
     }
 
     @GetMapping("/schedule/event/new")
@@ -42,6 +36,7 @@ public class EventPrivateController {
     @PostMapping("/schedule/event/create")
     @PreAuthorize("hasRole('ADMIN')")
     public String createEvent(Event event, Model model) {
+        event.setFinalPrice(event.getCommonPrice() * (1- event.getDiscount()));
         Event createdEvent = eventService.create(event);
         model.addAttribute("event", createdEvent);
 
@@ -55,32 +50,6 @@ public class EventPrivateController {
         Event foundEvent = eventService.findById(id);
         model.addAttribute("event", foundEvent);
         return "event";
-    }
-
-    @PostMapping("/schedule/event/{id}/add-user")
-    @PreAuthorize("hasRole('USER')")
-    public String addUserToEvent(@PathVariable(name = "id") Long id,
-                                 Authentication authentication,
-                                 Model model) {
-
-        String email = ((User) authentication.getPrincipal()).getEmail();
-
-        User user = userService.findByEmail(email);
-        Event event = eventService.findById(id);
-
-        Activity activity = new Activity();
-        activity.setStatus(ActivityStatus.WANT);
-        activity.setEvent(event);
-        activity.setUser(user);
-
-        event.getActivities().add(activity);
-        user.getActivities().add(activity);
-
-        eventService.update(event);
-        userService.update(user);
-        activityService.update(activity);
-
-        return "redirect:/public/schedule/event/" + event.getId();
     }
 
 }

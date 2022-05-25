@@ -14,7 +14,11 @@ public class ActivityService {
         this.activityRepository = activityRepository;
     }
 
+    public Activity create(Activity activity) {
+        return activityRepository.save(activity);
+    }
     public Activity update(Activity activity) {
         return activityRepository.save(activity);
     }
+
 }

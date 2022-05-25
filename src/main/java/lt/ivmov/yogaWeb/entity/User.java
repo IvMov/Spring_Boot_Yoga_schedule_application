@@ -65,8 +65,11 @@ public class User implements UserDetails {
     //TODO: if single event - canceled - and was paid - return here 1euro = 1credits, which can be used for book any event by user if price is enough (in one + will apear reservation and payment +) or
     // admin will see that summ to pay lower and can + when will get summ
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Event> events = new HashSet<>();
+    @ManyToMany(mappedBy = "usersPaid")
+    private Set<Event> eventsPaid = new HashSet<>();
+
+    @ManyToMany(mappedBy = "usersUnpaid")
+    private Set<Event> eventsUnpaid = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user")
