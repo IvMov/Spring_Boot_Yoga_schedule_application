@@ -37,9 +37,8 @@ public class Activity {
             referencedColumnName = "id")
     private Event event;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "payment_id",
-            updatable = false,
             referencedColumnName = "id")
     private Payment payment;
 

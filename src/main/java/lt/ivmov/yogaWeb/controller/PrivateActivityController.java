@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/private")
 public class PrivateActivityController {
@@ -60,80 +62,110 @@ public class PrivateActivityController {
         user.getEventsUnpaid().add(event); //only for activity Status WANT or PARTICULARLY_PAID
         event.getUsersUnpaid().add(user); //only for activity Status WANT or PARTICULARLY_PAID
 
-        userService.update(user);
-        eventService.update(event);
-//        activityService.create(activityWant);
+        activityService.create(activityWant);
 
         //check user balance -> if it is possible to pay for event
         if (user.getCreditsBalance() != null && user.getCreditsBalance() >= 0) {
 
             //full payment for event
             if (user.getCreditsBalance() >= event.getFinalPrice()) {
-                try {
-                    Activity activity = new Activity();
-                    Payment payment = new Payment();
+                Activity activity = new Activity();
+                Payment payment = new Payment();
 
-                    user.setCreditsBalance(user.getCreditsBalance() - event.getFinalPrice());
+                user.setCreditsBalance(user.getCreditsBalance() - event.getFinalPrice());
 
-                    user.getEventsUnpaid().remove(event);
-                    user.getEventsPaid().add(event); //only for Activity status FULLY_PAID
-                    event.getUsersUnpaid().remove(user);
-                    event.getUsersPaid().add(user); //only for Activity status FULLY_PAID
+                user.getEventsUnpaid().remove(event);
+                user.getEventsPaid().add(event); //only for Activity status FULLY_PAID
+                event.getUsersUnpaid().remove(user);
+                event.getUsersPaid().add(user); //only for Activity status FULLY_PAID
 
-                    payment.setUser(user);
-                    payment.setType(PaymentType.COST);
-                    payment.setMethod(PaymentMethod.CREDITS);
-                    payment.setCredits(event.getFinalPrice());
-                    payment.setSum(payment.getCredits());
+                payment.setUser(user);
+                payment.setEvent(event);
+                payment.setType(PaymentType.COST);
+                payment.setMethod(PaymentMethod.CREDITS);
+                payment.setSum(event.getFinalPrice());
 
+                activity.setUser(user);
+                activity.setEvent(event);
+                activity.setStatus(ActivityStatus.FULLY_PAID);
 
-                    activity.setUser(user);
-                    activity.setEvent(event);
-                    activity.setStatus(ActivityStatus.FULLY_PAID);
+                activity.setPayment(paymentService.create(payment));
 
-                    payment.setActivity(activity);
-                    activity.setPayment(payment);
-
-                    userService.update(user);
-                    eventService.update(event);
-                    activityService.create(activity);
-                    paymentService.create(payment);
-
-                } catch (RuntimeException e) {
-                    throw new RuntimeException("Failed to finish transaction");
-                }
+                activityService.create(activity);
 
                 //particular payment for event
             } else if (user.getCreditsBalance() < event.getFinalPrice() && user.getCreditsBalance() > 0) {
-                try {
-                    Activity activity = new Activity();
-                    Payment payment = new Payment();
+                Activity activity = new Activity();
+                Payment payment = new Payment();
 
-                    payment.setUser(user);
-                    payment.setType(PaymentType.COST);
-                    payment.setMethod(PaymentMethod.MIXED);
-                    payment.setCredits(user.getCreditsBalance());
-                    payment.setSum(payment.getCredits());
+                payment.setUser(user);
+                payment.setEvent(event);
+                payment.setType(PaymentType.COST);
+                payment.setMethod(PaymentMethod.CREDITS);
+                payment.setSum(user.getCreditsBalance());
 
-                    user.setCreditsBalance(0.00);
+                user.setCreditsBalance(0.00);
 
-                    activity.setUser(user);
-                    activity.setEvent(event);
-                    activity.setStatus(ActivityStatus.PARTICULARLY_PAID);
+                activity.setUser(user);
+                activity.setEvent(event);
+                activity.setStatus(ActivityStatus.PARTICULARLY_PAID);
 
-                    payment.setActivity(activity);
-                    activity.setPayment(payment);
-                    userService.update(user);
-                    eventService.update(event);
-                    activityService.create(activity);
-                    paymentService.create(payment);
 
-                } catch (RuntimeException e) {
-                    throw new RuntimeException("Failed to finish transaction");
-                }
+                activity.setPayment(paymentService.create(payment));
+
+                activityService.create(activity);
+
             }
 
         }
+
+        return "redirect:/public/schedule/event/" + event.getId();
+    }
+
+    @PostMapping("/schedule/event/{id}/remove-user")
+    @PreAuthorize("hasRole('USER')")
+    public String removeUserToEvent(@PathVariable(name = "id") Long id,
+                                    Authentication authentication,
+                                    Model model) {
+
+        String email = ((User) authentication.getPrincipal()).getEmail();
+
+        Activity activityCancel = new Activity();
+        User user = userService.findByEmail(email);
+        Event event = eventService.findById(id);
+
+        activityCancel.setStatus(ActivityStatus.CANCELED);
+        activityCancel.setUser(user);
+        activityCancel.setEvent(event);
+
+        user.getActivities().add(activityCancel);
+        event.getActivities().add(activityCancel);
+
+        if (event.getUsersPaid().contains(user)) {
+
+            user.getEventsPaid().remove(event);
+            event.getUsersPaid().remove(user);
+
+            double sum = event.getPayments().stream()
+                    .filter(payment -> payment.getUser().getId() == user.getId()) //TODO: refactor to find last by date
+                    .toList().get(0).getSum();
+
+            user.setCreditsBalance(user.getCreditsBalance() + sum);
+
+        } else if (event.getUsersUnpaid().contains(user)) {
+
+            user.getEventsUnpaid().remove(event);
+            event.getUsersUnpaid().remove(user);
+
+            double sum = event.getPayments().stream()
+                    .filter(payment -> payment.getUser().getId() == user.getId()) //TODO: refactor to find last by date
+                    .toList().get(0).getSum();
+
+            user.setCreditsBalance(user.getCreditsBalance() + sum);
+
+        }
+
+        activityService.create(activityCancel);
 
         return "redirect:/public/schedule/event/" + event.getId();
     }

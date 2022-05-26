@@ -71,13 +71,11 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "usersUnpaid")
     private Set<Event> eventsUnpaid = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "user")
-    private Set<Payment> payments = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Activity> activities = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Payment> payments = new HashSet<>();
 
     @ElementCollection
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))

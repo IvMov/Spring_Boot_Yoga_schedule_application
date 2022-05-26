@@ -123,6 +123,9 @@ public class Event {
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private Set<Activity> activities = new HashSet<>();
 
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
+    private Set<Payment> payments = new HashSet<>();
+
     public String getEndDate() {
         if (this.durationDays >= 2) {
             return this.startDate.plusDays(durationDays - 1).toString();

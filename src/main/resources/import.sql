@@ -45,6 +45,9 @@ insert into events_days(event_id, day_of_week) values (1, "SATURDAY")
 insert into events_days(event_id, day_of_week) values(3, "WEDNESDAY");
 insert into events_days(event_id, day_of_week) values(3, "FRIDAY");
 
+
+insert into payments (user_id, type, method, timestamp, sum) values (1, "INCOME", "CASH", "2022-05-14 22:32:23", 150.00);
+insert into activities (user_id, event_id, status, payment_id) values (1, 1, "REFILL_CREDITS", 1);
 --insert into activities (user_id, event_id, status) values (1, 1, "WANT")
 --insert into activities (user_id, event_id, status) values (1, 1, "FULLY_PAID");
 --insert into activities (user_id, event_id, status) values (1, 2, "WANT")
@@ -58,7 +61,7 @@ insert into events_days(event_id, day_of_week) values(3, "FRIDAY");
 --insert into activities (user_id, event_id, status) values (3, 4, "WANT")
 --insert into activities (user_id, event_id, status) values (3, 4, "FULLY_PAID");
 
-insert into payments (type, method, timestamp, sum, credits, user_id) values ("INCOME", "CASH", "2022-05-14 22:32:23", 150.00, 150.00, 2);
+
 --insert into payments (type, method, timestamp, sum, credits, user_id) values ("COST", "FRIEND", "2022-05-01 19:32:23", 0.00, 0.00, 1);
 --insert into payments (type, method, timestamp, sum, credits, user_id) values ("COST", "FRIEND", "2022-05-01 19:34:43", 0.00, 0.00, 1);
 --insert into payments (type, method, timestamp, sum, credits, user_id) values ("COST", "FRIEND", "2022-05-01 20:12:13", 10.00, 0.00, 2);
