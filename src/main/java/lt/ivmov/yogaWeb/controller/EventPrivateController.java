@@ -9,11 +9,14 @@ import lt.ivmov.yogaWeb.service.ActivityService;
 import lt.ivmov.yogaWeb.service.EventService;
 import lt.ivmov.yogaWeb.service.UserService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -24,6 +27,28 @@ public class EventPrivateController {
 
     public EventPrivateController(EventService eventService) {
         this.eventService = eventService;
+    }
+
+    @GetMapping("/schedule/unpaid")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getUnpaidList(Model model) {
+
+        List<Event> eventList = eventService.findAllUnpaid();
+
+        model.addAttribute("events", eventList);
+
+        return "admin-schedule";
+    }
+
+    @GetMapping("/schedule/paid")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getPaidList(Model model) {
+
+        List<Event> eventList = eventService.findAllPaid();
+
+        model.addAttribute("events", eventList);
+
+        return "admin-schedule";
     }
 
     @GetMapping("/schedule/event/new")

@@ -5,12 +5,12 @@ import lt.ivmov.yogaWeb.enums.EventTheme;
 import lt.ivmov.yogaWeb.exception.EventNotFoundException;
 import lt.ivmov.yogaWeb.repository.EventRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class EventService {
@@ -21,14 +21,28 @@ public class EventService {
     }
 
     public Page<Event> findAllForPage(int pageSize, int pageNum) {
-        //TODO: want to change to schedule. Get all dates ->
-        // by week then sort all output by time, and only after that fulfill schedule with time and days (sort by days)
 
         Pageable pageable = Pageable
                 .ofSize(pageSize)
                 .withPage(pageNum);
 
         return eventRepository.findAll(pageable);
+    }
+
+    public List<Event> findAllUnpaid() {
+
+        return eventRepository.findAll().stream()
+                .filter(event -> event.getStartDate().isAfter(LocalDate.now()))
+                .filter(event -> !event.getUsersUnpaid().isEmpty())
+                .toList();
+    }
+
+    public List<Event> findAllPaid() {
+
+        return eventRepository.findAll().stream()
+                .filter(event -> event.getStartDate().isAfter(LocalDate.now()))
+                .filter(event -> !event.getUsersPaid().isEmpty())
+                .toList();
     }
 
     public Page<Event> findAllByTheme(EventTheme themeName, int pageSize, int pageNum) {
