@@ -17,7 +17,7 @@
     <div id="container">
         <h1 th:text="${event.getTitle()}">Placeholder Placeholder</h1>
 
-        <a class="back-button"
+        <a class="btn btn-outline-secondary"
            th:href="@{http://localhost:8080/public/schedule}"
            th:text="#{backToScheduleKey}">
             Back to schedule
@@ -28,6 +28,7 @@
             <div class="event-img-wrapper">
                 <img src="https://picsum.photos/320/180?random=1" alt="No img">
             </div>
+
 
             <h2>
                 <span th:text="#{eventWelcomeKey} + #{${event.getUniqueOrRegular()}}">Welcome to</span>
@@ -43,6 +44,7 @@
                       method="post">
                     <button
                             id="ad-user-to-event"
+                            class="btn btn-outline-success btn-md w-100"
                             type="submit">Want to participate
                     </button>
                 </form>
@@ -52,6 +54,7 @@
                       method="post">
                     <button
                             id="remove-user-from-event"
+                            class="btn btn-outline-danger btn-md w-100"
                             type="submit">Will not participate
                     </button>
                 </form>

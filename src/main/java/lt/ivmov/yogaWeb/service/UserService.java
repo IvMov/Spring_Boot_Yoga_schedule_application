@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -16,7 +19,7 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     public UserService(PasswordEncoder passwordEncoder,
-                       UserRepository userRepository){
+                       UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
@@ -34,8 +37,26 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public List<User> findAllUsersPaid() {
+
+        return userRepository.findAll().stream()
+                .filter(user -> !user.getEventsPaid().isEmpty())
+                .collect(Collectors.toList());
+    }
+
+    public List<User> findAllUsersUnpaid() {
+
+        return userRepository.findAll().stream()
+                .filter(user -> !user.getEventsUnpaid().isEmpty())
+                .collect(Collectors.toList());
+    }
+
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     public User update(User user) {

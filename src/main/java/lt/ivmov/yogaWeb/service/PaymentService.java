@@ -1,6 +1,10 @@
 package lt.ivmov.yogaWeb.service;
 
+import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.entity.Payment;
+import lt.ivmov.yogaWeb.entity.User;
+import lt.ivmov.yogaWeb.enums.PaymentMethod;
+import lt.ivmov.yogaWeb.enums.PaymentType;
 import lt.ivmov.yogaWeb.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +23,29 @@ public class PaymentService {
 
     public Payment update(Payment payment) {
         return paymentRepository.save(payment);
+    }
+
+    public Payment addFullPaymentByCredits(User user, Event event) {
+
+        Payment payment = new Payment();
+
+        payment.setUser(user);
+        payment.setEvent(event);
+        payment.setType(PaymentType.COST);
+        payment.setMethod(PaymentMethod.CREDITS);
+        payment.setSum(user.getCreditsBalance());
+        return payment;
+    }
+
+    public Payment addParticularPaymentByCredits(User user, Event event) {
+
+        Payment payment = new Payment();
+
+        payment.setUser(user);
+        payment.setEvent(event);
+        payment.setType(PaymentType.COST);
+        payment.setMethod(PaymentMethod.CREDITS);
+        payment.setSum(event.getFinalPrice());
+        return payment;
     }
 }

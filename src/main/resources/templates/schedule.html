@@ -14,19 +14,24 @@
     </div>
 
     <div id="container">
-        <h1>Schedule of the nearest events and events</h1>
+        <h1>Schedule of the nearest events and lessons</h1>
 
-        <a style="justify-self:flex-start;" class="back-button" th:href="@{/public/schedule}">Back to main schedule</a>
+        <a class="btn btn-outline-secondary"
+           th:href="@{/public/schedule}">
+            Back to main schedule
+        </a>
 
         <div id="new-event-wrapper">
             <button sec:authorize="hasRole('ROLE_ADMIN')"
+                    class="btn btn-outline-primary btn-md w-100"
                     id="open-event-create-form"
                     onclick="location.href='/private/schedule/event/new'"
                     type="button">Create new event
             </button>
         </div>
-now         <div id="check-unpaid-wrapper">
+        <div id="check-unpaid-wrapper">
             <button sec:authorize="hasRole('ROLE_ADMIN')"
+                    class="btn btn-outline-warning btn-md w-100"
                     id="open-unpaid-events"
                     onclick="location.href='/private/schedule/unpaid'"
                     type="button">Check unpaid events
@@ -34,6 +39,7 @@ now         <div id="check-unpaid-wrapper">
         </div>
         <div id="check-paid-wrapper">
             <button sec:authorize="hasRole('ROLE_ADMIN')"
+                    class="btn btn-outline-success btn-md w-100"
                     id="open-paid-events"
                     onclick="location.href='/private/schedule/paid'"
                     type="button">Check paid events
@@ -69,7 +75,7 @@ now         <div id="check-unpaid-wrapper">
 
             <!--   TODO: need to refactor to calendar with days of week and time.-->
 
-            <div class="schedule">
+            <div class="schedule overflow-auto">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -89,17 +95,20 @@ now         <div id="check-unpaid-wrapper">
                     <tbody th:each="ev: ${events}">
                     <tr>
                         <th scope="row">
-                            <a th:href="@{/public/schedule/event/{id}(id=${ev.getId()})}"
+                            <a class="link-primary"
+                               th:href="@{/public/schedule/event/{id}(id=${ev.getId()})}"
                                sec:authorize="!isAuthenticated()"
                                th:text="${ev.getId()}">Num
                             </a>
-                            <a sec:authorize="hasRole('ROLE_USER')"
+                            <a class="link-primary"
+                               sec:authorize="hasRole('ROLE_USER')"
                                th:href="@{/private/schedule/event/{id}(id=${ev.getId()})}"
                                th:text="${ev.getId()}">Num
                             </a>
                         </th>
                         <td>
-                            <a th:href="@{/public/schedule/event/{id}(id=${ev.getId()})}"
+                            <a class="link-primary"
+                               th:href="@{/public/schedule/event/{id}(id=${ev.getId()})}"
                                th:text="${ev.getTitle()}">title
                             </a>
                         </td>

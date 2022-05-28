@@ -2,11 +2,8 @@ package lt.ivmov.yogaWeb.controller;
 
 import lt.ivmov.yogaWeb.entity.Activity;
 import lt.ivmov.yogaWeb.entity.Event;
-import lt.ivmov.yogaWeb.entity.Payment;
 import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.enums.ActivityStatus;
-import lt.ivmov.yogaWeb.enums.PaymentMethod;
-import lt.ivmov.yogaWeb.enums.PaymentType;
 import lt.ivmov.yogaWeb.service.ActivityService;
 import lt.ivmov.yogaWeb.service.EventService;
 import lt.ivmov.yogaWeb.service.PaymentService;
@@ -15,11 +12,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Controller
 @RequestMapping("/private")
@@ -48,19 +46,10 @@ public class PrivateActivityController {
 
         String email = ((User) authentication.getPrincipal()).getEmail();
 
-        Activity activityWant = new Activity();
         User user = userService.findByEmail(email);
         Event event = eventService.findById(id);
 
-        activityWant.setStatus(ActivityStatus.WANT);
-        activityWant.setUser(user);
-        activityWant.setEvent(event);
-
-        user.getActivities().add(activityWant);
-        event.getActivities().add(activityWant);
-
-        user.getEventsUnpaid().add(event); //only for activity Status WANT or PARTICULARLY_PAID
-        event.getUsersUnpaid().add(user); //only for activity Status WANT or PARTICULARLY_PAID
+        Activity activityWant = activityService.addWantActivity(user, event);
 
         activityService.create(activityWant);
 
@@ -69,105 +58,74 @@ public class PrivateActivityController {
 
             //full payment for event
             if (user.getCreditsBalance() >= event.getFinalPrice()) {
-                Activity activity = new Activity();
-                Payment payment = new Payment();
 
-                user.setCreditsBalance(user.getCreditsBalance() - event.getFinalPrice());
+                Activity activityFullyPaid = activityService.addFullyPaidActivity(paymentService, user, event);
 
-                user.getEventsUnpaid().remove(event);
-                user.getEventsPaid().add(event); //only for Activity status FULLY_PAID
-                event.getUsersUnpaid().remove(user);
-                event.getUsersPaid().add(user); //only for Activity status FULLY_PAID
-
-                payment.setUser(user);
-                payment.setEvent(event);
-                payment.setType(PaymentType.COST);
-                payment.setMethod(PaymentMethod.CREDITS);
-                payment.setSum(event.getFinalPrice());
-
-                activity.setUser(user);
-                activity.setEvent(event);
-                activity.setStatus(ActivityStatus.FULLY_PAID);
-
-                activity.setPayment(paymentService.create(payment));
-
-                activityService.create(activity);
+                activityService.create(activityFullyPaid);
 
                 //particular payment for event
             } else if (user.getCreditsBalance() < event.getFinalPrice() && user.getCreditsBalance() > 0) {
-                Activity activity = new Activity();
-                Payment payment = new Payment();
 
-                payment.setUser(user);
-                payment.setEvent(event);
-                payment.setType(PaymentType.COST);
-                payment.setMethod(PaymentMethod.CREDITS);
-                payment.setSum(user.getCreditsBalance());
-
-                user.setCreditsBalance(0.00);
-
-                activity.setUser(user);
-                activity.setEvent(event);
-                activity.setStatus(ActivityStatus.PARTICULARLY_PAID);
-
-
-                activity.setPayment(paymentService.create(payment));
+                Activity activity = activityService.addParticularPaidActivity(paymentService, user, event);
 
                 activityService.create(activity);
-
             }
-
         }
-
-        return "redirect:/public/schedule/event/" + event.getId();
+        return "redirect:/public/schedule";
     }
+
 
     @PostMapping("/schedule/event/{id}/remove-user")
     @PreAuthorize("hasRole('USER')")
-    public String removeUserToEvent(@PathVariable(name = "id") Long id,
-                                    Authentication authentication,
-                                    Model model) {
+    public String removeUserFromEvent(@PathVariable(name = "id") Long id, Authentication authentication, Model model) {
 
-        String email = ((User) authentication.getPrincipal()).getEmail();
+        String userEmail = ((User) authentication.getPrincipal()).getEmail();
 
-        Activity activityCancel = new Activity();
-        User user = userService.findByEmail(email);
+        User user = userService.findByEmail(userEmail);
         Event event = eventService.findById(id);
 
-        activityCancel.setStatus(ActivityStatus.CANCELED);
-        activityCancel.setUser(user);
-        activityCancel.setEvent(event);
-
-        user.getActivities().add(activityCancel);
-        event.getActivities().add(activityCancel);
-
-        if (event.getUsersPaid().contains(user)) {
-
-            user.getEventsPaid().remove(event);
-            event.getUsersPaid().remove(user);
-
-            double sum = event.getPayments().stream()
-                    .filter(payment -> payment.getUser().getId() == user.getId()) //TODO: refactor to find last by date
-                    .toList().get(0).getSum();
-
-            user.setCreditsBalance(user.getCreditsBalance() + sum);
-
-        } else if (event.getUsersUnpaid().contains(user)) {
-
-            user.getEventsUnpaid().remove(event);
-            event.getUsersUnpaid().remove(user);
-
-            double sum = event.getPayments().stream()
-                    .filter(payment -> payment.getUser().getId() == user.getId()) //TODO: refactor to find last by date
-                    .toList().get(0).getSum();
-
-            user.setCreditsBalance(user.getCreditsBalance() + sum);
-
-        }
+        Activity activityCancel = activityService.addCanceledActivity(user, event);
 
         activityService.create(activityCancel);
 
-        return "redirect:/public/schedule/event/" + event.getId();
+        return "redirect:/public/schedule";
+    }
+
+
+    @PostMapping("/schedule/event/{eId}/remove-user/{uId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String removeUserFromEvent(@PathVariable(name = "eId") Long eId,
+                                      @PathVariable(name = "uId") Long uId,
+                                      Model model) {
+
+        User user = userService.findById(uId);
+        Event event = eventService.findById(eId);
+
+        Activity activityCancel = activityService.addCanceledActivity(user, event);
+
+        activityService.create(activityCancel);
+
+        return "redirect:/public/schedule";
+    }
+
+    @GetMapping("schedule/paid")
+    public String getPaidActivitiesUsers(Model model) {
+
+        List<Activity> activities = activityService.findAllPaid();
+
+        model.addAttribute("activities", activities);
+
+        return "admin-paid-schedule";
+    }
+
+    @GetMapping("schedule/unpaid")
+    public String getUnpaidActivitiesUsers(Model model) {
+
+        List<Activity> activities = activityService.findAllUnpaid();
+
+        model.addAttribute("activities", activities);
+
+        return "admin-unpaid-schedule";
     }
 
 

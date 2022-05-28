@@ -29,27 +29,6 @@ public class EventPrivateController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/schedule/unpaid")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String getUnpaidList(Model model) {
-
-        List<Event> eventList = eventService.findAllUnpaid();
-
-        model.addAttribute("events", eventList);
-
-        return "admin-schedule";
-    }
-
-    @GetMapping("/schedule/paid")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String getPaidList(Model model) {
-
-        List<Event> eventList = eventService.findAllPaid();
-
-        model.addAttribute("events", eventList);
-
-        return "admin-schedule";
-    }
 
     @GetMapping("/schedule/event/new")
     @PreAuthorize("hasRole('ADMIN')")

@@ -32,7 +32,7 @@ public class Payment implements Serializable {
     private PaymentMethod method = PaymentMethod.BANK;
 
     @Column
-    private Double sum; //credits + paid by user.
+    private Double sum = 0.00; //credits + paid by user.
 
     @ManyToOne
     @JoinColumn(name = "user_id",
