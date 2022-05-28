@@ -26,6 +26,6 @@ public class UserPublicController {
     public String registerNewUser(User user, Model model) {
         User newUser = userService.create(user);
         model.addAttribute("user", newUser);
-        return "redirect:/private/user";
+        return "redirect:/login";
     }
 }

@@ -9,16 +9,146 @@
     <div class="empty">
     </div>
     <div id="second-div">
-        <h1>Some lovely and nice text to clients with vary nice font</h1>
+        <h1>Yeah it is your awful user-page</h1>
     </div>
 
     <div id="container">
-        <h1 th:text="${content}"></h1>
-        <p>TEMPORARY EMPTY</p>
+        <div class="user-info d-flex justify-center overflow-auto">
+            <table class="table table-sm w-30">
+                <tbody th:object="${user}">
+                <tr>
+                    <th scope="row">
+                        name:
+                    </th>
+                    <td scope="row" th:text="${user.getName()}">
+                        name
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        surname:
+                    </th>
+                    <td scope="row" th:text="${user.getSurname()}">
+                        surname
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        username:
+                    </th>
+                    <td scope="row" th:text="${user.getUsername()}">
+                        surname
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        Credits:
+                    </th>
+                    <td scope="row" th:text="${user.getCreditsBalance()}">
+                        credits
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="events-paid overflow-auto">
+            <h3>Nearest event waiting for you</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">event</th>
+                    <th scope="col">date</th>
+                    <th scope="col">time</th>
+                    <th scope="col">duration</th>
+                    <th scope="col">place</th>
+                    <th scope="col">price</th>
+                    <th scope="col">status</th>
+                </tr>
+                </thead>
+                <tbody th:if="${activitiesPaid.size()} > 0"
+                       th:each="activity : ${activitiesPaid}">
+                <tr>
+                    <th>
+                        <a target="_blank"
+                           class="link-primary"
+                           th:href="@{/public/schedule/event/{id}(id=${activity.getEvent().getId()})}"
+                           th:text="${activity.getEvent().getId()}">#
+                        </a>
+                    </th>
+                    <th>
+                        <a target="_blank"
+                           class="link-primary"
+                           th:href="@{/public/schedule/event/{id}(id=${activity.getEvent().getId()})}"
+                           th:text="${activity.getEvent().getTitle()}">event
+                        </a>
+                    </th>
+                    <td th:text="${activity.getEvent().getStartDate()}">date</td>
+                    <td th:text="${activity.getEvent().getStartTime()}">time</td>
+                    <td th:text="${activity.getEvent().getDurationHoursMinutes()}">duration</td>
+                    <td>
+                        <a class=""
+                           th:href="@{${activity.getEvent().getUrlGoogleMaps()}} " target="_blank"
+                           th:text="${activity.getEvent().getAddress()}">place
+                        </a>
+                    </td>
+                    <td th:text="${activity.getEvent().getFinalPrice()}">price</td>
+                    <td class="btn-outline-secondary">PAID</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="event-unpaid overflow-auto">
+            <h3>Unpaid events waiting for confirmation</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">event</th>
+                    <th scope="col">date</th>
+                    <th scope="col">time</th>
+                    <th scope="col">duration</th>
+                    <th scope="col">place</th>
+                    <th scope="col">price</th>
+                </tr>
+                </thead>
+                <tbody th:if="${activitiesUnpaid.size()} > 0"
+                       th:each="activity : ${activitiesUnpaid}">
+                <tr>
+                    <th>
+                        <a target="_blank"
+                           class="link-primary"
+                           th:href="@{/public/schedule/event/{id}(id=${activity.getEvent().getId()})}"
+                           th:text="${activity.getEvent().getId()}">#
+                        </a>
+                    </th>
+                    <th>
+                        <a target="_blank"
+                           class="link-primary"
+                           th:href="@{/public/schedule/event/{id}(id=${activity.getEvent().getId()})}"
+                           th:text="${activity.getEvent().getTitle()}">event
+                        </a>
+                    </th>
+                    <td th:text="${activity.getEvent().getStartDate()}">date</td>
+                    <td th:text="${activity.getEvent().getStartTime()}">time</td>
+                    <td th:text="${activity.getEvent().getDurationHoursMinutes()}">duration</td>
+                    <td>
+                        <a class=""
+                           th:href="@{${activity.getEvent().getUrlGoogleMaps()}} " target="_blank"
+                           th:text="${activity.getEvent().getAddress()}">place
+                        </a>
+                    </td>
+                    <td th:text="${activity.getEvent().getFinalPrice()}">price</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 
-<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1" style="background-color: #f1f1f1;"></footer>
+<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1"
+        style="background-color: #f1f1f1;"></footer>
 
 <button th:replace="/fragments/fragments :: button-to-top"></button>
 

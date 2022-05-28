@@ -45,11 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/public/schedule", true)
+                .defaultSuccessUrl("/private/user/{name}", true)
                 .failureUrl("/login?error=true")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/public")
+                .logoutSuccessUrl("/public/schedule")
                 .permitAll();
 
         http.headers()

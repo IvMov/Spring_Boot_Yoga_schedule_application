@@ -87,7 +87,7 @@
                         <th scope="col">start date</th>
                         <th scope="col">end date</th>
                         <th scope="col">time start</th>
-                        <th scope="col">duration hours</th>
+                        <th scope="col">duration</th>
                         <th scope="col">price</th>
                         <th scope="col">places</th>
                     </tr>
@@ -126,7 +126,7 @@
                         <td th:text="${ev.getStartDate()}">start date</td>
                         <td th:text="${ev.getEndDate()}">end date</td>
                         <td th:text="${ev.getStartTime()}">start time</td>
-                        <td th:text="${ev.getDurationMinutes()}">duration</td>
+                        <td th:text="${ev.getDurationHoursMinutes()}">duration</td>
                         <td th:text="${ev.getCommonPrice()}">price</td>
                         <td th:text="${ev.getVacanciesNow()}">places</td>
                     </tr>

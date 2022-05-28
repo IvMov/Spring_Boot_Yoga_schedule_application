@@ -43,12 +43,22 @@
                     <tr>
                         <th scope="row">
                             <a class="link-primary"
-                               th:href="@{/private/user/{id}(id=${activity.getUser().getId()})}"
+                               th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
                                th:text="${activity.getUser().getId()}">Num
                             </a>
                         </th>
-                        <td th:text="${activity.getUser().getName()}"></td>
-                        <td th:text="${activity.getUser().getSurname()}"></td>
+                        <td>
+                            <a class="link-primary"
+                               th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
+                               th:text="${activity.getUser().getName()}">name
+                            </a>
+                        </td>
+                        <td>
+                            <a class="link-primary"
+                               th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
+                               th:text="${activity.getUser().getSurname()}">surname
+                            </a>
+                        </td>
                         <td>
                             <a class="link-primary"
                                th:href="@{'tel: ' + ${activity.getUser().getPhone()}}"
@@ -73,11 +83,13 @@
 
                         <td th:if="${activity.getPayment() != null}"
                             th:with="sum=${#numbers.formatDecimal(activity.getPayment().getSum(), 2, 2)}"
-                            th:text="${sum}">paid</td>
+                            th:text="${sum}">paid
+                        </td>
 
                         <td th:if="${activity.getPayment() == null}"
                             th:with="sum=0.00"
-                            th:text="${sum}">paid</td>
+                            th:text="${sum}">paid
+                        </td>
 
                         <td>
                             <form sec:authorize="hasRole('ROLE_ADMIN')"

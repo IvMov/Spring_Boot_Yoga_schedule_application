@@ -118,7 +118,7 @@
 
                 <div class="log-in-wrapper">
                     <a class="user-name"
-                       th:href="@{http://localhost:8080/private/user}"
+                       th:href="@{http://localhost:8080/private/user/{name}(name=${#authentication.name})}"
                        sec:authorize="isAuthenticated()"
                        th:text=${#authentication.getName()}></a>
                     <a class="log-in-out"

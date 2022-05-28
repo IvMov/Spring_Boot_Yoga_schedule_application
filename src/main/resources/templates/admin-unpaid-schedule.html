@@ -45,12 +45,22 @@
                     <tr>
                         <th scope="row">
                             <a class="link-primary"
-                               th:href="@{/private/user/{id}(id=${activity.getUser().getId()})}"
+                               th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
                                th:text="${activity.getUser().getId()}">Num
                             </a>
                         </th>
-                        <td th:text="${activity.getUser().getName()}"></td>
-                        <td th:text="${activity.getUser().getSurname()}"></td>
+                        <td>
+                            <a class="link-primary"
+                               th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
+                               th:text="${activity.getUser().getName()}">name
+                            </a>
+                        </td>
+                        <td>
+                            <a class="link-primary"
+                               th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
+                               th:text="${activity.getUser().getSurname()}">surname
+                            </a>
+                        </td>
                         <td>
                             <a th:href="@{'tel: ' + ${activity.getUser().getPhone()}}"
                                th:text="${activity.getUser().getPhone()}">Phone

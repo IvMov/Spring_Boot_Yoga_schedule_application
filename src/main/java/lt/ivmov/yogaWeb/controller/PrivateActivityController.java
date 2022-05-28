@@ -109,6 +109,7 @@ public class PrivateActivityController {
     }
 
     @GetMapping("schedule/paid")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getPaidActivitiesUsers(Model model) {
 
         List<Activity> activities = activityService.findAllPaid();
@@ -119,6 +120,7 @@ public class PrivateActivityController {
     }
 
     @GetMapping("schedule/unpaid")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getUnpaidActivitiesUsers(Model model) {
 
         List<Activity> activities = activityService.findAllUnpaid();
@@ -126,6 +128,21 @@ public class PrivateActivityController {
         model.addAttribute("activities", activities);
 
         return "admin-unpaid-schedule";
+    }
+
+    @GetMapping("/user/{name}")
+    @PreAuthorize("hasRole('USER')")
+    public String getUserPageInfo(@PathVariable(name = "name") String name,
+                                  Model model) {
+        User user = userService.findByUsername(name);
+        List<Activity> activitiesPaid = activityService.findAllPaid();
+        List<Activity> activitiesUnpaid = activityService.findAllUnpaid();
+
+        model.addAttribute("user", user);
+        model.addAttribute("activitiesPaid", activitiesPaid);
+        model.addAttribute("activitiesUnpaid", activitiesUnpaid);
+
+        return "user";
     }
 
 
