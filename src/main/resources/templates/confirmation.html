@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="lt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/fragments :: head"></head>
+
+<body>
+<header th:replace="/fragments/fragments :: header"></header>
+<main>
+    <div class="empty">
+    </div>
+    <div id="second-div">
+        <h1>Some lovely and nice text to clients with vary nice font</h1>
+    </div>
+
+    <div id="container">
+        <h1>Payment confirmation</h1>
+        <a th:replace="/fragments/fragments :: backToSchedule"></a>
+
+        <div id="new-event-wrapper">
+            <form method="post"
+                  id="event-create-form"
+                  th:action="@{/private/schedule/event/{eId}/user/{uId}/confirm}"
+                  th:object="${payment}"
+                  class="show-form">
+
+                <div class="form-elem">
+                    <label for="type-of-event">Payment method:</label>
+                    <select id="type-of-event"
+                            name="paymentMethod"
+                            th:field="*{method}">
+                        <option th:each="pMethod : ${T(lt.ivmov.yogaWeb.enums.PaymentMethod).values()}"
+                                th:value="${pMethod}" th:text="${pMethod}"></option>
+                    </select>
+                </div>
+
+                <div class="form-elem">
+                    <label for="ntp">Sum:</label>
+                    <p id="ntp"
+                       th:text="${ntp}"
+                       th:field="*{sum}"></p>
+
+                </div>
+                <div class="w-100">
+                    <p>
+                        User
+                        <a class="link-primary"
+                           target="_blank"
+                           th:href="@{/private/user/{name}(name=${user.getUsername()})}"
+                           th:text="${user.getUsername()}">username
+                        </a>
+                        need to pay:
+                        <span th:text="${ntp}"></span>
+                        EUR, for event:
+                        <a target="_blank"
+                           class="link-primary"
+                           th:href="@{/public/schedule/event/{id}(id=${event.getId()})}"
+                           th:text="${event.getTitle()}">Event title
+                        </a>
+                    </p>
+                </div>
+                <button class="btn btn-success btn-lg"
+                        id="create-event-button"
+                        title="create"
+                        type="submit">
+                    Confirm payment <span th:text="${ntp}"></span>
+                </button>
+
+            </form>
+            <form sec:authorize="hasRole('ROLE_ADMIN')"
+                  th:action="@{/private/schedule/event/{eId}/remove-user/{uId}(eId=${event.getId()}, uId=${user.getId()})}"
+                  method="post">
+                <button class="btn btn-danger btn-lg"
+                        id="remove-user-from-unpaid-event"
+                        type="submit">Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="/fragments/fragments :: footer" class="text-center text-white mt-1"
+        style="background-color: #f1f1f1;"></footer>
+
+<button th:replace="/fragments/fragments :: button-to-top"></button>
+
+<div th:replace="/fragments/fragments :: links"></div>
+
+<link rel="stylesheet" href="/css/new-event-style.css">
+
+<script src="/js/new-event.js"></script>
+
+
+</body>
+</html>

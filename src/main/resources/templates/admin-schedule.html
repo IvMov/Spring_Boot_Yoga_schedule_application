@@ -48,18 +48,21 @@
                     <tr>
                         <th scope="row">
                             <a class="link-primary"
+                               target="_blank"
                                th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
                                th:text="${activity.getUser().getId()}">User id
                             </a>
                         </th>
                         <td>
                             <a class="link-primary"
+                               target="_blank"
                                th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
                                th:text="${activity.getUser().getName()}">name
                             </a>
                         </td>
                         <td>
                             <a class="link-primary"
+                               target="_blank"
                                th:href="@{/private/user/{name}(name=${activity.getUser().getUsername()})}"
                                th:text="${activity.getUser().getSurname()}">surname
                             </a>
@@ -216,8 +219,16 @@
                             need to pay
                         </td>
                         <td>
-                            Confirm
-                            <a th:href="@{/private/schedule/payment/new/{id}(id=${activity.getEvent().getId()})}"></a>
+                            <a class="btn btn-success btn-md"
+                               th:if="${activity.getPayment() != null}"
+                               th:href="@{/private/schedule/event/{eId}/user/{uId}/{ntp}(eId=${#numbers.formatDecimal(activity.getEvent().getFinalPrice() - activity.getPayment().getSum(), 2, 2, 'POINT')})}">
+                                confirm
+                            </a>
+                            <a class="btn btn-success btn-md"
+                               th:if="${activity.getPayment() == null}"
+                               th:href="@{/private/schedule/event/{eId}/user/{uId}/{ntp}(eId=${activity.getEvent().getId()}, uId=${activity.getUser().getId()}, ntp=${#numbers.formatDecimal(activity.getEvent().getFinalPrice(), 2, 2, 'POINT')})}">
+                                confirm
+                            </a>
                         </td>
                         <td class="w-5">
                             <form sec:authorize="hasRole('ROLE_ADMIN')"

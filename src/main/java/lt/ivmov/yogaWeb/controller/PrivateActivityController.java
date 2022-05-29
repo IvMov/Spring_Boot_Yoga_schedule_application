@@ -2,6 +2,7 @@ package lt.ivmov.yogaWeb.controller;
 
 import lt.ivmov.yogaWeb.entity.Activity;
 import lt.ivmov.yogaWeb.entity.Event;
+import lt.ivmov.yogaWeb.entity.Payment;
 import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.enums.ActivityStatus;
 import lt.ivmov.yogaWeb.service.ActivityService;
@@ -106,6 +107,27 @@ public class PrivateActivityController {
         activityService.create(activityCancel);
 
         return "redirect:/private/schedule/paid-and-unpaid";
+    }
+
+    @GetMapping("/schedule/event/{eId}/user/{uId}/{ntp}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getConfirmPaymentPage(@PathVariable(name = "eId") Long eId,
+                                      @PathVariable(name = "uId") Long uId,
+                                      @PathVariable(name = "ntp") Double ntp,
+                                      Model model) {
+
+        User user = userService.findById(uId);
+        Event event = eventService.findById(eId);
+
+        Payment payment = new Payment();
+        Activity activity = new Activity();
+
+        model.addAttribute("payment", payment);
+        model.addAttribute("user", user);
+        model.addAttribute("event", event);
+        model.addAttribute("ntp", ntp);
+
+        return "confirmation";
     }
 
     @GetMapping("/schedule/paid-and-unpaid")
