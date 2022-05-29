@@ -13,14 +13,14 @@
     </div>
 
     <div id="container">
-        <h1>Payment confirmation</h1>
+        <h1>Refill user balance</h1>
         <a th:replace="/fragments/fragments :: backToSchedule"></a>
 
         <div id="new-event-wrapper">
             <form method="post"
                   id="event-create-form"
                   sec:authorize="hasRole('ROLE_ADMIN')"
-                  th:action="@{/private/confirm/payment/{eId}/{uId}(eId=${event.getId()}, uId=${user.getId()})}"
+                  th:action="@{/private/payment/credits/{uId}(uId=${user.getId()})}"
                   th:object="${payment}"
                   class="show-form">
 
@@ -35,52 +35,36 @@
                 </div>
 
                 <div class="form-elem">
-                    <label for="ntp">Sum:</label>
-                    <input type="number"
+                    <label for="income">Sum:</label>
+                    <input id="income"
                            step="0.01"
-                           th:min="${ntp}"
-                           th:max="${ntp}"
+                           type="number"
+                           min="0.00"
+                           max="1000"
                            th:field="*{sum}">
-                    <p id="ntp"
-                       th:text="${ntp}"
-                       th:field="*{sum}"></p>
-
 
                 </div>
                 <div class="w-100">
                     <p>
-                        User
+                        Refill
                         <a class="link-primary"
                            target="_blank"
                            th:href="@{/private/user/{name}(name=${user.getUsername()})}"
                            th:text="${user.getUsername()}">username
                         </a>
-                        need to pay:
-                        <span th:text="${ntp}"></span>
-                        EUR, for event:
-                        <a target="_blank"
-                           class="link-primary"
-                           th:href="@{/public/schedule/event/{id}(id=${event.getId()})}"
-                           th:text="${event.getTitle()}">Event title
-                        </a>
+                        credits balance.
                     </p>
                 </div>
+
                 <button class="btn btn-success btn-lg"
                         id="create-event-button"
                         title="create"
                         type="submit">
-                    Confirm payment <span th:text="${ntp}"></span>
+                    Confirm payment
                 </button>
 
             </form>
-            <form sec:authorize="hasRole('ROLE_ADMIN')"
-                  th:action="@{/private/schedule/event/{eId}/remove-user/{uId}(eId=${event.getId()}, uId=${user.getId()})}"
-                  method="post">
-                <button class="btn btn-danger btn-lg"
-                        id="remove-user-from-unpaid-event"
-                        type="submit">Delete
-                </button>
-            </form>
+
         </div>
     </div>
 </main>

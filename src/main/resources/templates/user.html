@@ -48,11 +48,22 @@
                         credits
                     </td>
                 </tr>
+                <tr sec:authorize="hasRole('ROLE_ADMIN')">
+                    <th scope="row">
+                        Add credits to balance
+                    </th>
+                    <td scope="row">
+                        <a class="btn btn-primary w-10"
+                           th:href="@{/private/user/{id}/add-credits(id=${user.getId()})}">
+                            ADD
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
         <div class="events-paid overflow-auto">
-            <h3>Nearest event waiting for you</h3>
+            <h3 class="bg-success">Nearest event waiting for you</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -93,14 +104,16 @@
                         </a>
                     </td>
                     <td th:text="${activity.getEvent().getFinalPrice()}">price</td>
-                    <td class="btn-outline-secondary">PAID</td>
+                    <td>
+                        <span class="btn btn-success btn-md">PAID</span>
+                    </td>
 
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="event-unpaid overflow-auto">
-            <h3>Unpaid events waiting for confirmation</h3>
+        <div class="event-unpaid overflow-auto mt-5">
+            <h3 class="bg-warning">Unpaid events waiting for confirmation</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>

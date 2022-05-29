@@ -4,14 +4,10 @@ import lt.ivmov.yogaWeb.entity.Activity;
 import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.entity.Payment;
 import lt.ivmov.yogaWeb.entity.User;
-import lt.ivmov.yogaWeb.enums.ActivityStatus;
-import lt.ivmov.yogaWeb.enums.PaymentType;
 import lt.ivmov.yogaWeb.service.ActivityService;
 import lt.ivmov.yogaWeb.service.EventService;
 import lt.ivmov.yogaWeb.service.PaymentService;
 import lt.ivmov.yogaWeb.service.UserService;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -45,8 +41,7 @@ public class PrivateActivityController {
     @PostMapping("/schedule/event/{id}/add-user")
     @PreAuthorize("hasRole('USER')")
     public String addUserToEvent(@PathVariable(name = "id") Long id,
-                                 Authentication authentication,
-                                 Model model) {
+                                 Authentication authentication) {
 
         String email = ((User) authentication.getPrincipal()).getEmail();
 
@@ -81,7 +76,7 @@ public class PrivateActivityController {
 
     @PostMapping("/schedule/event/{id}/remove-user")
     @PreAuthorize("hasRole('USER')")
-    public String removeUserFromEvent(@PathVariable(name = "id") Long id, Authentication authentication, Model model) {
+    public String removeUserFromEvent(@PathVariable(name = "id") Long id, Authentication authentication) {
 
         String userEmail = ((User) authentication.getPrincipal()).getEmail();
 
@@ -99,8 +94,7 @@ public class PrivateActivityController {
     @PostMapping("/schedule/event/{eId}/remove-user/{uId}")
     @PreAuthorize("hasRole('ADMIN')")
     public String removeUserFromEvent(@PathVariable(name = "eId") Long eId,
-                                      @PathVariable(name = "uId") Long uId,
-                                      Model model) {
+                                      @PathVariable(name = "uId") Long uId) {
 
         User user = userService.findById(uId);
         Event event = eventService.findById(eId);
@@ -132,10 +126,9 @@ public class PrivateActivityController {
 
     @PostMapping("/confirm/payment/{eId}/{uId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public String ConfirmPayment(@PathVariable(name = "eId") Long eId,
+    public String confirmPayment(@PathVariable(name = "eId") Long eId,
                                  @PathVariable(name = "uId") Long uId,
-                                 Payment payment,
-                                 Model model) {
+                                 Payment payment) {
 
         User user = userService.findById(uId);
         Event event = eventService.findById(eId);
@@ -144,6 +137,32 @@ public class PrivateActivityController {
         activityService.create(activity);
 
         return "redirect:/private/schedule/paid-and-unpaid";
+    }
+
+    @GetMapping("user/{id}/add-credits")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getRefillUserCredits(@PathVariable(name = "id") Long id,
+                                       Model model) {
+
+        User user = userService.findById(id);
+
+        model.addAttribute("payment", new Payment());
+        model.addAttribute("user", user);
+
+        return "income";
+    }
+
+    @PostMapping("/payment/credits/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String refillUserCredits(@PathVariable(name = "id") Long id,
+                                    Payment payment) {
+
+        User user = userService.findById(id);
+
+        Activity activity = activityService.addRefillCredits(payment, paymentService, user);
+        activityService.create(activity);
+
+        return "redirect:/private/user/" + user.getUsername();
     }
 
 

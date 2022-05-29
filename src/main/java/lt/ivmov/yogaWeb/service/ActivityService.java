@@ -12,7 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @Service
@@ -127,6 +129,25 @@ public class ActivityService {
         return activity;
     }
 
+    public Activity addRefillCredits(Payment payment,
+                                     PaymentService paymentService,
+                                     User user) {
+
+        Activity activity = new Activity();
+
+        user.setCreditsBalance(user.getCreditsBalance() + payment.getSum());
+
+        payment.setUser(user);
+        payment.setType(PaymentType.INCOME);
+
+        activity.setUser(user);
+        activity.setStatus(ActivityStatus.REFILL_CREDITS);
+
+        activity.setPayment(paymentService.create(payment));
+
+        return activity;
+    }
+
     public Activity addCanceledActivity(User user, Event event) {
         Activity activity = new Activity();
 
@@ -179,6 +200,7 @@ public class ActivityService {
     @NotNull
     private List<Activity> getActivitiesParticularAndWant() {
         return activityRepository.findAll().stream()
+                .filter(activity -> activity.getStatus() != ActivityStatus.REFILL_CREDITS)
                 .filter(activity -> !activity.getUser().getEventsUnpaid().isEmpty())
                 .filter(activity -> activity.getEvent().getStartDate().isAfter(LocalDate.now()))
                 .filter(activity -> activity.getEvent().getUsersUnpaid().containsAll(userService.findAllUsersUnpaid()))
@@ -188,6 +210,7 @@ public class ActivityService {
     @NotNull
     private List<Activity> getActivitiesPaid() {
         return activityRepository.findAll().stream()
+                .filter(activity -> activity.getStatus() != ActivityStatus.REFILL_CREDITS)
                 .filter(activity -> !activity.getUser().getEventsPaid().isEmpty())
                 .filter(activity -> activity.getEvent().getStartDate().isAfter(LocalDate.now()))
                 .filter(activity -> activity.getEvent().getUsersPaid().containsAll(userService.findAllUsersPaid()))

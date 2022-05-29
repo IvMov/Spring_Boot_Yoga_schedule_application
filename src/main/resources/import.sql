@@ -47,7 +47,7 @@ insert into events_days(event_id, day_of_week) values(3, "FRIDAY");
 
 
 insert into payments (user_id, type, method, timestamp, sum) values (1, "INCOME", "CASH", "2022-05-14 22:32:23", 150.00);
-insert into activities (user_id, event_id, status, payment_id) values (1, 1, "REFILL_CREDITS", 1);
+insert into activities (user_id, status, payment_id) values (2, "REFILL_CREDITS", 1);
 --insert into activities (user_id, event_id, status) values (1, 1, "WANT")
 --insert into activities (user_id, event_id, status) values (1, 1, "FULLY_PAID");
 --insert into activities (user_id, event_id, status) values (1, 2, "WANT")
