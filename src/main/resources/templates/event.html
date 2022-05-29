@@ -55,6 +55,26 @@
                     </button>
                 </form>
 
+                <form sec:authorize="hasRole('ROLE_ADMIN')"
+                      th:action="@{/private/schedule/event/{id}/change (id=${event.getId()})}"
+                      method="get">
+                    <button
+                            id="update-event"
+                            class="btn btn-warning btn-sm"
+                            type="submit">Change event
+                    </button>
+                </form>
+
+                <form sec:authorize="hasRole('ROLE_ADMIN')"
+                      th:action="@{/private/schedule/event/{id}/delete (id=${event.getId()})}"
+                      method="post">
+                    <button
+                            id="delete-event"
+                            class="btn btn-danger btn-sm"
+                            type="submit">Delete event
+                    </button>
+                </form>
+
             </div>
 
             <div class="event-table-container">
@@ -160,7 +180,7 @@
             <div class="event-to-contact">
                 <span th:text="#{eventForMoreInfoKey}">For more information you can</span>
                 <a target="_blank"
-                   th:href="@{http://localhost:8080/contacts}"
+                   th:href="@{http://localhost:8080/public/contacts}"
                    th:text="#{eventContactMeKey}">contact me</a>
             </div>
         </div>

@@ -95,9 +95,6 @@ public class Event {
     private Double commonPrice = 10.99;
 
     @Column
-    private boolean isDiscount = false; // true -> will for all users show discountPrice
-
-    @Column
     private Double discount = 0.00; //by default discount = 0. (from 0 to 1) percents
 
     @Column
@@ -150,6 +147,9 @@ public class Event {
         return hours + "h : " + stringMinutes + "m";
     }
 
+    public double getFinalPriceWithDiscount() {
+        return getCommonPrice() * (1 - getDiscount());
+    }
 
     public int getVacanciesNow() {
         int users = this.usersPaid.size();

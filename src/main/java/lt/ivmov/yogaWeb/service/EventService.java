@@ -62,8 +62,33 @@ public class EventService {
         return eventRepository.save(event);
     }
 
+    public Event updateEventFields(Event oldEvent, Event newEvent) {
+        oldEvent.setTitle(newEvent.getTitle());
+        oldEvent.setType(newEvent.getType());
+        oldEvent.setTheme(newEvent.getTheme());
+        oldEvent.setStartTime(newEvent.getStartTime());
+        oldEvent.setStartDate(newEvent.getStartDate());
+        oldEvent.setCommonPrice(newEvent.getCommonPrice());
+        oldEvent.setDurationMinutes(newEvent.getDurationMinutes());
+        oldEvent.setAddress(newEvent.getAddress());
+        oldEvent.setDurationDays(newEvent.getDurationDays());
+        oldEvent.setDiscount(newEvent.getDiscount());
+        oldEvent.setGroupId(newEvent.getGroupId());
+        oldEvent.setImageSrc(newEvent.getImageSrc());
+        oldEvent.setUrlGoogleMaps(newEvent.getUrlGoogleMaps());
+        oldEvent.setTextAbout(newEvent.getTextAbout());
+        oldEvent.setVacanciesLimit(newEvent.getVacanciesLimit());
+        oldEvent.setFinalPrice(newEvent.getFinalPriceWithDiscount());
+
+        return oldEvent;
+    }
+
     public Event update(Event event) {
         return eventRepository.save(event);
+    }
+
+    public void delete(Event event) {
+        eventRepository.delete(event);
     }
 
 
