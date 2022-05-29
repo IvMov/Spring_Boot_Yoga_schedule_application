@@ -5,10 +5,13 @@ import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.entity.Payment;
 import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.enums.ActivityStatus;
+import lt.ivmov.yogaWeb.enums.PaymentType;
 import lt.ivmov.yogaWeb.service.ActivityService;
 import lt.ivmov.yogaWeb.service.EventService;
 import lt.ivmov.yogaWeb.service.PaymentService;
 import lt.ivmov.yogaWeb.service.UserService;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -109,26 +112,40 @@ public class PrivateActivityController {
         return "redirect:/private/schedule/paid-and-unpaid";
     }
 
-    @GetMapping("/schedule/event/{eId}/user/{uId}/{ntp}")
+    @GetMapping("/confirm/event/{eId}/user/{uId}/{ntp}")
     @PreAuthorize("hasRole('ADMIN')")
     public String getConfirmPaymentPage(@PathVariable(name = "eId") Long eId,
-                                      @PathVariable(name = "uId") Long uId,
-                                      @PathVariable(name = "ntp") Double ntp,
-                                      Model model) {
+                                        @PathVariable(name = "uId") Long uId,
+                                        @PathVariable(name = "ntp") Double ntp,
+                                        Model model) {
 
         User user = userService.findById(uId);
         Event event = eventService.findById(eId);
 
-        Payment payment = new Payment();
-        Activity activity = new Activity();
-
-        model.addAttribute("payment", payment);
+        model.addAttribute("payment", new Payment());
         model.addAttribute("user", user);
         model.addAttribute("event", event);
         model.addAttribute("ntp", ntp);
 
         return "confirmation";
     }
+
+    @PostMapping("/confirm/payment/{eId}/{uId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String ConfirmPayment(@PathVariable(name = "eId") Long eId,
+                                 @PathVariable(name = "uId") Long uId,
+                                 Payment payment,
+                                 Model model) {
+
+        User user = userService.findById(uId);
+        Event event = eventService.findById(eId);
+
+        Activity activity = activityService.addConfirmFullyPaid(payment, paymentService, user, event);
+        activityService.create(activity);
+
+        return "redirect:/private/schedule/paid-and-unpaid";
+    }
+
 
     @GetMapping("/schedule/paid-and-unpaid")
     @PreAuthorize("hasRole('ADMIN')")

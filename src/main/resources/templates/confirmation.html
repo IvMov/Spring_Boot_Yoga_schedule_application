@@ -19,7 +19,8 @@
         <div id="new-event-wrapper">
             <form method="post"
                   id="event-create-form"
-                  th:action="@{/private/schedule/event/{eId}/user/{uId}/confirm}"
+                  sec:authorize="hasRole('ROLE_ADMIN')"
+                  th:action="@{/private/confirm/payment/{eId}/{uId}(eId=${event.getId()}, uId=${user.getId()})}"
                   th:object="${payment}"
                   class="show-form">
 
@@ -35,9 +36,14 @@
 
                 <div class="form-elem">
                     <label for="ntp">Sum:</label>
+                    <input type="number"
+                           th:min="${ntp}"
+                           th:max="${ntp}"
+                           th:field="*{sum}">
                     <p id="ntp"
                        th:text="${ntp}"
                        th:field="*{sum}"></p>
+
 
                 </div>
                 <div class="w-100">

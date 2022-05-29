@@ -5,6 +5,7 @@ import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.entity.Payment;
 import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.enums.ActivityStatus;
+import lt.ivmov.yogaWeb.enums.PaymentType;
 import lt.ivmov.yogaWeb.repository.ActivityRepository;
 
 import org.jetbrains.annotations.NotNull;
@@ -97,6 +98,32 @@ public class ActivityService {
         activity.setStatus(ActivityStatus.FULLY_PAID);
 
         activity.setPayment(paymentService.create(payment));
+        return activity;
+    }
+
+    public Activity addConfirmFullyPaid(Payment payment,
+                                        PaymentService paymentService,
+                                        User user,
+                                        Event event) {
+
+        Activity activity = new Activity();
+
+        user.getEventsUnpaid().remove(event);
+        user.getEventsPaid().add(event);
+
+        event.getUsersUnpaid().remove(user);
+        event.getUsersPaid().add(user);
+
+        payment.setEvent(event);
+        payment.setUser(user);
+        payment.setType(PaymentType.COST);
+
+        activity.setEvent(event);
+        activity.setUser(user);
+        activity.setStatus(ActivityStatus.FULLY_PAID);
+
+        activity.setPayment(paymentService.create(payment));
+
         return activity;
     }
 
