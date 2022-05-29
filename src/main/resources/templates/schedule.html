@@ -16,14 +16,11 @@
     <div id="container">
         <h1>Schedule of the nearest events and lessons</h1>
 
-        <a class="btn btn-outline-secondary"
-           th:href="@{/public/schedule}">
-            Back to main schedule
-        </a>
+        <a th:replace="/fragments/fragments :: backToSchedule"></a>
 
         <div id="new-event-wrapper">
             <button sec:authorize="hasRole('ROLE_ADMIN')"
-                    class="btn btn-outline-primary btn-md w-100"
+                    class="btn btn-outline-primary btn-lg w-100 p-1 m-1"
                     id="open-event-create-form"
                     onclick="location.href='/private/schedule/event/new'"
                     type="button">Create new event
@@ -31,18 +28,10 @@
         </div>
         <div id="check-unpaid-wrapper">
             <button sec:authorize="hasRole('ROLE_ADMIN')"
-                    class="btn btn-outline-warning btn-md w-100"
+                    class="btn btn-outline-primary btn-lg w-100 p-1 m-1"
                     id="open-unpaid-events"
-                    onclick="location.href='/private/schedule/unpaid'"
-                    type="button">Check unpaid events
-            </button>
-        </div>
-        <div id="check-paid-wrapper">
-            <button sec:authorize="hasRole('ROLE_ADMIN')"
-                    class="btn btn-outline-success btn-md w-100"
-                    id="open-paid-events"
-                    onclick="location.href='/private/schedule/paid'"
-                    type="button">Check paid events
+                    onclick="location.href='/private/schedule/paid-and-unpaid'"
+                    type="button">Check paid and unpaid events
             </button>
         </div>
 

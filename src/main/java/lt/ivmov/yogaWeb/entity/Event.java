@@ -63,7 +63,7 @@ public class Event {
 
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate startDate = LocalDate.of(2022, 05, 03); //first day of event for repeatable or day of event if not repeatable
+    private LocalDate startDate = LocalDate.of(2030, 10, 03); //first day of event for repeatable or day of event if not repeatable
 
     @Column
     private int durationDays = 1;

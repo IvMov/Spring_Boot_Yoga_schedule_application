@@ -17,11 +17,7 @@
     <div id="container">
         <h1 th:text="${event.getTitle()}">Placeholder Placeholder</h1>
 
-        <a class="btn btn-outline-secondary"
-           th:href="@{http://localhost:8080/public/schedule}"
-           th:text="#{backToScheduleKey}">
-            Back to schedule
-        </a>
+        <a th:replace="/fragments/fragments :: backToSchedule"></a>
 
         <div class="event-wrapper">
 

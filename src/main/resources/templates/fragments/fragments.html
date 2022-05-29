@@ -20,8 +20,6 @@
         }
 
 
-
-
     </style>
 </head>
 
@@ -52,11 +50,11 @@
             </p>
 
             <div class="lang-wrapper d-flex" style="position:fixed; top:1%; right:1%;">
-                <a class="d-block p-1"
+                <a class="d-block p-1 btn-outline-dark btn-md rounded"
                    th:href="@{?lang=EN}">
                     EN
                 </a>
-                <a class="d-block p-1"
+                <a class="d-block p-1 btn-outline-dark btn-md rounded"
                    th:href="@{?lang=LT}">
                     LT
                 </a>
@@ -129,8 +127,8 @@
                     <form method="post"
                           th:action="@{http://localhost:8080/logout}"
                           sec:authorize="isAuthenticated()">
-
-                        <button type="submit"
+                        <button class="btn-light"
+                                type="submit"
                                 th:text="#{logOutKey}">
                             Log out
                         </button>
@@ -143,7 +141,11 @@
         </div>
     </div>
 </header>
-
+<a th:fragment="backToSchedule"
+   class="btn btn-outline-dark p-1 m-1"
+   th:href="@{/public/schedule}">
+    Back to main schedule
+</a>
 <footer th:fragment="footer" class="text-center text-white mt-1" style="background-color: #f1f1f1;">
     <div>
         <h4 class="mb-1">Some information</h4>

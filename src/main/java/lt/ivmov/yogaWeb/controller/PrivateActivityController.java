@@ -105,29 +105,20 @@ public class PrivateActivityController {
 
         activityService.create(activityCancel);
 
-        return "redirect:/public/schedule";
+        return "redirect:/private/schedule/paid-and-unpaid";
     }
 
-    @GetMapping("schedule/paid")
+    @GetMapping("/schedule/paid-and-unpaid")
     @PreAuthorize("hasRole('ADMIN')")
     public String getPaidActivitiesUsers(Model model) {
 
-        List<Activity> activities = activityService.findAllPaid();
+        List<Activity> activitiesPaid = activityService.findAllPaid();
+        List<Activity> activitiesUnpaid = activityService.findAllUnpaid();
 
-        model.addAttribute("activities", activities);
+        model.addAttribute("activitiesPaid", activitiesPaid);
+        model.addAttribute("activitiesUnpaid", activitiesUnpaid);
 
-        return "admin-paid-schedule";
-    }
-
-    @GetMapping("schedule/unpaid")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String getUnpaidActivitiesUsers(Model model) {
-
-        List<Activity> activities = activityService.findAllUnpaid();
-
-        model.addAttribute("activities", activities);
-
-        return "admin-unpaid-schedule";
+        return "admin-schedule";
     }
 
     @GetMapping("/user/{name}")

@@ -46,4 +46,15 @@ public class Payment implements Serializable {
             referencedColumnName = "id")
     private Event event;
 
+    public String getPaymentDate() {
+        String year = String.valueOf(getTimestamp().getYear());
+        String month = String.valueOf(getTimestamp().getMonth());
+        String day = String.valueOf(getTimestamp().getDayOfMonth());
+
+        String hours = String.valueOf(getTimestamp().getHour());
+        String minutes = String.valueOf(getTimestamp().getMinute());
+
+        return year + "-" + month + "-" + day + " / " + hours + ":" + minutes;
+    }
+
 }

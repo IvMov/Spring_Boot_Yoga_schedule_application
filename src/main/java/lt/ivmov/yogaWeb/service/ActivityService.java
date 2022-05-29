@@ -47,14 +47,6 @@ public class ActivityService {
         return Stream.concat(particular.stream(), want.stream()).toList();
     }
 
-    public Activity create(Activity activity) {
-        return activityRepository.save(activity);
-    }
-
-    public Activity update(Activity activity) {
-        return activityRepository.save(activity);
-    }
-
     public Activity addWantActivity(User user, Event event) {
         Activity activity = new Activity();
         activity.setStatus(ActivityStatus.WANT);
@@ -135,6 +127,14 @@ public class ActivityService {
         return activity;
     }
 
+    public Activity create(Activity activity) {
+        return activityRepository.save(activity);
+    }
+
+    public Activity update(Activity activity) {
+        return activityRepository.save(activity);
+    }
+
     @NotNull
     private Double findPaidPriceForParticular(User user) {
         List<Activity> activitiesParticular = getActivitiesParticular(getActivitiesParticularAndWant());
@@ -143,7 +143,7 @@ public class ActivityService {
                 .filter(activity -> activity.getPayment() != null)
                 .filter(activity -> activity.getPayment().getUser().getId() == user.getId())
                 .toList();
-        if(activities.size() > 0) {
+        if (activities.size() > 0) {
             return activities.get(0).getPayment().getSum();
         }
         return 0.00;
