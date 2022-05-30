@@ -9,7 +9,7 @@
     <div class="empty">
     </div>
     <div id="second-div">
-        <h1>Some lovely and nice text to clients with vary nice font</h1>
+        <h1 th:text="#{someLovelyKey}">Some lovely and nice text to clients with vary nice font</h1>
     </div>
 
     <div id="container">
@@ -25,7 +25,9 @@
                   class="show-form">
 
                 <div class="form-elem">
-                    <label for="type-of-event">Payment method:</label>
+                    <label for="type-of-event" th:text="#{refPaymentMethodKey}">
+                        Payment method:
+                    </label>
                     <select id="type-of-event"
                             name="paymentMethod"
                             th:field="*{method}">
@@ -35,7 +37,7 @@
                 </div>
 
                 <div class="form-elem">
-                    <label for="income">Sum:</label>
+                    <label for="income" th:text="#{conSumKey}">Sum:</label>
                     <input id="income"
                            step="0.01"
                            type="number"
@@ -46,20 +48,22 @@
                 </div>
                 <div class="w-100">
                     <p>
-                        Refill
+                        <span th:text="#{refillKey}">Refill</span>
                         <a class="link-primary"
                            target="_blank"
                            th:href="@{/private/user/{name}(name=${user.getUsername()})}"
                            th:text="${user.getUsername()}">username
                         </a>
-                        credits balance.
+                        <span th:text="#{credBalanKey}">credits balance.</span>
+
                     </p>
                 </div>
 
                 <button class="btn btn-success btn-lg"
                         id="create-event-button"
                         title="create"
-                        type="submit">
+                        type="submit"
+                        th:text="#{confirmPaymentKey}">
                     Confirm payment
                 </button>
 

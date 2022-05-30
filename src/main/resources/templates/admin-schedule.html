@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="lt" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="lt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="/fragments/fragments :: head"></head>
 
@@ -10,7 +11,7 @@
     <div class="empty">
     </div>
     <div id="second-div">
-        <h1>Some lovely and nice text to clients with vary nice font</h1>
+        <h1 th:text="#{adminScheduleLovelyTextKey}">Lovely text</h1>
     </div>
 
     <div id="container">
@@ -23,25 +24,29 @@
 
             <div class="schedule-paid overflow-auto"
                  sec:authorize="hasRole('ROLE_ADMIN')">
-                <h1 class="bg-success">Users who already pay for events</h1>
+
+                <h2 class="bg-success" th:text="#{adminScheduleUsersPaidForEvent}">
+                    Users who already pay for events
+                </h2>
+
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">user Nr</th>
-                        <th scope="col">name</th>
-                        <th scope="col">surname</th>
-                        <th scope="col">phone</th>
-                        <th scope="col">email</th>
+                        <th scope="col" th:text="#{userNrKey}">user Nr</th>
+                        <th scope="col" th:text="#{nameKey}">name</th>
+                        <th scope="col" th:text="#{surnameKey}">surname</th>
+                        <th scope="col" th:text="#{phoneKey}">phone</th>
+                        <th scope="col" th:text="#{emailKey}">email</th>
 
-                        <th scope="col">event Nr</th>
-                        <th scope="col">title</th>
-                        <th scope="col">start date</th>
-                        <th scope="col">price</th>
+                        <th scope="col" th:text="#{eventNrKey}">event Nr</th>
+                        <th scope="col" th:text="#{titleKey}">title</th>
+                        <th scope="col" th:text="#{startDateKey}">start date</th>
+                        <th scope="col" th:text="#{priceKey}">price</th>
 
-                        <th scope="col">payment date</th>
-                        <th scope="col">method</th>
-                        <th scope="col">paid</th>
-                        <th class="w-5" scope="col">Cancel</th>
+                        <th scope="col" th:text="#{paymentDateKey}">payment date</th>
+                        <th scope="col" th:text="#{paymentMethodKey}">method</th>
+                        <th scope="col" th:text="#{paidKey}">paid</th>
+                        <th class="w-5" scope="col" th:text="#{deleteKey}">cancel</th>
                     </tr>
                     </thead>
                     <tbody th:each="activity: ${activitiesPaid}">
@@ -102,7 +107,8 @@
                         </td>
 
                         <td th:if="${activity.getPayment() != null}"
-                            th:text="${activity.getPayment().getMethod()}">method
+                            th:inline="text">
+                            [[#{${activity.getPayment().getMethod().getKeyPaymentMethod()}}]]
                         </td>
 
                         <td th:if="${activity.getPayment() != null}"
@@ -121,7 +127,8 @@
                                   method="post">
                                 <button class="btn btn-danger btn-md w-100"
                                         id="remove-user-from-paid-event"
-                                        type="submit">Delete
+                                        type="submit"
+                                        th:text="#{deleteKey}">Delete
                                 </button>
                             </form>
                         </td>
@@ -132,24 +139,26 @@
 
             <div class="schedule overflow-auto mt-5"
                  sec:authorize="hasRole('ROLE_ADMIN')">
-                <h1 class="bg-warning">Users who wait for confirmation</h1>
+                <h2 class="bg-warning" th:text="#{adminScheduleUsersUnpaidForEvent}">
+                    Users who wait for confirmation
+                </h2>
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">user Nr</th>
-                        <th scope="col">name</th>
-                        <th scope="col">surname</th>
-                        <th scope="col">phone</th>
-                        <th scope="col">email</th>
+                        <th scope="col" th:text="#{userNrKey}">user Nr</th>
+                        <th scope="col" th:text="#{nameKey}">name</th>
+                        <th scope="col" th:text="#{surnameKey}">surname</th>
+                        <th scope="col" th:text="#{phoneKey}">phone</th>
+                        <th scope="col" th:text="#{emailKey}">email</th>
 
-                        <th scope="col">event Nr</th>
-                        <th scope="col">start date</th>
-                        <th scope="col">price</th>
-                        <th scope="col">paid</th>
-                        <th scope="col">payment date</th>
-                        <th scope="col">need to pay</th>
-                        <th scope="col">Confirm</th>
-                        <th class="w-5" scope="col">Cancel</th>
+                        <th scope="col" th:text="#{eventNrKey}">event Nr</th>
+                        <th scope="col" th:text="#{startDateKey}">start date</th>
+                        <th scope="col" th:text="#{priceKey}">price</th>
+                        <th scope="col" th:text="#{paidKey}">paid</th>
+                        <th scope="col" th:text="#{paymentDateKey}">payment date</th>
+                        <th scope="col" th:text="#{ntpKey}">need to pay</th>
+                        <th scope="col" th:text="#{confirmKey}">Confirm</th>
+                        <th class="w-5" scope="col" th:text="#{deleteKey}">Delete</th>
                     </tr>
                     </thead>
                     <tbody th:each="activity: ${activitiesUnpaid}">
@@ -236,7 +245,9 @@
                                   method="post">
                                 <button class="btn btn-danger btn-md w-100"
                                         id="remove-user-from-unpaid-event"
-                                        type="submit">Delete
+                                        type="submit"
+                                        th:text="#{deleteKey}">
+                                    Delete
                                 </button>
                             </form>
                         </td>

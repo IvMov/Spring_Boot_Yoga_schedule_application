@@ -18,4 +18,7 @@ public enum DaysOfWeek {
         this.keyOfDay = keyOfDay;
     }
 
+    public String getKeyOfDay() {
+        return keyOfDay;
+    }
 }

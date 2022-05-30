@@ -14,4 +14,8 @@ public enum PaymentMethod {
     PaymentMethod(String keyPaymentMethod) {
         this.keyPaymentMethod = keyPaymentMethod;
     }
+
+    public String getKeyPaymentMethod() {
+        return keyPaymentMethod;
+    }
 }

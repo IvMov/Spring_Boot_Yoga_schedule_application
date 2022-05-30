@@ -20,6 +20,7 @@
         }
 
 
+
     </style>
 </head>
 
@@ -143,7 +144,8 @@
 </header>
 <a th:fragment="backToSchedule"
    class="btn btn-outline-dark p-1 m-1"
-   th:href="@{/public/schedule}">
+   th:href="@{/public/schedule}"
+   th:text="#{backToScheduleKey}">
     Back to main schedule
 </a>
 <footer th:fragment="footer" class="text-center text-white mt-1" style="background-color: #f1f1f1;">

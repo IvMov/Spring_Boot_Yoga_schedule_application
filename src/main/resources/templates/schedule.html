@@ -9,12 +9,12 @@
 <main>
     <div class="empty">
     </div>
-    <div id="second-div">
-        <h1>Some lovely and nice text to clients with vary nice font</h1>
+    <div id="second-div" >
+        <h1 th:text="#{scheduleLovelyTextKey}">Some lovely text</h1>
     </div>
 
     <div id="container">
-        <h1>Schedule of the nearest events and lessons</h1>
+        <h1 th:text="#{scheduleH1Name}">Schedule of the nearest events and lessons</h1>
 
         <a th:replace="/fragments/fragments :: backToSchedule"></a>
 
@@ -23,7 +23,9 @@
                     class="btn btn-outline-primary btn-lg w-100 p-1 m-1"
                     id="open-event-create-form"
                     onclick="location.href='/private/schedule/event/new'"
-                    type="button">Create new event
+                    type="button"
+                    th:text="#{scheduleCreateNewEvent}">
+                Create new event
             </button>
         </div>
         <div id="check-unpaid-wrapper">
@@ -31,7 +33,9 @@
                     class="btn btn-outline-primary btn-lg w-100 p-1 m-1"
                     id="open-unpaid-events"
                     onclick="location.href='/private/schedule/paid-and-unpaid'"
-                    type="button">Check paid and unpaid events
+                    type="button"
+                    th:text="#{scheduleCheckEvents}">
+                Check paid and unpaid events
             </button>
         </div>
 
@@ -68,17 +72,17 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">title</th>
-                        <th scope="col">theme</th>
-                        <th scope="col">city</th>
-                        <th scope="col">address</th>
-                        <th scope="col">start date</th>
-                        <th scope="col">end date</th>
-                        <th scope="col">time start</th>
-                        <th scope="col">duration</th>
-                        <th scope="col">price</th>
-                        <th scope="col">places</th>
+                        <th scope="col" th:text="#{eventNrKey}">#</th>
+                        <th scope="col" th:text="#{titleKey}">title</th>
+                        <th scope="col" th:text="#{themeKey}">theme</th>
+                        <th scope="col" th:text="#{cityKey}">city</th>
+                        <th scope="col" th:text="#{addressKey}">address</th>
+                        <th scope="col" th:text="#{startDateKey}">start date</th>
+                        <th scope="col" th:text="#{endDateKey}">end date</th>
+                        <th scope="col" th:text="#{startTimeKey}">time start</th>
+                        <th scope="col" th:text="#{durationKey}">duration</th>
+                        <th scope="col" th:text="#{priceKey}">priceKey</th>
+                        <th scope="col" th:text="#{emptyPlacesKey}">places</th>
                     </tr>
                     </thead>
                     <tbody th:each="ev: ${events}">
@@ -103,7 +107,8 @@
                         </td>
                         <td>
                             <a th:href="@{/public/schedule/{theme}(theme=${ev.getTheme()})}"
-                               th:text="${ev.getTheme()}">theme
+                               th:inline="text">
+                                [[#{${ev.getTheme().getKeyOfTheme()}}]]
                             </a>
                         </td>
                         <td th:text="${ev.getCity()}">city</td>
