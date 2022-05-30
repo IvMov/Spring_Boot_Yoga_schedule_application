@@ -1,8 +1,6 @@
-# Web app about Yoga v.0.5.5
+# Web app about Yoga v.0.7.8
 ---
 This is app based on Spring Boot tools + Docker-compose + MySQL..SCSS + Bootstrap elements + JS ...
-
-- You can find structure plan of this App in this repo -> /materials/Pages_plan_draw_io.pdf
 
 ---
 

@@ -8,6 +8,7 @@ import lt.ivmov.yogaWeb.enums.ActivityStatus;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+//registration of all actions which user do -> ActivityStatus.enum
 @Entity
 @Setter
 @Getter

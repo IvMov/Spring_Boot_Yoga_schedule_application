@@ -17,12 +17,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+//contain all information about user
+//TODO: need to refactor fields
 @Entity
 @Getter
 @Setter
 @Table(name = "users")
 public class User implements UserDetails {
-    //TODO: refactor all to customers want User - but mySql is blocked user?
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +39,7 @@ public class User implements UserDetails {
     private String surname = "Surname";
 
     @Column
-    private String city = "Unknown";
+    private String city = "Klaipeda";
 
     @Column
     private String phone = "+37060985783";
@@ -52,14 +53,16 @@ public class User implements UserDetails {
     @Column
     private String password;
 
+    //temporary for password check
     @Column
-    private String passwordCheck; //temporary for password check
+    private String passwordCheck;
 
     @Column
     private String about;
 
+    // 1 credit = 1 euro
     @Column
-    private Double creditsBalance = 0.00; // 1 credit = 1 euro
+    private Double creditsBalance = 0.00;
 
     @ManyToMany(mappedBy = "usersPaid")
     private Set<Event> eventsPaid = new HashSet<>();

@@ -48,7 +48,7 @@ public class ActivityService {
         return Stream.concat(particular.stream(), want.stream()).toList();
     }
 
-    public Activity addWantActivity(User user, Event event) {
+    public Activity addWantStatus(User user, Event event) {
         Activity activity = new Activity();
         activity.setStatus(ActivityStatus.WANT);
         activity.setUser(user);
@@ -63,9 +63,9 @@ public class ActivityService {
         return activity;
     }
 
-    public Activity addParticularPaidActivity(PaymentService paymentService,
-                                              User user,
-                                              Event event) {
+    public Activity addParticularPaidStatus(PaymentService paymentService,
+                                            User user,
+                                            Event event) {
         Activity activity = new Activity();
         Payment payment = paymentService.addFullPaymentByCredits(user, event);
 
@@ -79,9 +79,9 @@ public class ActivityService {
         return activity;
     }
 
-    public Activity addFullyPaidActivity(PaymentService paymentService,
-                                         User user,
-                                         Event event) {
+    public Activity addFullyPaidStatus(PaymentService paymentService,
+                                       User user,
+                                       Event event) {
         Activity activity = new Activity();
         Payment payment = paymentService.addParticularPaymentByCredits(user, event);
 
@@ -101,10 +101,10 @@ public class ActivityService {
         return activity;
     }
 
-    public Activity addConfirmFullyPaid(Payment payment,
-                                        PaymentService paymentService,
-                                        User user,
-                                        Event event) {
+    public Activity confirmFullyPaidStatus(Payment payment,
+                                           PaymentService paymentService,
+                                           User user,
+                                           Event event) {
 
         Activity activity = new Activity();
 
@@ -127,9 +127,9 @@ public class ActivityService {
         return activity;
     }
 
-    public Activity addRefillCredits(Payment payment,
-                                     PaymentService paymentService,
-                                     User user) {
+    public Activity addRefillCreditsStatus(Payment payment,
+                                           PaymentService paymentService,
+                                           User user) {
 
         Activity activity = new Activity();
 
@@ -146,7 +146,7 @@ public class ActivityService {
         return activity;
     }
 
-    public Activity addCanceledActivity(User user, Event event) {
+    public Activity addCanceledStatus(User user, Event event) {
         Activity activity = new Activity();
 
         activity.setStatus(ActivityStatus.CANCELED);
@@ -177,24 +177,6 @@ public class ActivityService {
         return activityRepository.save(activity);
     }
 
-    public Activity update(Activity activity) {
-        return activityRepository.save(activity);
-    }
-
-    @NotNull
-    private Double findPaidPriceForParticular(User user) {
-        List<Activity> activitiesParticular = getActivitiesParticular(getActivitiesParticularAndWant());
-
-        List<Activity> activities = activitiesParticular.stream()
-                .filter(activity -> activity.getPayment() != null)
-                .filter(activity -> activity.getPayment().getUser().getId() == user.getId())
-                .toList();
-        if (activities.size() > 0) {
-            return activities.get(0).getPayment().getSum();
-        }
-        return 0.00;
-    }
-
     @NotNull
     private List<Activity> getActivitiesParticularAndWant() {
         return activityRepository.findAll().stream()
@@ -202,23 +184,6 @@ public class ActivityService {
                 .filter(activity -> !activity.getUser().getEventsUnpaid().isEmpty())
                 .filter(activity -> activity.getEvent().getStartDate().isAfter(LocalDate.now()))
                 .filter(activity -> activity.getEvent().getUsersUnpaid().containsAll(userService.findAllUsersUnpaid()))
-                .toList();
-    }
-
-    @NotNull
-    private List<Activity> getActivitiesPaid() {
-        return activityRepository.findAll().stream()
-                .filter(activity -> activity.getStatus() != ActivityStatus.REFILL_CREDITS)
-                .filter(activity -> !activity.getUser().getEventsPaid().isEmpty())
-                .filter(activity -> activity.getEvent().getStartDate().isAfter(LocalDate.now()))
-                .filter(activity -> activity.getEvent().getUsersPaid().containsAll(userService.findAllUsersPaid()))
-                .toList();
-    }
-
-    @NotNull
-    private List<Activity> getActivitiesParticular(List<Activity> particularAndWant) {
-        return particularAndWant.stream()
-                .filter(activity -> activity.getStatus() == ActivityStatus.PARTICULARLY_PAID)
                 .toList();
     }
 
@@ -235,5 +200,36 @@ public class ActivityService {
                     .toList();
         }
         return want;
+    }
+
+    @NotNull
+    private List<Activity> getActivitiesParticular(List<Activity> particularAndWant) {
+        return particularAndWant.stream()
+                .filter(activity -> activity.getStatus() == ActivityStatus.PARTICULARLY_PAID)
+                .toList();
+    }
+
+    @NotNull
+    private List<Activity> getActivitiesPaid() {
+        return activityRepository.findAll().stream()
+                .filter(activity -> activity.getStatus() != ActivityStatus.REFILL_CREDITS)
+                .filter(activity -> !activity.getUser().getEventsPaid().isEmpty())
+                .filter(activity -> activity.getEvent().getStartDate().isAfter(LocalDate.now()))
+                .filter(activity -> activity.getEvent().getUsersPaid().containsAll(userService.findAllUsersPaid()))
+                .toList();
+    }
+
+    @NotNull
+    private Double findPaidPriceForParticular(User user) {
+        List<Activity> activitiesParticular = getActivitiesParticular(getActivitiesParticularAndWant());
+
+        List<Activity> activities = activitiesParticular.stream()
+                .filter(activity -> activity.getPayment() != null)
+                .filter(activity -> activity.getPayment().getUser().getId() == user.getId())
+                .toList();
+        if (activities.size() > 0) {
+            return activities.get(0).getPayment().getSum();
+        }
+        return 0.00;
     }
 }

@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+//contains controllers for pages which temporary without information
 @Controller
 @RequestMapping(path = "/public")
 public class HomeController {
@@ -17,7 +19,6 @@ public class HomeController {
     }
 
     //TODO: in future will do this
-
     @GetMapping(path = "/aboutme")
     public String getAboutPage(Model model) {
         String h1Text = "SOME TITLE OF ABOUT ME NOT SOON";

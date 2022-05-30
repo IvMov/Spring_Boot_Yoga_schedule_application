@@ -63,9 +63,5 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-    public User update(User user) {
-        return userRepository.save(user);
-    }
-
 
 }

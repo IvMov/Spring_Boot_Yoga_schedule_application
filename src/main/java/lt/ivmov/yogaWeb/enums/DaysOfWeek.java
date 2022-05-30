@@ -1,6 +1,7 @@
 package lt.ivmov.yogaWeb.enums;
 
-public enum DaysOfWeek { //TODO: need to return values mapped by dayNumber
+//TODO: need to return values mapped by dayNumber
+public enum DaysOfWeek {
     MONDAY(1, "monKey"),
     TUESDAY(2, "tueKey"),
     WEDNESDAY(3, "wedKey"),
@@ -15,14 +16,6 @@ public enum DaysOfWeek { //TODO: need to return values mapped by dayNumber
     DaysOfWeek(int dayNumber, String keyOfDay) {
         this.dayNumber = dayNumber;
         this.keyOfDay = keyOfDay;
-    }
-
-    public String getKeyOfDay() {
-        return keyOfDay;
-    }
-
-    public int getDayNumber() {
-        return dayNumber;
     }
 
 }

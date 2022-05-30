@@ -221,12 +221,12 @@
                         <td>
                             <a class="btn btn-success btn-md"
                                th:if="${activity.getPayment() != null}"
-                               th:href="@{/private/confirm/event/{eId}/user/{uId}/{ntp}(eId=${activity.getEvent().getId()}, uId=${activity.getUser().getId()}, ntp=${#numbers.formatDecimal(activity.getEvent().getFinalPrice() - activity.getPayment().getSum(), 2, 2, 'POINT')})}">
+                               th:href="@{/private/payment/confirm/event/{eId}/user/{uId}/{ntp}(eId=${activity.getEvent().getId()}, uId=${activity.getUser().getId()}, ntp=${#numbers.formatDecimal(activity.getEvent().getFinalPrice() - activity.getPayment().getSum(), 2, 2, 'POINT')})}">
                                 confirm
                             </a>
                             <a class="btn btn-success btn-md"
                                th:if="${activity.getPayment() == null}"
-                               th:href="@{/private/confirm/event/{eId}/user/{uId}/{ntp}(eId=${activity.getEvent().getId()}, uId=${activity.getUser().getId()}, ntp=${#numbers.formatDecimal(activity.getEvent().getFinalPrice(), 2, 2, 'POINT')})}">
+                               th:href="@{/private/payment/confirm/event/{eId}/user/{uId}/{ntp}(eId=${activity.getEvent().getId()}, uId=${activity.getUser().getId()}, ntp=${#numbers.formatDecimal(activity.getEvent().getFinalPrice(), 2, 2, 'POINT')})}">
                                 confirm
                             </a>
                         </td>

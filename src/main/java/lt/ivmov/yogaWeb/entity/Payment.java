@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-
+//all payments of user can be Cost/Income and have payment method
 @Entity
 @Setter
 @Getter
@@ -45,6 +45,7 @@ public class Payment implements Serializable {
             updatable = false,
             referencedColumnName = "id")
     private Event event;
+
 
     public String getPaymentDate() {
         String year = String.valueOf(getTimestamp().getYear());

@@ -1,6 +1,7 @@
 package lt.ivmov.yogaWeb.enums;
 
-public enum EventTheme { //Themes for sorting info by users.
+//themes of events used for sorting in view schedule
+public enum EventTheme {
 
     MEDITATION("1themeKey"),
     ACTIVE("2themeKey"),

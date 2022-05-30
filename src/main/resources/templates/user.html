@@ -54,7 +54,7 @@
                     </th>
                     <td scope="row">
                         <a class="btn btn-primary w-10"
-                           th:href="@{/private/user/{id}/add-credits(id=${user.getId()})}">
+                           th:href="@{/private/payment/user/{id}/add-credits/form(id=${user.getId()})}">
                             ADD
                         </a>
                     </td>
@@ -124,6 +124,8 @@
                     <th scope="col">duration</th>
                     <th scope="col">place</th>
                     <th scope="col">price</th>
+                    <th scope="col">already paid</th>
+                    <th scope="col">need to pay</th>
                 </tr>
                 </thead>
                 <tbody th:if="${activitiesUnpaid.size()} > 0"
@@ -146,13 +148,34 @@
                     <td th:text="${activity.getEvent().getStartDate()}">date</td>
                     <td th:text="${activity.getEvent().getStartTime()}">time</td>
                     <td th:text="${activity.getEvent().getDurationHoursMinutes()}">duration</td>
+
                     <td>
                         <a class=""
                            th:href="@{${activity.getEvent().getUrlGoogleMaps()}} " target="_blank"
                            th:text="${activity.getEvent().getAddress()}">place
                         </a>
                     </td>
+
                     <td th:text="${activity.getEvent().getFinalPrice()}">price</td>
+
+                    <td th:if="${activity.getPayment() != null}"
+                        th:with="sum=${#numbers.formatDecimal(activity.getPayment().getSum(), 2, 2)}"
+                        th:text="${sum}">paid
+                    </td>
+                    <td th:if="${activity.getPayment() == null}"
+                        th:with="sum=0.00"
+                        th:text="${sum}">paid
+                    </td>
+
+                    <td th:if="${activity.getPayment() != null}"
+                        th:text="${#numbers.formatDecimal(activity.getEvent().getFinalPrice() - activity.getPayment().getSum(), 2, 2)}">
+                        need to pay
+                    </td>
+                    <td th:if="${activity.getPayment() == null}"
+                        th:text="${#numbers.formatDecimal(activity.getEvent().getFinalPrice(), 2, 2)}">
+                        need to pay
+                    </td>
+
                 </tr>
                 </tbody>
             </table>

@@ -18,6 +18,7 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
+//event(lessons/event) which will be grouped and used for users registration on it.
 @Entity
 @Getter
 @Setter

@@ -1,15 +1,13 @@
 package lt.ivmov.yogaWeb.service;
 
 import lt.ivmov.yogaWeb.entity.Event;
+import lt.ivmov.yogaWeb.enums.DaysOfWeek;
 import lt.ivmov.yogaWeb.enums.EventTheme;
 import lt.ivmov.yogaWeb.exception.EventNotFoundException;
 import lt.ivmov.yogaWeb.repository.EventRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
 
 
 @Service
@@ -29,27 +27,12 @@ public class EventService {
         return eventRepository.findAll(pageable);
     }
 
-    public List<Event> findAllUnpaid() {
-
-        return eventRepository.findAll().stream()
-                .filter(event -> event.getStartDate().isAfter(LocalDate.now()))
-                .filter(event -> !event.getUsersUnpaid().isEmpty())
-                .toList();
-    }
-
-    public List<Event> findAllPaid() {
-
-        return eventRepository.findAll().stream()
-                .filter(event -> event.getStartDate().isAfter(LocalDate.now()))
-                .filter(event -> !event.getUsersPaid().isEmpty())
-                .toList();
-    }
-
     public Page<Event> findAllByTheme(EventTheme themeName, int pageSize, int pageNum) {
 
         Pageable pageable = Pageable
                 .ofSize(pageSize)
                 .withPage(pageNum);
+
         return eventRepository.findAllByTheme(themeName, pageable);
     }
 
@@ -62,26 +45,47 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public Event updateEventFields(Event oldEvent, Event newEvent) {
+    public void createEventsByWeekDays(Event event, EventService eventService) {
 
-        oldEvent.setTitle(newEvent.getTitle());
-        oldEvent.setType(newEvent.getType());
-        oldEvent.setTheme(newEvent.getTheme());
-        oldEvent.setStartTime(newEvent.getStartTime());
-        oldEvent.setStartDate(newEvent.getStartDate());
-        oldEvent.setCommonPrice(newEvent.getCommonPrice());
-        oldEvent.setDurationMinutes(newEvent.getDurationMinutes());
-        oldEvent.setAddress(newEvent.getAddress());
-        oldEvent.setDurationDays(newEvent.getDurationDays());
-        oldEvent.setDiscount(newEvent.getDiscount());
-        oldEvent.setGroupId(newEvent.getGroupId());
-        oldEvent.setImageSrc(newEvent.getImageSrc());
-        oldEvent.setUrlGoogleMaps(newEvent.getUrlGoogleMaps());
-        oldEvent.setTextAbout(newEvent.getTextAbout());
-        oldEvent.setVacanciesLimit(newEvent.getVacanciesLimit());
-        oldEvent.setFinalPrice(newEvent.getFinalPriceWithDiscount());
+        for (int i = 0; i < 90; i++) { //to schedule repeatable events for 3 month (approx. 90 days)
 
-        return oldEvent;
+            for (DaysOfWeek daysOfWeek : event.getWeekDays()) {
+
+                if (((event.getStartDate()).plusDays(i).getDayOfWeek().toString()).equals(daysOfWeek.toString())) {
+
+                    Event inputEvent = new Event();
+                    event.setGroupId(String.valueOf(((Math.random() * 999) + 1)));
+
+                    eventService.updateEventFields(inputEvent, event);
+                    inputEvent.setStartDate((event.getStartDate()).plusDays(i));
+                    inputEvent.setFinalPrice(event.getFinalPriceWithDiscount());
+                    inputEvent.getWeekDays().addAll(event.getWeekDays());
+                    eventService.create(inputEvent);
+                }
+            }
+        }
+    }
+
+    public Event updateEventFields(Event updatedEvent, Event sourceEvent) {
+
+        updatedEvent.setTitle(sourceEvent.getTitle());
+        updatedEvent.setType(sourceEvent.getType());
+        updatedEvent.setTheme(sourceEvent.getTheme());
+        updatedEvent.setStartTime(sourceEvent.getStartTime());
+        updatedEvent.setStartDate(sourceEvent.getStartDate());
+        updatedEvent.setCommonPrice(sourceEvent.getCommonPrice());
+        updatedEvent.setDurationMinutes(sourceEvent.getDurationMinutes());
+        updatedEvent.setAddress(sourceEvent.getAddress());
+        updatedEvent.setDurationDays(sourceEvent.getDurationDays());
+        updatedEvent.setDiscount(sourceEvent.getDiscount());
+        updatedEvent.setGroupId(sourceEvent.getGroupId());
+        updatedEvent.setImageSrc(sourceEvent.getImageSrc());
+        updatedEvent.setUrlGoogleMaps(sourceEvent.getUrlGoogleMaps());
+        updatedEvent.setTextAbout(sourceEvent.getTextAbout());
+        updatedEvent.setVacanciesLimit(sourceEvent.getVacanciesLimit());
+        updatedEvent.setFinalPrice(sourceEvent.getFinalPriceWithDiscount());
+
+        return updatedEvent;
     }
 
     public Event update(Event event) {
@@ -91,6 +95,7 @@ public class EventService {
     public void delete(Event event) {
         eventRepository.delete(event);
     }
+
 
 
 }

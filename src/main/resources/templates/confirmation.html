@@ -20,7 +20,7 @@
             <form method="post"
                   id="event-create-form"
                   sec:authorize="hasRole('ROLE_ADMIN')"
-                  th:action="@{/private/confirm/payment/{eId}/{uId}(eId=${event.getId()}, uId=${user.getId()})}"
+                  th:action="@{/private/payment/confirm/{eId}/{uId}(eId=${event.getId()}, uId=${user.getId()})}"
                   th:object="${payment}"
                   class="show-form">
 

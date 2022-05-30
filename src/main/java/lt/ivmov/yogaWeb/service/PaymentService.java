@@ -21,8 +21,16 @@ public class PaymentService {
         return paymentRepository.save(payment);
     }
 
-    public Payment update(Payment payment) {
-        return paymentRepository.save(payment);
+    public Payment addParticularPaymentByCredits(User user, Event event) {
+
+        Payment payment = new Payment();
+
+        payment.setUser(user);
+        payment.setEvent(event);
+        payment.setType(PaymentType.COST);
+        payment.setMethod(PaymentMethod.CREDITS);
+        payment.setSum(event.getFinalPrice());
+        return payment;
     }
 
     public Payment addFullPaymentByCredits(User user, Event event) {
@@ -34,18 +42,6 @@ public class PaymentService {
         payment.setType(PaymentType.COST);
         payment.setMethod(PaymentMethod.CREDITS);
         payment.setSum(user.getCreditsBalance());
-        return payment;
-    }
-
-    public Payment addParticularPaymentByCredits(User user, Event event) {
-
-        Payment payment = new Payment();
-
-        payment.setUser(user);
-        payment.setEvent(event);
-        payment.setType(PaymentType.COST);
-        payment.setMethod(PaymentMethod.CREDITS);
-        payment.setSum(event.getFinalPrice());
         return payment;
     }
 }
