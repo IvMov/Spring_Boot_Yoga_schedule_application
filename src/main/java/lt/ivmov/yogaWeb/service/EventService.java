@@ -63,6 +63,7 @@ public class EventService {
     }
 
     public Event updateEventFields(Event oldEvent, Event newEvent) {
+
         oldEvent.setTitle(newEvent.getTitle());
         oldEvent.setType(newEvent.getType());
         oldEvent.setTheme(newEvent.getTheme());

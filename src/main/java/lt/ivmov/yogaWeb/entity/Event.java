@@ -36,72 +36,73 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventType type = EventType.EVENT;
 
+    //if repeatable == true -> will schedule by daysOfWeek 90 days in future
     @Column
     @BooleanFlag
-    private Boolean isRepeatable = false; //if true -> will schedule by daysOfWeek 180 days in future? and give some groupId
+    private Boolean isRepeatable = false;
 
+    // if repeatable == true -> setGroupId() some uniqueId
     @Column
-    private String groupId = "single"; // if repeatable = true -> setGroupId() some uniqueId
-    //TODO: by groupId and activeDaysOfWeek - calculate and create automatically N event objects -
-    // will be able to change any event (time, duration and days) in group of events or change all group.
+    private String groupId = "single";
 
     @Column
     private String title = "some title";
 
     @Column(columnDefinition = "VARCHAR(20)")
     @Enumerated(EnumType.STRING)
-    private EventTheme theme = EventTheme.MEDITATION; //for sort lessons by different themes
+    private EventTheme theme = EventTheme.MEDITATION;
 
     @Column
     private String city = "Klaipeda";
 
     @Column
-    String address = "Nesamoniu str. 11-99"; // example from admin when creating "Nesamoniu str. 11-99, second floor, room 206"
+    String address = "Nesamoniu str. 11-99";
 
     @Column
-    private String urlGoogleMaps = "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"; //example -> "https://goo.gl/maps/2aTwnb9NmkpuXrnf8"
+    private String urlGoogleMaps = "https://goo.gl/maps/2aTwnb9NmkpuXrnf8";
 
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate startDate = LocalDate.of(2030, 10, 03); //first day of event for repeatable or day of event if not repeatable
+    private LocalDate startDate = LocalDate.of(2025, 10, 04);
 
     @Column
     private int durationDays = 1;
-    //TODO: need to set activeDaysOfWeek from startDate and periodDays
 
+    //in which days of week will be event if it is repeatable or more than 1 day
     @ElementCollection
     @JoinTable(name = "events_days",
             joinColumns = @JoinColumn(name = "event_id"))
     @Column(name = "day_of_week")
     @Enumerated(EnumType.STRING)
-    private Set<DaysOfWeek> weekDays;  //in which days of week will be event if it is repeatable
+    private Set<DaysOfWeek> weekDays = new HashSet<>();
 
     @Column
     @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime startTime = LocalTime.of(18, 10); //start-time of event
+    private LocalTime startTime = LocalTime.of(18, 10);
 
     @Column
-    private int durationMinutes = 60; //format 1.5 means 1hour 30 min.
+    private int durationMinutes = 60;
 
-    @Column(columnDefinition = "TEXT")
-    private String textAbout = "Lorem ipsum"; //used to contain text of description of course
     //TODO: think how to 1) create template by which can separate p li ul?
+    @Column(columnDefinition = "TEXT")
+    private String textAbout = "Lorem ipsum";
 
+    //link to cloud img (temporary used random img)
     @Column
     private String imageSrc = "https://picsum.photos/370/370?random=1";
-    //TODO: how can i store images which admin will add for new events? maybe cloud?
 
     @Column
     private Double commonPrice = 10.99;
 
+    //by default discount = 0. (from 0 to 1) percents
     @Column
-    private Double discount = 0.00; //by default discount = 0. (from 0 to 1) percents
+    private Double discount = 0.00;
 
     @Column
     private Double finalPrice = 0.00;
 
     @Column
-    private int vacanciesLimit = 10; //how peoples can participate 1 event
+    private int vacanciesLimit = 10;
 
     @ManyToMany
     @JoinTable(
@@ -122,6 +123,7 @@ public class Event {
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private Set<Payment> payments = new HashSet<>();
+
 
     public String getEndDate() {
         if (this.durationDays >= 2) {
@@ -151,9 +153,10 @@ public class Event {
         return getCommonPrice() * (1 - getDiscount());
     }
 
+    //TODO: implement it in registration/payment/confirmation - to limit users
     public int getVacanciesNow() {
         int users = this.usersPaid.size();
-        return this.vacanciesLimit - users;
+        return this.vacanciesLimit - (usersPaid.size() + usersUnpaid.size());
     }
 
     public String getUniqueOrRegular() {

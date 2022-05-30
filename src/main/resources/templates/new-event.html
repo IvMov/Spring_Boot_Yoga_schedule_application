@@ -34,9 +34,9 @@
 
                 <div class="form-elem">
                     <label for="is-repeatable">Repeatable:</label>
-                    <select id="is-repeatable" name="isRepeatable">
-                        <option th:field="*{isRepeatable}" value="true">true</option>
-                        <option th:field="*{isRepeatable}" value="false">false</option>
+                    <select id="is-repeatable" name="isRepeatable" th:field="*{isRepeatable}">
+                        <option value="true">true</option>
+                        <option value="false">false</option>
                     </select>
                 </div>
 
@@ -96,6 +96,8 @@
                     <label for="period-days">Duration, days:</label>
                     <input type="number"
                            id="period-days"
+                           min="1"
+                           max="30"
                            value="1"
                            th:field="*{durationDays}">
                 </div>
@@ -129,6 +131,8 @@
                     <input type="number"
                            id="duration-minutes"
                            step="1"
+                           min="1"
+                           max="7200"
                            value="100"
                            th:field="*{durationMinutes}">
                 </div>
@@ -146,6 +150,8 @@
                     <input type="number"
                            id="common-price"
                            step="0.01"
+                           min="0"
+                           max="10000"
                            value="15.99"
                            th:field="*{commonPrice}">
                 </div>
@@ -153,6 +159,8 @@
                 <div class="form-elem">
                     <label for="vacancies-limit">Vacancies:</label>
                     <input type="number"
+                           min="1"
+                           max="100"
                            id="vacancies-limit"
                            value="20"
                            th:field="*{vacanciesLimit}">

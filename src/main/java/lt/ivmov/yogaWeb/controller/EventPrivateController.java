@@ -1,11 +1,16 @@
 package lt.ivmov.yogaWeb.controller;
 
 import lt.ivmov.yogaWeb.entity.Event;
+import lt.ivmov.yogaWeb.enums.DaysOfWeek;
 import lt.ivmov.yogaWeb.service.EventService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -30,12 +35,37 @@ public class EventPrivateController {
     @PreAuthorize("hasRole('ADMIN')")
     public String createEvent(Event event, Model model) {
 
-        event.setFinalPrice(event.getFinalPriceWithDiscount());
+        if (event.getIsRepeatable()) {
 
-        Event createdEvent = eventService.create(event);
-        model.addAttribute("event", createdEvent);
+            LocalDate start = event.getStartDate();
+            event.setGroupId(String.valueOf(((Math.random() * 999) + 1)));
 
-        return "redirect:/public/schedule/event/" + createdEvent.getId();
+            eventService.create(event);
+
+            for (int i = 1; i < 90; i++) { //schedule repeatable events for 3 month (approx. 90 days)
+
+                for (DaysOfWeek daysOfWeek : event.getWeekDays()) {
+
+                    if ((start.plusDays(i).getDayOfWeek().toString()).equals(daysOfWeek.toString())) {
+                        Event inputEvent = new Event();
+                        eventService.updateEventFields(inputEvent, event);
+                        inputEvent.setStartDate(start.plusDays(i));
+                        inputEvent.getWeekDays().addAll(event.getWeekDays());
+                        eventService.create(inputEvent);
+                    }
+                }
+            }
+
+            return "redirect:/public/schedule";
+        } else {
+
+            event.setFinalPrice(event.getFinalPriceWithDiscount());
+            eventService.create(event);
+
+            return "redirect:/public/schedule";
+        }
+
+
     }
 
     @GetMapping("/schedule/event/{id}/change")
