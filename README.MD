@@ -62,9 +62,15 @@ Admin:
    email: admin@admin.com
    password: admin
 
-Admin:
+user-1: 
    email: user@user.com
    password: user
+user-1 has 150 credits on balance for tests.
+
+user-2: 
+   email: user2@user2.com
+   password: user
+user-2 has empty balance for tests.
 
 ---
 
