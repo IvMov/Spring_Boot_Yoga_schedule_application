@@ -143,10 +143,11 @@ public class ActivityService {
 
         } else if (event.getUsersUnpaid().contains(user)) {
 
+            user.setCreditsBalance(user.getCreditsBalance() + findPaidPriceForParticular(user));
+
             user.getEventsUnpaid().remove(event);
             event.getUsersUnpaid().remove(user);
 
-            user.setCreditsBalance(user.getCreditsBalance() + findPaidPriceForParticular(user));
         }
         return activity;
     }
@@ -268,10 +269,11 @@ public class ActivityService {
 
         List<Activity> activities = activitiesParticular.stream()
                 .filter(activity -> activity.getPayment() != null)
-                .filter(activity -> activity.getPayment().getUser().getId() == user.getId())
+                .filter(activity -> activity.getStatus() != ActivityStatus.REFILL_CREDITS)
+                .filter(activity -> activity.getPayment().getUser().getId().equals(user.getId()))
                 .toList();
         if (activities.size() > 0) {
-            return activities.get(0).getPayment().getSum();
+            return activities.get(activities.size()-1).getPayment().getSum();
         }
         return 0.00;
     }
