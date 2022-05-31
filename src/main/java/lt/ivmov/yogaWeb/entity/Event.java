@@ -119,10 +119,10 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> usersUnpaid = new HashSet<>();
 
-    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Activity> activities = new HashSet<>();
 
-    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Payment> payments = new HashSet<>();
 
 

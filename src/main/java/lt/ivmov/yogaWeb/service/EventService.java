@@ -126,6 +126,10 @@ public class EventService {
     }
 
     public void delete(Event event) {
+        for (User user :
+                event.getUsersPaid()) {
+            user.setCreditsBalance(user.getCreditsBalance() + event.getFinalPrice());
+        }
         eventRepository.delete(event);
     }
 

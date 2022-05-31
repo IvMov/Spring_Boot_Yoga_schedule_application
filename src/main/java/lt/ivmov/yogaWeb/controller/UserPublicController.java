@@ -25,6 +25,7 @@ public class UserPublicController {
 
     @PostMapping("user/register")
     public String registerNewUser(User user, Model model) {
+        user.setUsername(user.getName() + (int) ((Math.random() * 9998) + 1));
         User newUser = userService.create(user);
         model.addAttribute("user", newUser);
         return "redirect:/login";
