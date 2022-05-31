@@ -1,5 +1,6 @@
 package lt.ivmov.yogaWeb.service;
 
+import lt.ivmov.yogaWeb.entity.Event;
 import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.enums.UserRoles;
 import lt.ivmov.yogaWeb.exception.UserNotFoundException;
@@ -9,8 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 public class UserService implements UserDetailsService {
 
@@ -37,18 +39,33 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public List<User> findAllUsersPaid() {
+    public Set<Event> findAllEventsPaid() {
 
-        return userRepository.findAll().stream()
-                .filter(user -> !user.getEventsPaid().isEmpty())
-                .collect(Collectors.toList());
+        Set<Event> allEvents = new HashSet<>();
+
+        List<User> users = userRepository.findAll().stream()
+
+                .filter(event -> !event.getEventsPaid().isEmpty())
+                .toList();
+
+        for (User user : users) {
+            allEvents.addAll(user.getEventsPaid());
+        }
+        return allEvents;
     }
 
-    public List<User> findAllUsersUnpaid() {
+    public Set<Event> findAllEventsUnpaid() {
 
-        return userRepository.findAll().stream()
-                .filter(user -> !user.getEventsUnpaid().isEmpty())
-                .collect(Collectors.toList());
+        Set<Event> allEvents = new HashSet<>();
+
+        List<User> users = userRepository.findAll().stream()
+                .filter(event -> !event.getEventsUnpaid().isEmpty())
+                .toList();
+
+        for (User user : users) {
+            allEvents.addAll(user.getEventsUnpaid());
+        }
+        return allEvents;
     }
 
     public User findByEmail(String email) {

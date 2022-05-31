@@ -1,6 +1,7 @@
 package lt.ivmov.yogaWeb.service;
 
 import lt.ivmov.yogaWeb.entity.Event;
+import lt.ivmov.yogaWeb.entity.User;
 import lt.ivmov.yogaWeb.enums.DaysOfWeek;
 import lt.ivmov.yogaWeb.enums.EventTheme;
 import lt.ivmov.yogaWeb.exception.EventNotFoundException;
@@ -9,6 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 @Service
 public class EventService {
@@ -16,6 +21,34 @@ public class EventService {
 
     public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
+    }
+
+    public Set<User> findAllUnpaidUsers() {
+
+        Set<User> allUnpaidUsers = new HashSet<>();
+
+        List<Event> events = eventRepository.findAll().stream()
+                .filter(event -> !event.getUsersUnpaid().isEmpty())
+                .toList();
+
+        for (Event event : events) {
+            allUnpaidUsers.addAll(event.getUsersUnpaid());
+        }
+        return allUnpaidUsers;
+    }
+
+    public Set<User> findAllPaidUsers() {
+
+        Set<User> allUsers = new HashSet<>();
+
+        List<Event> events = eventRepository.findAll().stream()
+                .filter(event -> !event.getUsersPaid().isEmpty())
+                .toList();
+
+        for (Event event : events) {
+            allUsers.addAll(event.getUsersPaid());
+        }
+        return allUsers;
     }
 
     public Page<Event> findAllForPage(int pageSize, int pageNum) {
@@ -95,7 +128,6 @@ public class EventService {
     public void delete(Event event) {
         eventRepository.delete(event);
     }
-
 
 
 }
